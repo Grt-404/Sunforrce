@@ -12,7 +12,9 @@ router.post("/register", (req, res) => {
     req.body.role = "student";
     authController.registerUser(req, res);
 });
-
+router.get("/dashboard", (req, res) => {
+    res.render("student-dashboard");
+})
 router.get("/login", (req, res) => {
     res.render("login-student");
 });

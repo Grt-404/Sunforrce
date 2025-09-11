@@ -16,6 +16,9 @@ router.post("/register", (req, res) => {
 router.get("/login", (req, res) => {
     res.render("login-college");
 });
+router.get("/dashboard", (req, res) => {
+    res.render("college-dashboard");
+})
 
 router.post("/login", (req, res) => {
     req.body.role = "college";

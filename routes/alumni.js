@@ -16,9 +16,16 @@ router.get("/login", (req, res) => {
     res.render("login-alumni");
 });
 
+router.get("/dashboard", (req, res) => {
+    const user = req.user;
+    res.render("alumni-dashboard", { user });
+})
 router.post("/login", (req, res) => {
     req.body.role = "alumni";
     authController.loginUser(req, res);
 });
+router.get("/donate", (req, res) => {
+    res.render("donate");
+})
 
 module.exports = router;
