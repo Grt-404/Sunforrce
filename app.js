@@ -11,6 +11,7 @@ const studentRouter = require("./routes/student");
 const alumniRouter = require("./routes/alumni");
 const collegeRouter = require("./routes/college");
 const indexRouter = require("./routes/index");
+const postsRoutes = require('./routes/post');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -35,6 +36,7 @@ app.use("/student", studentRouter);
 app.use("/alumni", alumniRouter);
 app.use("/college", collegeRouter);
 app.use('/', indexRouter);
+app.use('/post', postsRoutes);
 
 app.listen(3000, () => {
     console.log("server running on http://localhost:3000");

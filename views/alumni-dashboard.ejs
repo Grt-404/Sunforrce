@@ -27,59 +27,131 @@
 
   <!-- Main Dashboard -->
   <main class="flex items-center justify-center min-h-[calc(100vh-150px)] px-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl w-full">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full">
 
-      <!-- Profile Card -->
-      <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
-        <div class="flex justify-center mb-4">
-          <% if (user.image) { %>
-            <!-- Show uploaded image -->
-            <img src="data:image/jpeg;base64,<%= user.image.toString('base64') %>" 
-                 alt="Profile Image" 
-                 class="w-20 h-20 rounded-full object-cover shadow-md">
-          <% } else { %>
-            <!-- Fallback Initial Avatar -->
-            <div class="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-2xl font-bold shadow-md">
-              <%= user.name ? user.name.charAt(0).toUpperCase() : "A" %>
-            </div>
-          <% } %>
-        </div>
-        <h2 class="text-xl font-semibold text-gray-800"><%= user.name %></h2>
-        <p class="text-gray-500 text-sm"><%= user.email %></p>
-
-        <div class="mt-6 text-left text-sm space-y-2">
-          <% if (user.graduationYear) { %>
-            <p><span class="font-semibold">Graduation Year:</span> <%= user.graduationYear %></p>
-          <% } %>
-          <% if (user.branch) { %>
-            <p><span class="font-semibold">Branch:</span> <%= user.branch %></p>
-          <% } %>
-          <% if (user.currentCompany) { %>
-            <p><span class="font-semibold">Company:</span> <%= user.currentCompany %></p>
-          <% } %>
-          <% if (user.designation) { %>
-            <p><span class="font-semibold">Designation:</span> <%= user.designation %></p>
+      <!-- POSTS FEED -->
+      <div class="max-w-4xl mx-auto mt-8 w-full">
+        <div class="bg-white p-6 rounded-2xl shadow mb-6">
+          <!-- New post form (only shown to alumni) -->
+          <% if (user && user.role === 'alumni') { %>
+            <form action="/post" method="POST">
+              <textarea name="content" rows="3" required
+                class="w-full p-3 rounded-lg border border-gray-200 focus:outline-none"
+                placeholder="Share something with the network..."></textarea>
+              <div class="flex justify-end mt-3">
+                <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded-lg font-semibold">
+                  Post
+                </button>
+              </div>
+            </form>
           <% } %>
         </div>
 
-        <a href="/alumni/profile" 
-           class="mt-6 inline-flex items-center justify-center w-full space-x-2 text-lg font-bold py-3 px-6 rounded-xl transition-all duration-300 bg-blue-500 text-white hover:bg-blue-600 shadow-md hover:shadow-lg">
-          <i data-lucide="user" class="w-6 h-6"></i>
-          <span>Complete Profile</span>
-        </a>
+        <% if (posts && posts.length) { %>
+          <div class="space-y-4">
+            <% posts.forEach(post => { %>
+              <div class="bg-white p-5 rounded-2xl shadow">
+                <div class="flex items-center space-x-4">
+                  <% if (post.author && post.author.image) { %>
+                    <img src="data:image/jpeg;base64,<%= post.author.image.toString('base64') %>" alt="dp"
+                         class="w-12 h-12 rounded-full object-cover">
+                  <% } else { %>
+                    <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
+                      <%= post.author && post.author.name ? post.author.name.charAt(0).toUpperCase() : 'A' %>
+                    </div>
+                  <% } %>
+
+                  <div>
+                    <p class="font-semibold"><%= post.author ? post.author.name : 'Unknown' %></p>
+                    <p class="text-xs text-gray-500"><%= new Date(post.createdAt).toLocaleString() %></p>
+                  </div>
+                </div>
+
+                <p class="mt-4 text-gray-700"><%= post.content %></p>
+
+                <!-- Actions -->
+                <div class="mt-4 flex items-center space-x-4 text-sm">
+                  <!-- Like -->
+                 <form action="/post/like/<%= post._id %>" method="POST" class="inline">
+  <button type="submit">
+    <%= post.likes.includes(user._id) ? "Dislike" : "Like" %>
+  </button>
+</form>
+
+
+                  <!-- Edit & Delete (only if author) -->
+                  <% if (user && post.author && String(user._id) === String(post.author._id)) { %>
+                    <a href="/post/edit/<%= post._id %>" 
+                       class="text-green-600 hover:underline">✏️ Edit</a>
+
+                    <form action="/post/delete/<%= post._id %>" method="POST" class="inline">
+                      <button type="submit" class="text-gray-600 hover:underline">
+                         Delete
+                      </button>
+                    </form>
+                  <% } %>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <div class="bg-white p-6 rounded-2xl shadow text-center text-gray-500">No posts yet.</div>
+        <% } %>
       </div>
 
-      <!-- Donate Card -->
-      <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
-        <i data-lucide="heart" class="w-12 h-12 text-red-500 mx-auto mb-4"></i>
-        <h2 class="text-xl font-semibold text-gray-800">Support the Community</h2>
-        <p class="text-gray-500 mt-2 mb-6">Your contributions help empower current students and grow the alumni network.</p>
+      <!-- RIGHT COLUMN -->
+      <div class="space-y-6">
         
-        <a href="/alumni/donate" 
-           class="inline-flex items-center justify-center w-full space-x-2 text-lg font-bold py-3 px-6 rounded-xl transition-all duration-300 bg-green-500 text-white hover:bg-green-600 shadow-md hover:shadow-lg">
-          <i data-lucide="gift" class="w-6 h-6"></i>
-          <span>Donate Now</span>
-        </a>
+        <!-- Profile Card -->
+        <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
+          <div class="flex justify-center mb-4">
+            <% if (user.image) { %>
+              <img src="data:image/jpeg;base64,<%= user.image.toString('base64') %>" 
+                   alt="Profile Image" 
+                   class="w-20 h-20 rounded-full object-cover shadow-md">
+            <% } else { %>
+              <div class="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-2xl font-bold shadow-md">
+                <%= user.name ? user.name.charAt(0).toUpperCase() : "A" %>
+              </div>
+            <% } %>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-800"><%= user.name %></h2>
+          <p class="text-gray-500 text-sm"><%= user.email %></p>
+
+          <div class="mt-6 text-left text-sm space-y-2">
+            <% if (user.graduationYear) { %>
+              <p><span class="font-semibold">Graduation Year:</span> <%= user.graduationYear %></p>
+            <% } %>
+            <% if (user.branch) { %>
+              <p><span class="font-semibold">Branch:</span> <%= user.branch %></p>
+            <% } %>
+            <% if (user.currentCompany) { %>
+              <p><span class="font-semibold">Company:</span> <%= user.currentCompany %></p>
+            <% } %>
+            <% if (user.designation) { %>
+              <p><span class="font-semibold">Designation:</span> <%= user.designation %></p>
+            <% } %>
+          </div>
+
+          <a href="/alumni/profile" 
+             class="mt-6 inline-flex items-center justify-center w-full space-x-2 text-lg font-bold py-3 px-6 rounded-xl transition-all duration-300 bg-blue-500 text-white hover:bg-blue-600 shadow-md hover:shadow-lg">
+            <i data-lucide="user" class="w-6 h-6"></i>
+            <span>Complete Profile</span>
+          </a>
+        </div>
+
+        <!-- Donate Card -->
+        <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
+          <i data-lucide="heart" class="w-12 h-12 text-red-500 mx-auto mb-4"></i>
+          <h2 class="text-xl font-semibold text-gray-800">Support the Community</h2>
+          <p class="text-gray-500 mt-2 mb-6">Your contributions help empower current students and grow the alumni network.</p>
+          
+          <a href="/alumni/donate" 
+             class="inline-flex items-center justify-center w-full space-x-2 text-lg font-bold py-3 px-6 rounded-xl transition-all duration-300 bg-green-500 text-white hover:bg-green-600 shadow-md hover:shadow-lg">
+            <i data-lucide="gift" class="w-6 h-6"></i>
+            <span>Donate Now</span>
+          </a>
+        </div>
       </div>
 
     </div>
@@ -90,3 +162,25 @@
   </script>
 </body>
 </html>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".like-btn").forEach(button => {
+    button.addEventListener("click", async () => {
+      const postId = button.getAttribute("data-id");
+
+      try {
+        const res = await fetch(`/post/like/${postId}`, {
+          method: "POST"
+        });
+        const data = await res.json();
+
+        // Toggle text between Like/Dislike
+        button.innerHTML = `${data.liked ? "Dislike" : "Like"} (<span class="like-count">${data.likesCount}</span>)`;
+      } catch (err) {
+        console.error("❌ Error toggling like:", err);
+      }
+    });
+  });
+});
+</script>
+

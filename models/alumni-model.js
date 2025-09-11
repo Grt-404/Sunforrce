@@ -64,7 +64,14 @@ const alumniSchema = new Schema({
     invitations: {
         type: Array,
         default: []
-    }
+    },
+    posts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post",
+            default: []
+        }
+    ],
 
 });
 

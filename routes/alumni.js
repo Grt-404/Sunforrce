@@ -7,6 +7,24 @@ const multer = require("multer");
 
 
 const upload = multer();
+const Post = require('../models/post-model');
+
+// inside router.get('/dashboard', isLoggedIn, ...) handler:
+router.get('/dashboard', isLoggedIn, async (req, res) => {
+    try {
+        const user = req.user; // coming from isLoggedIn middleware
+        // fetch posts (all alumni posts)
+        const posts = await Post.find()
+            .populate('author', 'name currentCompany designation image')
+            .sort({ createdAt: -1 });
+
+        res.render('alumni-dashboard', { user, posts });
+    } catch (err) {
+        console.error(err);
+        req.flash?.('error', 'Unable to load dashboard');
+        res.redirect('/');
+    }
+});
 
 
 router.get("/register", (req, res) => {
