@@ -40,7 +40,10 @@ module.exports.loginUser = async function (req, res) {
         return res.redirect("/");
     }
 };
-
+module.exports.logout = async function (req, res) {
+    res.cookie("token", "");
+    res.redirect('/')
+}
 module.exports.registerUser = async function (req, res) {
     try {
         const { email, fullname, password, role } = req.body;

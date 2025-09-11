@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Complete Your Profile</title>
+  <link rel="stylesheet" href="/css/style.css"> <!-- your CSS -->
+  <style>
+    .container { max-width: 600px; margin: 40px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    form div { margin-bottom: 15px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; }
+    input, textarea, button { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+    button { background: #2563eb; color: white; font-weight: 600; cursor: pointer; transition: background 0.3s; }
+    button:hover { background: #1d4ed8; }
+    .dp-wrapper { text-align: center; margin-bottom: 15px; }
+    .dp-preview { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 2px solid #ddd; }
+  </style>
+</head>
+<body style="background:#f9fafb; font-family: 'Inter', sans-serif;">
+  <div class="container">
+    <h1 style="text-align:center; color:#111827; margin-bottom:20px;">Complete Your Profile</h1>
+
+    <form action="/alumni/profile" method="POST" enctype="multipart/form-data">
+      
+      <!-- Profile Picture Preview -->
+      <div class="dp-wrapper">
+        <img 
+          src="<%= alumni?.image ? 'data:image/jpeg;base64,' + alumni.image.toString('base64') : '/images/uploads/default.png' %>" 
+          alt="Profile Picture" 
+          class="dp-preview"
+          id="dpPreview"
+        />
+      </div>
+      
+      <!-- File Upload -->
+      <div>
+        <label for="image">Profile Picture</label>
+        <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(event)">
+      </div>
+
+      <!-- Name -->
+      <div>
+        <label for="name">Full Name</label>
+        <input type="text" name="name" id="name" value="<%= alumni?.name || '' %>" required>
+      </div>
+
+      <!-- Email (read-only) -->
+      <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" value="<%= alumni?.email || '' %>" readonly>
+      </div>
+
+      <!-- Graduation Year -->
+      <div>
+        <label for="graduationYear">Graduation Year</label>
+        <input type="number" name="graduationYear" id="graduationYear" value="<%= alumni?.graduationYear || '' %>">
+      </div>
+
+      <!-- Branch -->
+      <div>
+        <label for="branch">Branch</label>
+        <input type="text" name="branch" id="branch" value="<%= alumni?.branch || '' %>">
+      </div>
+
+      <!-- Current Company -->
+      <div>
+        <label for="currentCompany">Current Company</label>
+        <input type="text" name="currentCompany" id="currentCompany" value="<%= alumni?.currentCompany || '' %>">
+      </div>
+
+      <!-- Designation -->
+      <div>
+        <label for="designation">Designation</label>
+        <input type="text" name="designation" id="designation" value="<%= alumni?.designation || '' %>">
+      </div>
+
+      <!-- Location -->
+      <div>
+        <label for="location">Location</label>
+        <input type="text" name="location" id="location" value="<%= alumni?.location || '' %>">
+      </div>
+
+      <!-- Bio -->
+      <div>
+        <label for="bio">Short Bio</label>
+        <textarea name="bio" id="bio" rows="4" maxlength="500"><%= alumni?.bio || '' %></textarea>
+      </div>
+
+      <!-- LinkedIn -->
+      <div>
+        <label for="linkedin">LinkedIn Profile</label>
+        <input type="url" name="linkedin" id="linkedin" placeholder="https://linkedin.com/in/username" value="<%= alumni?.linkedin || '' %>">
+      </div>
+
+      <!-- Submit -->
+      <div>
+        <button type="submit">Save Profile</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        const output = document.getElementById('dpPreview');
+        output.src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  </script>
+</body>
+</html>

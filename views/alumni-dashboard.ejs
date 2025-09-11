@@ -1,47 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alumni Portal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumni Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100">
 
-    <!-- This EJS template assumes you pass a 'profile' object with user details -->
+  <!-- Header -->
+  <header class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-indigo-600">Alumni Network</h1>
+      <a href="/logout" 
+         class="flex items-center space-x-2 text-sm font-semibold py-2 px-4 rounded-lg transition-all duration-200 bg-gray-200 text-gray-700 hover:bg-gray-300">
+        <i data-lucide="log-out" class="w-4 h-4"></i>
+        <span>Sign Out</span>
+      </a>
+    </div>
+  </header>
 
-    <header class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold text-indigo-600">Alumni Network</h1>
-            <a href="/logout" class="flex items-center space-x-2 text-sm font-semibold py-2 px-4 rounded-lg transition-all duration-200 bg-gray-200 text-gray-700 hover:bg-gray-300">
-                <i data-lucide="log-out" class="w-4 h-4"></i>
-                <span>Sign Out</span>
-            </a>
-        </div>
-    </header>
+  <!-- Main Dashboard -->
+  <main class="flex items-center justify-center min-h-[calc(100vh-150px)] px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl w-full">
 
-    <main class="flex items-center justify-center min-h-[calc(100vh-150px)]">
-        <div class="text-center p-8">
-            <div class="bg-white p-10 rounded-2xl shadow-lg max-w-md mx-auto">
-                
-                <p class="text-gray-500 mt-2 mb-8">Thank you for being a part of our community. Your support helps shape the future for current students.</p>
-                
-                <a href="/alumni/donate" class="w-full flex items-center justify-center space-x-2 text-lg font-bold py-4 px-6 rounded-xl transition-all duration-300 bg-green-500 text-white hover:bg-green-600 shadow-md hover:shadow-lg">
-                    <i data-lucide="heart" class="w-6 h-6"></i>
-                    <span>Donate Now</span>
-                </a>
+      <!-- Profile Card -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
+        <div class="flex justify-center mb-4">
+          <% if (user.image) { %>
+            <!-- Show uploaded image -->
+            <img src="data:image/jpeg;base64,<%= user.image.toString('base64') %>" 
+                 alt="Profile Image" 
+                 class="w-20 h-20 rounded-full object-cover shadow-md">
+          <% } else { %>
+            <!-- Fallback Initial Avatar -->
+            <div class="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-2xl font-bold shadow-md">
+              <%= user.name ? user.name.charAt(0).toUpperCase() : "A" %>
             </div>
+          <% } %>
         </div>
-    </main>
+        <h2 class="text-xl font-semibold text-gray-800"><%= user.name %></h2>
+        <p class="text-gray-500 text-sm"><%= user.email %></p>
 
-    <script>
-        lucide.createIcons();
-    </script>
+        <div class="mt-6 text-left text-sm space-y-2">
+          <% if (user.graduationYear) { %>
+            <p><span class="font-semibold">Graduation Year:</span> <%= user.graduationYear %></p>
+          <% } %>
+          <% if (user.branch) { %>
+            <p><span class="font-semibold">Branch:</span> <%= user.branch %></p>
+          <% } %>
+          <% if (user.currentCompany) { %>
+            <p><span class="font-semibold">Company:</span> <%= user.currentCompany %></p>
+          <% } %>
+          <% if (user.designation) { %>
+            <p><span class="font-semibold">Designation:</span> <%= user.designation %></p>
+          <% } %>
+        </div>
+
+        <a href="/alumni/profile" 
+           class="mt-6 inline-flex items-center justify-center w-full space-x-2 text-lg font-bold py-3 px-6 rounded-xl transition-all duration-300 bg-blue-500 text-white hover:bg-blue-600 shadow-md hover:shadow-lg">
+          <i data-lucide="user" class="w-6 h-6"></i>
+          <span>Complete Profile</span>
+        </a>
+      </div>
+
+      <!-- Donate Card -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
+        <i data-lucide="heart" class="w-12 h-12 text-red-500 mx-auto mb-4"></i>
+        <h2 class="text-xl font-semibold text-gray-800">Support the Community</h2>
+        <p class="text-gray-500 mt-2 mb-6">Your contributions help empower current students and grow the alumni network.</p>
+        
+        <a href="/alumni/donate" 
+           class="inline-flex items-center justify-center w-full space-x-2 text-lg font-bold py-3 px-6 rounded-xl transition-all duration-300 bg-green-500 text-white hover:bg-green-600 shadow-md hover:shadow-lg">
+          <i data-lucide="gift" class="w-6 h-6"></i>
+          <span>Donate Now</span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>
-
