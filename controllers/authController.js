@@ -29,8 +29,11 @@ module.exports.loginUser = async function (req, res) {
         let token = generateToken(user);
         res.cookie("token", token);
 
+        const role = user.role;
+
         // Redirect (you can customize this per role if needed)
-        res.redirect('/shop');
+        res.redirect(`/${role}/dashboard`);
+
     } catch (err) {
         console.error(err.message);
         req.flash("error", "Server Error");

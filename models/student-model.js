@@ -1,6 +1,7 @@
 const { mongoose, Schema } = require('../config/mongoose-connection');
 
 const studentSchema = mongoose.Schema({
+    role: String,
     fullname: String,
     email: String,
     setrequests: [

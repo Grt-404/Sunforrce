@@ -2,9 +2,10 @@
 const { mongoose, Schema } = require('../config/mongoose-connection');
 
 const alumniSchema = new Schema({
+    role: String,
     name: {
         type: String,
-        required: true,
+
         trim: true
     },
     email: {
@@ -19,11 +20,11 @@ const alumniSchema = new Schema({
     },
     graduationYear: {
         type: Number,
-        required: true
+
     },
     branch: {
         type: String,
-        required: true
+
     },
     currentCompany: {
         type: String,
