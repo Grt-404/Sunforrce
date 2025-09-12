@@ -190,7 +190,7 @@ router.get("/eventrequests", isLoggedIn, async (req, res) => {
   }
 });
 
-// Step 1: Accept request → show form to fill date & meet link
+
 router.post("/eventrequests/accept/:id", async (req, res) => {
   try {
     const request = await EventRequest.findById(req.params.id);
@@ -218,7 +218,7 @@ router.post("/eventrequests/create-event/:id", async (req, res) => {
     });
 
     await event.save();
-    
+
 
     // mark request as approved
     request.status = "approved";
