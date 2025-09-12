@@ -1,1 +1,144 @@
-this is student dashboard
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-indigo-600">Student Dashboard</h1>
+      <a href="/logout"
+         class="flex items-center space-x-2 text-sm font-semibold py-2 px-4 rounded-lg transition-all duration-200 bg-gray-200 text-gray-700 hover:bg-gray-300">
+        <i data-lucide="log-out" class="w-4 h-4"></i>
+        <span>Sign Out</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <main class="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-7xl mx-auto px-4 py-8">
+
+    <!-- LEFT COLUMN - Profile -->
+    <aside class="md:col-span-3">
+      <div class="bg-white p-6 rounded-2xl shadow-lg text-center">
+        <div class="flex justify-center mb-4">
+          <% if (user && user.image) { %>
+            <img src="data:image/jpeg;base64,<%= user.image.toString('base64') %>"
+                 alt="Profile Image"
+                 class="w-20 h-20 rounded-full object-cover shadow-md">
+          <% } else { %>
+            <div class="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-2xl font-bold shadow-md">
+              <%= user && user.name ? user.name.charAt(0).toUpperCase() : "S" %>
+            </div>
+          <% } %>
+        </div>
+
+        <p class="text-gray-500 text-sm"><%= user.name %></p>
+        <p class="text-gray-500 text-sm"><%= user.email %></p>
+      </div>
+    </aside>
+
+    <!-- CENTER COLUMN - Posts -->
+    <section class="md:col-span-6">
+      <% if (posts && posts.length) { %>
+        <div class="space-y-6">
+          <% posts.forEach(post => { %>
+            <div class="bg-white p-5 rounded-2xl shadow">
+              <!-- Author Info -->
+              <div class="flex items-center space-x-4">
+                <% if (post.author && post.author.image) { %>
+                  <img src="data:image/jpeg;base64,<%= post.author.image.toString('base64') %>" alt="dp"
+                       class="w-12 h-12 rounded-full object-cover">
+                <% } else { %>
+                  <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
+                    <%= post.author && post.author.name ? post.author.name.charAt(0).toUpperCase() : 'A' %>
+                  </div>
+                <% } %>
+
+                <div>
+                  <p class="font-semibold"><%= post.author ? post.author.name : 'Unknown' %></p>
+                  <p class="text-xs text-gray-500"><%= new Date(post.createdAt).toLocaleString() %></p>
+                </div>
+              </div>
+
+              <!-- Post Content -->
+              <p class="mt-4 text-gray-700"><%= post.content %></p>
+
+             <!-- Post Image -->
+<% if (post.image) { %>
+  <div class="mt-4">
+    <img src="data:image/jpeg;base64,<%= post.image.toString('base64') %>"
+         alt="Post Image"
+         class="w-full max-h-96 object-contain rounded-lg border">
+  </div>
+<% } %>
+
+
+              <!-- Actions -->
+              <div class="mt-4 flex items-center space-x-4 text-sm">
+                <button class="like-btn text-blue-600 hover:underline" data-id="<%= post._id %>">
+                  <%= post.likes.includes(user._id) ? "Dislike" : "Like" %> 
+                  (<span class="like-count"><%= post.likes.length %></span>)
+                </button>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="bg-white p-6 rounded-2xl shadow text-center text-gray-500">No alumni posts yet.</div>
+      <% } %>
+    </section>
+
+    <!-- RIGHT COLUMN - Options -->
+    <aside class="md:col-span-3 space-y-6">
+      <div class="bg-white p-6 rounded-2xl shadow-lg text-center">
+        <h2 class="text-lg font-semibold text-gray-800">Connect</h2>
+        <p class="text-gray-500 text-sm mt-2">Reach out to alumni and grow your network.</p>
+        <a href="/student/connect"
+           class="mt-4 inline-block w-full py-2 px-4 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600">
+          Message Alumni
+        </a>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl shadow-lg text-center">
+        <h2 class="text-lg font-semibold text-gray-800">Explore Opportunities</h2>
+        <p class="text-gray-500 text-sm mt-2">Find mentorship and career guidance.</p>
+        <a href="/student/opportunities"
+           class="mt-4 inline-block w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">
+          Explore
+        </a>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    // Like button handler
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".like-btn").forEach(button => {
+        button.addEventListener("click", async () => {
+          const postId = button.getAttribute("data-id");
+          try {
+            const res = await fetch(`/post/like/${postId}`, { method: "POST" });
+            const data = await res.json();
+            button.innerHTML = `${data.liked ? "Dislike" : "Like"} (<span class="like-count">${data.likesCount}</span>)`;
+          } catch (err) {
+            console.error("❌ Error toggling like:", err);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
