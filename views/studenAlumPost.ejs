@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alumni Posts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+        body {
+            font-family: "Inter", sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4 sm:p-8">
+
+    <main class="max-w-2xl mx-auto space-y-6">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-800 text-center mb-8">Alumni Feed</h1>
+
+        <% if (posts && posts.length) { %>
+            <div class="space-y-6">
+                <% posts.forEach(post => { %>
+                <div class="bg-white p-6 rounded-3xl shadow-lg border border-gray-200">
+                    <!-- Author Info -->
+                    <div class="flex items-center space-x-4 mb-4">
+                        <% if (post.author && post.author.image) { %>
+                        <img
+                            src="data:image/jpeg;base64,<%= post.author.image.toString('base64') %>"
+                            alt="Author profile picture"
+                            class="w-14 h-14 rounded-full object-cover border-2 border-indigo-500"
+                        />
+                        <% } else { %>
+                        <div
+                            class="w-14 h-14 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-2xl"
+                        >
+                            <%= post.author && post.author.name ?
+                            post.author.name.charAt(0).toUpperCase() : 'A' %>
+                        </div>
+                        <% } %>
+
+                        <div>
+                            <p class="font-bold text-lg text-gray-900">
+                                <%= post.author ? post.author.name : 'Unknown' %>
+                            </p>
+                            <p class="text-sm text-gray-500">
+                                <%= new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Post Content -->
+                    <p class="text-gray-800 leading-relaxed"><%= post.content %></p>
+
+                    <!-- Post Image -->
+                    <% if (post.image) { %>
+                    <div class="mt-5 rounded-lg overflow-hidden border border-gray-200">
+                        <img
+                            src="data:image/jpeg;base64,<%= post.image.toString('base64') %>"
+                            alt="Post image"
+                            class="w-full max-h-[400px] object-cover"
+                        />
+                    </div>
+                    <% } %>
+
+                    <!-- Actions -->
+                    <div class="mt-5 flex items-center space-x-6 text-sm">
+                        <button
+                            class="flex items-center space-x-2 p-2 rounded-full transition-colors duration-200 like-btn <%= post.likes.includes(user._id) ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600' %> hover:bg-red-200 hover:text-red-700"
+                            data-id="<%= post._id %>"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                            </svg>
+                            <span class="font-medium"><span class="like-count"><%= post.likes.length %></span> Likes</span>
+                        </button>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="bg-white p-8 rounded-2xl shadow-md text-center text-gray-500">
+                <p>No alumni posts have been made yet. Be the first to post!</p>
+            </div>
+        <% } %>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // Like button handler
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".like-btn").forEach((button) => {
+                button.addEventListener("click", async () => {
+                    const postId = button.getAttribute("data-id");
+                    try {
+                        const res = await fetch(`/post/like/${postId}`, {
+                            method: "POST",
+                        });
+                        const data = await res.json();
+                        
+                        const likeCountSpan = button.querySelector('.like-count');
+                        if (likeCountSpan) {
+                            likeCountSpan.textContent = data.likesCount;
+                        }
+
+                        // Toggle button styles based on like status
+                        if (data.liked) {
+                            button.classList.remove('bg-gray-100', 'text-gray-600');
+                            button.classList.add('bg-red-100', 'text-red-600');
+                        } else {
+                            button.classList.remove('bg-red-100', 'text-red-600');
+                            button.classList.add('bg-gray-100', 'text-gray-600');
+                        }
+                    } catch (err) {
+                        console.error("❌ Error toggling like:", err);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

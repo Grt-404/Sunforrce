@@ -7,6 +7,7 @@ const Event = require("../models/event-model");
 const Student = require("../models/student-model");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
+const EventRequest = require("../models/eventRequest-model");
 
 const upload = multer();
 const Post = require('../models/post-model');
@@ -175,5 +176,64 @@ router.post("/event", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+router.get("/eventrequests", isLoggedIn, async (req, res) => {
+  try {
+    // Fetch requests with more than 10 upvotes and status pending
+    const requests = await EventRequest.find({ upvotes: { $gt: 10 }, status: 'pending' })
+      .populate("requestedBy", "fullname email"); // populate who requested
+
+    res.render("eventRequestsAlum", { requests });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
+// Step 1: Accept request → show form to fill date & meet link
+router.post("/eventrequests/accept/:id", async (req, res) => {
+  try {
+    const request = await EventRequest.findById(req.params.id);
+    if (!request) return res.status(404).send("Request not found");
+
+    // Render form with title & description prefilled
+    res.render("create-event-from-request", { request });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
+router.post("/eventrequests/create-event/:id", async (req, res) => {
+  try {
+    const request = await EventRequest.findById(req.params.id);
+    if (!request) return res.status(404).send("Request not found");
+
+    const { date, gmeetLink } = req.body;
+    const event = new Event({
+      title: request.title,
+      description: request.description,
+      date,
+      gmeetLink,
+    });
+
+    await event.save();
+    
+
+    // mark request as approved
+    request.status = "approved";
+    await request.save();
+
+    // Send emails as before
+    res.redirect("/alumni/eventrequests");
+    await sendEmails(event.title, event.description, event.gmeetLink);
+
+    
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 
 module.exports = router;
