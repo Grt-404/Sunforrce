@@ -1,20 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Signup - Alumni Connect</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Register — AURA</title>
+    <meta name="description" content="Join the AURA alumni nexus."/>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23a16207'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3EA%3C/text%3E%3C/svg%3E" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#f8f5f2',
+                        foreground: '#1f1c18',
+                        card: '#ffffff',
+                        'card-foreground': '#1f1c18',
+                        primary: '#a16207',
+                        'primary-foreground': '#ffffff',
+                        secondary: '#b99553',
+                        border: 'rgba(0, 0, 0, 0.08)',
+                        ring: 'rgba(161, 98, 7, 0.4)'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 12px rgba(0, 0, 0, 0.05)',
+                        'lift': '0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)',
+                    },
+                    keyframes: {
+                        'fade-in-up': { '0%': { opacity: 0, transform: 'translateY(20px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+                        'backgroundShift': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+                        'backgroundShift': 'backgroundShift 25s ease infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            background: linear-gradient(-45deg, #f8f5f2, #fffefc, #fef8f0, #f8f5f2);
+            background-size: 400% 400%;
+            animation: backgroundShift 25s ease infinite;
+        }
+        #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; }
+        .choice-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .choice-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--tw-shadow-lift);
+        }
+    </style>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200">
-  <div class="bg-white/70 backdrop-blur-lg shadow-xl rounded-2xl p-10 max-w-lg w-full text-center">
-    <h2 class="text-3xl font-bold text-gray-800 mb-8">Signup As</h2>
-    <div class="space-y-6">
-      <a href="/alumni/register" class="block py-4 bg-yellow-600 text-white rounded-lg uppercase tracking-wider hover:bg-yellow-700 transition">Alumni</a>
-      <a href="/student/register" class="block py-4 bg-yellow-600 text-white rounded-lg uppercase tracking-wider hover:bg-yellow-700 transition">Student</a>
-      <a href="/college/register" class="block py-4 bg-yellow-600 text-white rounded-lg uppercase tracking-wider hover:bg-yellow-700 transition">College</a>
-    </div>
-    <p class="mt-6 text-gray-600">Already have an account? <a href="/login" class="text-yellow-600 hover:underline">Login</a></p>
-  </div>
+<body class="bg-background font-sans antialiased text-foreground">
+    <canvas id="particle-canvas"></canvas>
+
+     <header class="fixed top-0 inset-x-0 z-40 bg-transparent">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="relative flex h-16 items-center justify-center">
+                <div class="flex items-center">
+                    <a href="/" class="text-3xl font-serif font-bold text-primary">Aura</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen flex flex-col items-center justify-center pt-24 pb-12 px-4">
+        <div class="text-center animate-fade-in-up">
+            <h2 class="text-4xl md:text-5xl font-serif font-bold text-foreground">Join the AURA Nexus</h2>
+            <p class="text-gray-500 mt-2 max-w-2xl mx-auto">Choose your role to begin your journey. Connect, grow, and contribute to a network built on excellence.</p>
+        </div>
+        
+        <div class="mt-12 w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Alumni Card -->
+            <a href="/alumni/register" class="choice-card block bg-card rounded-xl shadow-soft overflow-hidden text-center animate-fade-in-up" style="animation-delay: 200ms;">
+                <img src="https://images.pexels.com/photos/5474028/pexels-photo-5474028.jpeg" alt="A successful professional alumni" class="h-48 w-full object-cover">
+                <div class="p-6">
+                    <h3 class="text-2xl font-serif font-bold text-primary">I am an Alumnus</h3>
+                    <p class="text-sm text-gray-500 mt-2">Mentor the next generation, expand your professional network, and solidify your legacy.</p>
+                </div>
+            </a>
+            
+            <!-- Student Card -->
+            <a href="/student/register" class="choice-card block bg-card rounded-xl shadow-soft overflow-hidden text-center animate-fade-in-up" style="animation-delay: 400ms;">
+                 <img src="https://images.pexels.com/photos/21006299/pexels-photo-21006299.jpeg" alt="An ambitious student" class="h-48 w-full object-cover">
+                <div class="p-6">
+                    <h3 class="text-2xl font-serif font-bold text-primary">I am a Student</h3>
+                    <p class="text-sm text-gray-500 mt-2">Connect with industry leaders, find mentors, and get a head start on your career path.</p>
+                </div>
+            </a>
+
+            <!-- College Card -->
+            <a href="/college/register" class="choice-card block bg-card rounded-xl shadow-soft overflow-hidden text-center animate-fade-in-up" style="animation-delay: 600ms;">
+                 <img src="https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg" alt="A modern university campus" class="h-48 w-full object-cover">
+                <div class="p-6">
+                    <h3 class="text-2xl font-serif font-bold text-primary">I am a College</h3>
+                    <p class="text-sm text-gray-500 mt-2">Build a powerful, engaged alumni ecosystem and track the success of your graduates.</p>
+                </div>
+            </a>
+        </div>
+        
+        <p class="mt-12 text-center text-sm text-gray-600 animate-fade-in-up" style="animation-delay: 800ms;">
+            Already have an account? <a href="/login" class="font-semibold text-primary hover:underline">Login here</a>
+        </p>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            let particles = [];
+            const particleColor = 'rgba(161, 98, 7, 0.5)';
+
+            class Particle {
+                constructor(x, y) { this.x = x; this.y = y; this.size = Math.random() * 1.5 + 1; this.speedX = Math.random() * 0.4 - 0.2; this.speedY = Math.random() * 0.4 - 0.2; }
+                update() { this.x += this.speedX; this.y += this.speedY; if (this.size > 0.1) this.size -= 0.005; }
+                draw() { ctx.fillStyle = particleColor; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+            }
+            function initParticles() {
+                for (let i = 0; i < 50; i++) { particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height)); }
+            }
+            function animateParticles() {
+                if (!canvas) return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update(); particles[i].draw();
+                    if (particles[i].size <= 0.1) { particles.splice(i, 1); i--; particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height)); }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            initParticles();
+            animateParticles();
+
+            window.addEventListener('resize', () => { 
+                if(canvas){
+                    canvas.width = window.innerWidth; 
+                    canvas.height = window.innerHeight; 
+                    particles = []; 
+                    initParticles(); 
+                }
+            });
+        });
+    </script>
 </body>
 </html>
+
