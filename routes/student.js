@@ -2,51 +2,61 @@ const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
 const isLoggedIn = require("../middlewares/isLoggedin");
-const Post = require("../models/post-model")
+const Post = require("../models/post-model");
 
 const EventRequest = require("../models/eventRequest-model");
 const Student = require("../models/student-model");
+const Alumni = require("../models/alumni-model");
+const Event = require("../models/event-model");
 
 router.get("/register", (req, res) => {
-    res.render("register-student");
+  res.render("register-student");
 });
-
 
 router.post("/register", (req, res) => {
-    req.body.role = "student";
-    authController.registerUser(req, res);
+  req.body.role = "student";
+  authController.registerUser(req, res);
 });
 router.get("/dashboard", isLoggedIn, async (req, res) => {
-    try {
-        const posts = await Post.find().populate("author");
-        res.render("student-dashboard", {
-            user: req.user,
-            posts
-        });
-    } catch (err) {
-        console.error("❌ Error loading dashboard:", err);
-        res.status(500).send("Server Error");
-    }
+  try {
+    const posts = await Post.find().populate("author");
+    const AlumniList = await Alumni.find();
+
+    const today = new Date();
+
+    const events = await Event.find({ date: { $gte: today } }).sort({
+      date: 1,
+    }).limit(3);
+
+    res.render("student-dashboard", {
+      user: req.user,
+      posts,
+      AlumniList,
+      events
+    });
+  } catch (err) {
+    console.error("❌ Error loading dashboard:", err);
+    res.status(500).send("Server Error");
+  }
 });
 
 router.get("/login", (req, res) => {
-    res.render("login-student");
+  res.render("login-student");
 });
 
 router.post("/login", (req, res) => {
-    req.body.role = "student";
-    authController.loginUser(req, res);
+  req.body.role = "student";
+  authController.loginUser(req, res);
 });
 
-
-router.get("/eventrequest" , (req,res)=>{
-    res.render("eventrequest");
-})
+router.get("/eventrequest", (req, res) => {
+  res.render("eventrequest");
+});
 
 router.post("/eventrequest", isLoggedIn, async (req, res) => {
   try {
     const { title, description } = req.body;
-    const requestedBy = req.user._id;  // Now req.user exists
+    const requestedBy = req.user._id; // Now req.user exists
 
     const eventRequest = new EventRequest({ title, description, requestedBy });
     await eventRequest.save();
@@ -57,7 +67,6 @@ router.post("/eventrequest", isLoggedIn, async (req, res) => {
   }
 });
 
-
 router.post("/:id/upvote", isLoggedIn, async (req, res) => {
   try {
     const event = await EventRequest.findById(req.params.id);
@@ -66,16 +75,16 @@ router.post("/:id/upvote", isLoggedIn, async (req, res) => {
     const userId = req.user._id.toString();
 
     // no self upvote
-    if (event.requestedBy.toString() === userId) return res.redirect("/student/events");
+    if (event.requestedBy.toString() === userId)
+      return res.redirect("/student/events");
 
     // check if already upvoted
-    if (event.upvotedBy.some(u => u.toString() === userId)) {
+    if (event.upvotedBy.some((u) => u.toString() === userId)) {
       return res.redirect("/student/events");
     }
 
     event.upvotes += 1;
     event.upvotedBy.push(req.user._id);
-
 
     await event.save();
     res.redirect("/student/events");
@@ -85,13 +94,13 @@ router.post("/:id/upvote", isLoggedIn, async (req, res) => {
   }
 });
 
-
-
-
 router.get("/events", isLoggedIn, async (req, res) => {
   try {
-    const events = await EventRequest.find().populate("requestedBy", "fullname");
-    res.render("student-event", { events, currentUser: req.user }); 
+    const events = await EventRequest.find().populate(
+      "requestedBy",
+      "fullname"
+    );
+    res.render("student-event", { events, currentUser: req.user });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -102,13 +111,12 @@ router.get("/posts", isLoggedIn, async (req, res) => {
     const posts = await Post.find().populate("author");
     res.render("studenAlumPost", {
       user: req.user,
-      posts
+      posts,
     });
   } catch (err) {
     console.error("❌ Error loading dashboard:", err);
     res.status(500).send("Server Error");
   }
 });
-
 
 module.exports = router;

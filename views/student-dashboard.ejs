@@ -1,289 +1,441 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Dashboard — AURA</title>
-    <meta name="description" content="AURA is a world-class alumni nexus for elite networking, career acceleration, and community impact."/>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23a16207'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3EA%3C/text%3E%3C/svg%3E" />
+    <meta
+      name="description"
+      content="AURA is a world-class alumni nexus for elite networking, career acceleration, and community impact."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23a16207'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3EA%3C/text%3E%3C/svg%3E"
+    />
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        background: '#f8f5f2',
-                        foreground: '#1f1c18',
-                        card: '#ffffff',
-                        'card-foreground': '#1f1c18',
-                        primary: '#a16207',
-                        'primary-foreground': '#ffffff',
-                        secondary: '#b99553',
-                        border: 'rgba(0, 0, 0, 0.08)',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif']
-                    },
-                    boxShadow: {
-                        'soft': '0 4px 12px rgba(0, 0, 0, 0.05)',
-                        'lift': '0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)',
-                        'glow': '0 0 20px rgba(161, 98, 7, 0.15)',
-                    },
-                    keyframes: {
-                        'fade-in-up': { '0%': { opacity: 0, transform: 'translateY(20px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
-                        'backgroundShift': {
-                            '0%, 100%': { backgroundPosition: '0% 50%' },
-                            '50%': { backgroundPosition: '100% 50%' },
-                        }
-                    },
-                    animation: {
-                        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
-                        'backgroundShift': 'backgroundShift 25s ease infinite',
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: "#f8f5f2",
+              foreground: "#1f1c18",
+              card: "#ffffff",
+              "card-foreground": "#1f1c18",
+              primary: "#a16207",
+              "primary-foreground": "#ffffff",
+              secondary: "#b99553",
+              border: "rgba(0, 0, 0, 0.08)",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              serif: ["Playfair Display", "serif"],
+            },
+            boxShadow: {
+              soft: "0 4px 12px rgba(0, 0, 0, 0.05)",
+              lift: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)",
+              glow: "0 0 20px rgba(161, 98, 7, 0.15)",
+            },
+            keyframes: {
+              "fade-in-up": {
+                "0%": { opacity: 0, transform: "translateY(20px)" },
+                "100%": { opacity: 1, transform: "translateY(0)" },
+              },
+              backgroundShift: {
+                "0%, 100%": { backgroundPosition: "0% 50%" },
+                "50%": { backgroundPosition: "100% 50%" },
+              },
+            },
+            animation: {
+              "fade-in-up": "fade-in-up 0.8s ease-out forwards",
+              backgroundShift: "backgroundShift 25s ease infinite",
+            },
+          },
+        },
+      };
     </script>
 
     <style>
-        html { scroll-behavior: smooth; }
-        body {
-            background: linear-gradient(-45deg, #f8f5f2, #fffefc, #fef8f0, #f8f5f2);
-            background-size: 400% 400%;
-            animation: backgroundShift 25s ease infinite;
-        }
-        .glass-header {
-            background: rgba(255, 253, 250, 0.85);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--tw-color-border);
-        }
-        #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; }
-        .nav-link {
-            transition: all 0.2s ease-in-out;
-            border-bottom: 2px solid transparent;
-        }
-         .nav-link.active, .nav-link:hover {
-            color: var(--tw-color-primary);
-            border-bottom-color: var(--tw-color-primary);
-        }
-        .card-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--tw-shadow-lift), var(--tw-shadow-glow);
-        }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: linear-gradient(-45deg, #f8f5f2, #fffefc, #fef8f0, #f8f5f2);
+        background-size: 400% 400%;
+        animation: backgroundShift 25s ease infinite;
+      }
+      .glass-header {
+        background: rgba(255, 253, 250, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--tw-color-border);
+      }
+      #particle-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.6;
+      }
+      .nav-link {
+        transition: all 0.2s ease-in-out;
+        border-bottom: 2px solid transparent;
+      }
+      .nav-link.active,
+      .nav-link:hover {
+        color: var(--tw-color-primary);
+        border-bottom-color: var(--tw-color-primary);
+      }
+      .card-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--tw-shadow-lift), var(--tw-shadow-glow);
+      }
     </style>
-</head>
-<body class="bg-background font-sans antialiased text-foreground">
+  </head>
+  <body class="bg-background font-sans antialiased text-foreground">
     <canvas id="particle-canvas"></canvas>
 
     <header class="fixed top-0 inset-x-0 z-40 glass-header">
-        <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-            <div class="relative flex h-16 items-center justify-between">
-                <a href="/" class="text-3xl font-serif font-bold text-primary">Aura</a>
-                <a href="/logout" class="px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold shadow-soft flex items-center gap-2">
-                     <i data-lucide="log-out" class="w-4 h-4"></i>
-                    Logout
-                </a>
-            </div>
+      <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <a href="/" class="text-3xl font-serif font-bold text-primary"
+            >Aura</a
+          >
+          <a
+            href="/logout"
+            class="px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold shadow-soft flex items-center gap-2"
+          >
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+            Logout
+          </a>
         </div>
+      </div>
     </header>
-    
-    <main class="pt-16">
-        <nav class="bg-card border-b border-border px-4 py-2 sticky top-16 z-30">
-            <div class="max-w-screen-xl mx-auto flex justify-between items-center">
-                <div class="flex gap-4 overflow-x-auto">
-                    <a href="/student/dashboard" class="nav-link active flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="message-square"></i>Messages</a>
-                    <a href="/student/dashboard" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="users"></i>Connections</a>
-                    <a href="/student/posts" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="newspaper"></i>Posts</a>
-                    <a href="/student/dashboard" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="handshake"></i>Ask for Referral</a>
-                    <a href="/student/dashboard" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="map"></i>Alumni Map</a>
-                    <a href="/student/events" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="calendar"></i>Event Request</a>
-                    <a href="/student/dashboard" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="user-circle"></i>My Profile</a>
-                </div>
-                 <div class="relative">
-                    <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400"></i>
-                    <input type="text" id="searchInput" placeholder="Search alumni..." class="w-64 rounded-md border border-border bg-background py-2 pl-9 pr-4 text-sm focus:ring-2 focus:ring-primary focus:outline-none">
-                </div>
-            </div>
-        </nav>
-        
-        <div class="max-w-screen-xl mx-auto p-6 md:p-8">
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                <!-- Left Column: Profile -->
-                <aside class="lg:col-span-1 lg:sticky lg:top-36 self-start">
-                     <div class="bg-card rounded-xl shadow-soft p-6 text-center animate-fade-in-up">
-                         <% if (user.image) { %>
-                           <img src="data:image/jpeg;base64,<%= user.image.toString('base64') %>" alt="Profile Photo" class="h-24 w-24 rounded-full object-cover ring-4 ring-primary/20 shadow-soft mx-auto">
-                        <% } else { %>
-                           <div class="h-24 w-24 rounded-full flex items-center justify-center bg-secondary text-primary-foreground text-4xl font-bold ring-4 ring-primary/20 shadow-soft mx-auto">
-                               <%= user.fullname ? user.fullname.charAt(0).toUpperCase() : "S" %>
-                           </div>
-                        <% } %>
-                        <h3 class="text-xl font-serif font-bold text-foreground mt-4"><%= user.fullname %></h3>
-                        <p class="text-sm text-gray-500">Student</p>
-                         <div class="mt-4 pt-4 border-t border-border space-y-2 text-sm text-left text-gray-500">
-                             <p><span class="font-semibold text-foreground">Branch:</span> Computer Science</p>
-                             <p><span class="font-semibold text-foreground">Interests:</span> AI/ML, Web Dev</p>
-                         </div>
-                    </div>
-                </aside>
 
-                <!-- Center Column: Alumni Feed -->
-                <section class="lg:col-span-2 space-y-6">
-                    <div id="allAlumniGrid">
-                         <!-- All Alumni Card 1 -->
-                        <div class="alumni-card bg-card p-4 rounded-xl shadow-soft flex items-center gap-4 card-hover animate-fade-in-up" style="animation-delay: 100ms;">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200" class="h-16 w-16 rounded-full object-cover" alt="Alumni Photo">
-                            <div class="flex-grow">
-                                <h4 class="font-serif text-lg font-bold alumni-name">Priya Sharma</h4>
-                                <p class="text-sm text-gray-500">Lead AI Researcher, Google</p>
-                            </div>
-                            <a href="/student/dashboard" class="flex-shrink-0 px-4 py-2 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-lg font-bold text-sm transition-all duration-300 transform hover:scale-105">Connect</a>
-                        </div>
-                         <!-- All Alumni Card 2 -->
-                        <div class="alumni-card bg-card p-4 rounded-xl shadow-soft flex items-center gap-4 card-hover animate-fade-in-up" style="animation-delay: 200ms;">
-                            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=200" class="h-16 w-16 rounded-full object-cover" alt="Alumni Photo">
-                            <div class="flex-grow">
-                                <h4 class="font-serif text-lg font-bold alumni-name">David Chen</h4>
-                                <p class="text-sm text-gray-500">Product Manager, Shopify</p>
-                            </div>
-                            <a href="/student/dashboard" class="flex-shrink-0 px-4 py-2 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-lg font-bold text-sm transition-all duration-300 transform hover:scale-105">Connect</a>
-                        </div>
-                         <!-- All Alumni Card 3 -->
-                        <div class="alumni-card bg-card p-4 rounded-xl shadow-soft flex items-center gap-4 card-hover animate-fade-in-up" style="animation-delay: 300ms;">
-                            <img src="https://images.unsplash.com/photo-1542740348-39501838c754?q=80&w=200" class="h-16 w-16 rounded-full object-cover" alt="Alumni Photo">
-                            <div class="flex-grow">
-                                <h4 class="font-serif text-lg font-bold alumni-name">Sarah Jenkins</h4>
-                                <p class="text-sm text-gray-500">Director of Marketing, Adobe</p>
-                            </div>
-                            <a href="/student/dashboard" class="flex-shrink-0 px-4 py-2 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-lg font-bold text-sm transition-all duration-300 transform hover:scale-105">Connect</a>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Right Column: Opportunities -->
-                <aside class="lg:col-span-1 lg:sticky lg:top-32 self-start space-y-6">
-                    <div class="bg-card rounded-xl shadow-soft p-6 animate-fade-in-up" style="animation-delay: 400ms;">
-                         <h3 class="text-xl font-serif text-foreground mb-4">Upcoming Events</h3>
-                         <div class="space-y-4">
-                            <!-- Event 1 -->
-                            <a href="/student/dashboard" class="block group">
-                                <p class="text-sm font-bold text-primary">Oct 25</p>
-                                <h4 class="font-serif font-semibold mt-1 group-hover:underline">AI in Creative Industries</h4>
-                            </a>
-                            <!-- Event 2 -->
-                            <a href="/student/dashboard" class="block group pt-4 border-t border-border">
-                                <p class="text-sm font-bold text-primary">Nov 12</p>
-                                <h4 class="font-serif font-semibold mt-1 group-hover:underline">Breaking into Venture Capital</h4>
-                            </a>
-                         </div>
-                    </div>
-                     <div class="bg-card rounded-xl shadow-soft p-6 animate-fade-in-up" style="animation-delay: 500ms;">
-                         <h3 class="text-xl font-serif text-foreground mb-4">Recommended Courses</h3>
-                         <div class="space-y-4">
-                              <a href="/student/dashboard" class="block group">
-                                <h4 class="font-serif font-semibold group-hover:underline">Intro to Machine Learning</h4>
-                                <p class="text-xs text-gray-500 mt-1">Recommended by: Priya Sharma</p>
-                            </a>
-                            <a href="/student/dashboard" class="block group pt-4 border-t border-border">
-                                <h4 class="font-serif font-semibold group-hover:underline">Advanced Product Management</h4>
-                                <p class="text-xs text-gray-500 mt-1">Recommended by: David Chen</p>
-                            </a>
-                         </div>
-                    </div>
-                </aside>
-            </div>
+    <main class="pt-16">
+      <nav class="bg-card border-b border-border px-4 py-2 sticky top-16 z-30">
+        <div class="max-w-screen-xl mx-auto flex justify-between items-center">
+          <div class="flex gap-4 overflow-x-auto">
+            <a
+              href="/student/dashboard"
+              class="nav-link active flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"
+              ><i data-lucide="message-square"></i>Messages</a
+            >
+            <a
+              href="/student/dashboard"
+              class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"
+              ><i data-lucide="users"></i>Connections</a
+            >
+            <a
+              href="/student/posts"
+              class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"
+              ><i data-lucide="newspaper"></i>Posts</a
+            >
+            <a
+              href="/student/dashboard"
+              class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"
+              ><i data-lucide="handshake"></i>Ask for Referral</a
+            >
+            <a
+              href="/student/dashboard"
+              class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"
+              ><i data-lucide="map"></i>Alumni Map</a
+            >
+            <a
+              href="/student/events"
+              class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"
+              ><i data-lucide="calendar"></i>Event Request</a
+            >
+            <a
+              href="/student/dashboard"
+              class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"
+              ><i data-lucide="user-circle"></i>My Profile</a
+            >
+          </div>
+          <div class="relative">
+            <i
+              data-lucide="search"
+              class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400"
+            ></i>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search alumni..."
+              class="w-64 rounded-md border border-border bg-background py-2 pl-9 pr-4 text-sm focus:ring-2 focus:ring-primary focus:outline-none"
+            />
+          </div>
         </div>
+      </nav>
+
+      <div class="max-w-screen-xl mx-auto p-6 md:p-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <!-- Left Column: Profile -->
+          <aside class="lg:col-span-1 lg:sticky lg:top-36 self-start">
+            <div
+              class="bg-card rounded-xl shadow-soft p-6 text-center animate-fade-in-up"
+            >
+              <% if (user.image) { %>
+              <img
+                src="data:image/jpeg;base64,<%= user.image.toString('base64') %>"
+                alt="Profile Photo"
+                class="h-24 w-24 rounded-full object-cover ring-4 ring-primary/20 shadow-soft mx-auto"
+              />
+              <% } else { %>
+              <div
+                class="h-24 w-24 rounded-full flex items-center justify-center bg-secondary text-primary-foreground text-4xl font-bold ring-4 ring-primary/20 shadow-soft mx-auto"
+              >
+                <%= user.fullname ? user.fullname.charAt(0).toUpperCase() : "S"
+                %>
+              </div>
+              <% } %>
+              <h3 class="text-xl font-serif font-bold text-foreground mt-4">
+                <%= user.fullname %>
+              </h3>
+              <p class="text-sm text-gray-500">Student</p>
+              <div
+                class="mt-4 pt-4 border-t border-border space-y-2 text-sm text-left text-gray-500"
+              >
+                <p>
+                  <span class="font-semibold text-foreground">Branch:</span>
+                  Computer Science
+                </p>
+                <p>
+                  <span class="font-semibold text-foreground">Interests:</span>
+                  AI/ML, Web Dev
+                </p>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Center Column: Alumni Feed -->
+          <section class="lg:col-span-2 space-y-6">
+            <div id="allAlumniGrid">
+              <!-- All Alumni Card 1 -->
+              <% AlumniList.forEach((alumni, index) => { %>
+              <div
+                class="alumni-card bg-card p-4 rounded-xl shadow-soft flex items-center gap-4 card-hover animate-fade-in-up"
+                style="animation-delay: <%= (index + 1) * 100 %>ms"
+              >
+                <img
+                  src="<%= alumni.image ? 'data:image/jpeg;base64,' + alumni.image.toString('base64') : '/default-avatar.png' %>"
+                  alt="Alumni Photo"
+                  class="h-16 w-16 rounded-full object-cover"
+                />
+                <div class="flex-grow">
+                  <h4 class="font-serif text-lg font-bold alumni-name">
+                    <%= alumni.name%>
+                  </h4>
+                  <p class="text-sm text-gray-500">
+                    <%= alumni.designation%>, <%= alumni.currentCompany %>
+                  </p>
+                </div>
+                <a
+                  href="/student/dashboard/<%= alumni._id %>"
+                  class="flex-shrink-0 px-4 py-2 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-lg font-bold text-sm transition-all duration-300 transform hover:scale-105"
+                >
+                  Connect
+                </a>
+              </div>
+              <% }) %>
+            </div>
+          </section>
+
+          <!-- Right Column: Opportunities -->
+          <aside class="lg:col-span-1 lg:sticky lg:top-32 self-start space-y-6">
+            <div
+              class="bg-card rounded-xl shadow-soft p-6 animate-fade-in-up"
+              style="animation-delay: 400ms"
+            >
+              <h3 class="text-xl font-serif text-foreground mb-4">
+                Upcoming Events
+              </h3>
+              <div class="space-y-4">
+                <!-- Event 1 -->
+                <% events.forEach((event, index) => { %>
+                <a
+                  href="/student/dashboard/<%= event._id %>"
+                  class="block group <%= index !== 0 ? 'pt-4 border-t border-border' : '' %>"
+                >
+                  <!-- Format date nicely -->
+                  <p class="text-sm font-bold text-primary">
+                    <%= new Date(event.date).toLocaleDateString('en-US', {
+                    month: 'short', day: 'numeric' }) %>
+                  </p>
+
+                  <h4
+                    class="font-serif font-semibold mt-1 group-hover:underline"
+                  >
+                    <%= event.title %>
+                  </h4>
+                </a>
+                <% }) %>
+              </div>
+            </div>
+            <div
+              class="bg-card rounded-xl shadow-soft p-6 animate-fade-in-up"
+              style="animation-delay: 500ms"
+            >
+              <h3 class="text-xl font-serif text-foreground mb-4">
+                Recommended Courses
+              </h3>
+              <div class="space-y-4">
+                <a href="/student/dashboard" class="block group">
+                  <h4 class="font-serif font-semibold group-hover:underline">
+                    Intro to Machine Learning
+                  </h4>
+                  <p class="text-xs text-gray-500 mt-1">
+                    Recommended by: Priya Sharma
+                  </p>
+                </a>
+                <a
+                  href="/student/dashboard"
+                  class="block group pt-4 border-t border-border"
+                >
+                  <h4 class="font-serif font-semibold group-hover:underline">
+                    Advanced Product Management
+                  </h4>
+                  <p class="text-xs text-gray-500 mt-1">
+                    Recommended by: David Chen
+                  </p>
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            
-            const animatedElements = document.querySelectorAll('.animate-fade-in-up');
-            const animationObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const delay = entry.target.style.animationDelay || '0s';
-                        entry.target.style.transition = `opacity 0.6s ease-out ${delay}, transform 0.6s ease-out ${delay}`;
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        animationObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
+      document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
 
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                animationObserver.observe(el);
+        const animatedElements = document.querySelectorAll(
+          ".animate-fade-in-up"
+        );
+        const animationObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const delay = entry.target.style.animationDelay || "0s";
+                entry.target.style.transition = `opacity 0.6s ease-out ${delay}, transform 0.6s ease-out ${delay}`;
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+                animationObserver.unobserve(entry.target);
+              }
             });
+          },
+          { threshold: 0.1 }
+        );
 
-            // Particle Animation Script
-            const canvas = document.getElementById('particle-canvas');
-            const ctx = canvas.getContext('2d');
+        animatedElements.forEach((el) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(20px)";
+          animationObserver.observe(el);
+        });
+
+        // Particle Animation Script
+        const canvas = document.getElementById("particle-canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        const particleColor = "rgba(161, 98, 7, 0.4)";
+
+        class Particle {
+          constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.size = Math.random() * 1.5 + 1;
+            this.speedX = Math.random() * 0.3 - 0.15;
+            this.speedY = Math.random() * 0.3 - 0.15;
+          }
+          update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.size > 0.1) this.size -= 0.005;
+          }
+          draw() {
+            ctx.fillStyle = particleColor;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        function initParticles() {
+          for (let i = 0; i < 50; i++) {
+            particles.push(
+              new Particle(
+                Math.random() * canvas.width,
+                Math.random() * canvas.height
+              )
+            );
+          }
+        }
+        function animateParticles() {
+          if (!canvas) return;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+            if (particles[i].size <= 0.1) {
+              particles.splice(i, 1);
+              i--;
+              particles.push(
+                new Particle(
+                  Math.random() * canvas.width,
+                  Math.random() * canvas.height
+                )
+              );
+            }
+          }
+          requestAnimationFrame(animateParticles);
+        }
+        initParticles();
+        animateParticles();
+
+        window.addEventListener("resize", () => {
+          if (canvas) {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            let particles = [];
-            const particleColor = 'rgba(161, 98, 7, 0.4)';
-
-            class Particle {
-                constructor(x, y) { this.x = x; this.y = y; this.size = Math.random() * 1.5 + 1; this.speedX = Math.random() * 0.3 - 0.15; this.speedY = Math.random() * 0.3 - 0.15; }
-                update() { this.x += this.speedX; this.y += this.speedY; if (this.size > 0.1) this.size -= 0.005; }
-                draw() { ctx.fillStyle = particleColor; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
-            }
-            function initParticles() {
-                for (let i = 0; i < 50; i++) { particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height)); }
-            }
-            function animateParticles() {
-                if (!canvas) return;
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update(); particles[i].draw();
-                    if (particles[i].size <= 0.1) { particles.splice(i, 1); i--; particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height)); }
-                }
-                requestAnimationFrame(animateParticles);
-            }
+            particles = [];
             initParticles();
-            animateParticles();
-
-            window.addEventListener('resize', () => { 
-                if(canvas){
-                    canvas.width = window.innerWidth; 
-                    canvas.height = window.innerHeight; 
-                    particles = []; 
-                    initParticles(); 
-                }
-            });
-
-             // Search functionality
-            const searchInput = document.getElementById("searchInput");
-            searchInput.addEventListener("keyup", function () {
-                const searchTerm = this.value.toLowerCase();
-                const alumniCards = document.querySelectorAll(".alumni-card");
-                alumniCards.forEach((card) => {
-                    const name = card.querySelector(".alumni-name").textContent.toLowerCase();
-                    if (name.includes(searchTerm)) {
-                        card.style.display = "flex";
-                    } else {
-                        card.style.display = "none";
-                    }
-                });
-            });
+          }
         });
-    </script>
-</body>
-</html>
 
+        // Search functionality
+        const searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("keyup", function () {
+          const searchTerm = this.value.toLowerCase();
+          const alumniCards = document.querySelectorAll(".alumni-card");
+          alumniCards.forEach((card) => {
+            const name = card
+              .querySelector(".alumni-name")
+              .textContent.toLowerCase();
+            if (name.includes(searchTerm)) {
+              card.style.display = "flex";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

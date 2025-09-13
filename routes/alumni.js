@@ -10,23 +10,28 @@ const nodemailer = require("nodemailer");
 const EventRequest = require("../models/eventRequest-model");
 
 const upload = multer();
-const Post = require('../models/post-model');
+const Post = require("../models/post-model");
 
 // inside router.get('/dashboard', isLoggedIn, ...) handler:
-router.get('/dashboard', isLoggedIn, async (req, res) => {
-    try {
-        const user = req.user; // coming from isLoggedIn middleware
-        // fetch posts (all alumni posts)
-        const posts = await Post.find()
-            .populate('author', 'name currentCompany designation image')
-            .sort({ createdAt: -1 });
+router.get("/dashboard", isLoggedIn, async (req, res) => {
+  try {
+    const user = req.user; // coming from isLoggedIn middleware
+    // fetch posts (all alumni posts)
+    const posts = await Post.find()
+      .populate("author", "name currentCompany designation image")
+      .sort({ createdAt: -1 });
 
-        res.render('alumni-dashboard', { user, posts });
-    } catch (err) {
-        console.error(err);
-        req.flash?.('error', 'Unable to load dashboard');
-        res.redirect('/');
-    }
+    const requests = await EventRequest.find({ status: "pending" , upvotes: { $gt: 4 } })
+      .populate("requestedBy", "fullname") // populate student's name
+      .sort({ createdAt: -1 })
+      .limit(3);
+
+    res.render("alumni-dashboard", { user, posts , requests });
+  } catch (err) {
+    console.error(err);
+    req.flash?.("error", "Unable to load dashboard");
+    res.redirect("/");
+  }
 });
 
 const transporter = nodemailer.createTransport({
@@ -158,7 +163,6 @@ Ashutosh Sharma`,
   }
 }
 
-
 router.post("/event", async (req, res) => {
   try {
     const { title, description, date, gmeetLink } = req.body;
@@ -169,8 +173,6 @@ router.post("/event", async (req, res) => {
 
     // send emails in batches
     await sendEmails(title, description, gmeetLink);
-
-    
   } catch (error) {
     console.error(error);
     res.status(400).json({ error: error.message });
@@ -180,8 +182,10 @@ router.post("/event", async (req, res) => {
 router.get("/eventrequests", isLoggedIn, async (req, res) => {
   try {
     // Fetch requests with more than 10 upvotes and status pending
-    const requests = await EventRequest.find({ upvotes: { $gt: 10 }, status: 'pending' })
-      .populate("requestedBy", "fullname email"); // populate who requested
+    const requests = await EventRequest.find({
+      upvotes: { $gt: 4 },
+      status: "pending",
+    }).populate("requestedBy", "fullname email"); // populate who requested
 
     res.render("eventRequestsAlum", { requests });
   } catch (err) {
@@ -189,7 +193,6 @@ router.get("/eventrequests", isLoggedIn, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
-
 
 router.post("/eventrequests/accept/:id", async (req, res) => {
   try {
@@ -219,7 +222,6 @@ router.post("/eventrequests/create-event/:id", async (req, res) => {
 
     await event.save();
 
-
     // mark request as approved
     request.status = "approved";
     await request.save();
@@ -227,13 +229,10 @@ router.post("/eventrequests/create-event/:id", async (req, res) => {
     // Send emails as before
     res.redirect("/alumni/eventrequests");
     await sendEmails(event.title, event.description, event.gmeetLink);
-
-    
   } catch (err) {
     console.error(err);
     res.status(500).send("Server Error");
   }
 });
-
 
 module.exports = router;

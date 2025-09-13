@@ -141,7 +141,7 @@
                                         <% } else if (hasUpvoted) { %>
                                              <div class="flex items-center justify-center gap-2 px-4 py-2 text-sm text-green-700 font-semibold">
                                                 <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-                                                <span>Upvoted</span>
+                                                <span>Upvoted(<%=event.upvotes%>)</span>
                                             </div>
                                         <% } else { %>
                                             <form action="/student/<%= event._id %>/upvote" method="POST">
