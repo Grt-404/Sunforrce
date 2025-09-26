@@ -1,0 +1,7 @@
+name,email,password,branch,graduationYear,currentCompany,designation,location,linkedin,status
+Ashutosh Sharma,ashutosh@example.com,pass123,CS,2025,Google,Software Engineer,Bangalore,https://linkedin.com/in/ashutosh,Verified
+Riya Singh,riya@example.com,pass123,IT,2024,Infosys,Analyst,Pune,https://linkedin.com/in/riya,Pending
+Vikram Patel,vikram@example.com,pass123,Mechanical,2023,Tata Motors,Engineer,Delhi,https://linkedin.com/in/vikram,Verified
+Anjali Mehta,anjali@example.com,pass123,CS,2025,Microsoft,Developer,Bangalore,https://linkedin.com/in/anjali,Pending
+Rohan Verma,rohan@example.com,pass123,IT,2024,Accenture,Consultant,Mumbai,https://linkedin.com/in/rohan,Verified
+Priya Nair,priya@example.com,pass123,CS,2023,TCS,Software Engineer,Chennai,https://linkedin.com/in/priya,Pending

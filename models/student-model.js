@@ -31,6 +31,11 @@ const studentSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    status: {
+        type: String,
+        enum: ['Pending', 'Verified', 'Rejected'],
+        default: 'Pending'
+    },
 
 })
 module.exports = mongoose.model("student", studentSchema);

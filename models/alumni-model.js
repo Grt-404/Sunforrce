@@ -72,6 +72,11 @@ const alumniSchema = new Schema({
             default: []
         }
     ],
+    status: {
+        type: String,
+        enum: ['Pending', 'Verified', 'Rejected'],
+        default: 'Pending'
+    },
 
 });
 
