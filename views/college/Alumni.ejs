@@ -136,9 +136,12 @@
                     
                     <select name="department" class="w-full border border-border rounded-md bg-background px-4 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
                         <option value="">All Branches</option>
-                        <option value="Computer Engineering" <%= query.department === 'Computer Engineering' ? 'selected' : '' %>>Computer Engineering</option>
-                        <option value="Information Technology" <%= query.department === 'Information Technology' ? 'selected' : '' %>>Information Technology</option>
-                        <option value="Mechanical Engineering" <%= query.department === 'Mechanical Engineering' ? 'selected' : '' %>>Mechanical Engineering</option>
+                        <option value="Cs" <%= query.department === ('CSE' || 'CS') ? 'selected' : '' %>>Computer Engineering</option>
+                        <option value="IT" <%= query.department === 'IT' ? 'selected' : '' %>>Information Technology</option>
+                        <option value="EE" <%= query.department === 'EE' ? 'selected' : '' %>>Electrical Engineering</option>
+                        <option value="Mechanical" <%= query.department === 'Mechanical' ? 'selected' : '' %>>Mechanical Engineering</option>
+                        <option value="ECE" <%= query.department === 'ECE' ? 'selected' : '' %>>Electronic and Communication Engineering</option>
+                        <option value="Civil" <%= query.department === 'Civil' ? 'selected' : '' %>>Civil Engineering</option>
                     </select>
                     
                     <select name="year" class="w-full border border-border rounded-md bg-background px-4 py-2 focus:ring-2 focus:ring-primary focus:outline-none">

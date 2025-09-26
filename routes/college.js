@@ -123,14 +123,14 @@ router.post("/upload/csv", upload.single("alumni-csv"), async (req, res) => {
                         role: "alumni",
                         name: row.name?.trim(),
                         email: row.email?.toLowerCase(),
-                        password: row.password || "default123", // ⚠️ hash in real system
+                        password: "default123", // ⚠️ hash in real system
                         branch: row.branch || "",
                         graduationYear: parseInt(row.graduationYear) || null,
                         currentCompany: row.currentCompany || "",
                         designation: row.designation || "",
                         location: row.location || "",
                         linkedin: row.linkedin || "",
-                        status: row.status || "Verified"
+                        status: "Verified"
                     }));
 
                     // Upsert into MongoDB
@@ -181,14 +181,14 @@ router.post("/upload/sheet", upload.single("alumni-sheet"), async (req, res) => 
                 role: "alumni",
                 name: row.name.trim(),
                 email: row.email.toLowerCase(),
-                password: row.password || "default123", // ⚠️ hash in real system
+                password:  "default123", // ⚠️ hash in real system
                 branch: row.branch || "",
                 graduationYear: parseInt(row.graduationYear) || null,
                 currentCompany: row.currentCompany || "",
                 designation: row.designation || "",
                 location: row.location || "",
                 linkedin: row.linkedin || "",
-                status: row.status || "Verified"
+                status: "Verified"
             }));
 
         // Upsert in MongoDB
@@ -254,7 +254,7 @@ router.get('/download/excel', async (req, res) => {
 });
 
 router.get('/jobs', (req, res) => {
-    // This temporary data will be replaced with a database query later
+  
     const sampleJobs = [
         { title: 'Frontend Developer', company: 'Google', location: 'Bengaluru', type: 'Full-time', postedAgo: '2d ago' },
         { title: 'Backend Engineering Intern', company: 'Microsoft', location: 'Remote', type: 'Internship', postedAgo: '5d ago' },
@@ -269,10 +269,9 @@ router.get('/jobs', (req, res) => {
     });
 });
 
-// NEW: Route to render the 'Post New Job' page
+
 router.get('/jobs/new', (req, res) => {
-    // This will eventually render a form for creating a new job post.
-    // For now, it can render a placeholder or a new EJS file.
+    
     res.send("This is the page to create a new job posting.");
 });
 
