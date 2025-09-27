@@ -52,7 +52,7 @@ router.get('/alumni', async (req, res) => {
 
         // --- DATABASE LOGIC (Updated for your schema) ---
         const filterQuery = { role: 'alumni' }; // Base query to only get alumni
-        
+
         // Only add to query if search term is not empty
         if (search && search.trim() !== '') {
             filterQuery.$or = [
@@ -74,11 +74,11 @@ router.get('/alumni', async (req, res) => {
         }
 
         const filteredAlumni = await Alumni.find(filterQuery).sort({ graduationYear: -1 });
-        
-        
-        res.render('college/alumni', { 
+
+
+        res.render('college/alumni', {
             alumni: filteredAlumni,
-            query: req.query 
+            query: req.query
         });
 
     } catch (error) {
@@ -88,10 +88,10 @@ router.get('/alumni', async (req, res) => {
 });
 
 
-router.get("/upload/csv" , (req,res)=>{
+router.get("/upload/csv", (req, res) => {
     res.render("college/uploadcsv");
 });
-router.get("/upload/sheet" , (req,res)=>{
+router.get("/upload/sheet", (req, res) => {
     res.render("college/uploadsheet");
 });
 
@@ -109,7 +109,7 @@ router.post("/upload/csv", upload.single("alumni-csv"), async (req, res) => {
 
         // Convert buffer to readable stream
         const readable = new stream.Readable();
-        readable._read = () => {}; // no-op
+        readable._read = () => { }; // no-op
         readable.push(req.file.buffer);
         readable.push(null);
 
@@ -181,7 +181,7 @@ router.post("/upload/sheet", upload.single("alumni-sheet"), async (req, res) => 
                 role: "alumni",
                 name: row.name.trim(),
                 email: row.email.toLowerCase(),
-                password:  "default123", // ⚠️ hash in real system
+                password: "default123", // ⚠️ hash in real system
                 branch: row.branch || "",
                 graduationYear: parseInt(row.graduationYear) || null,
                 currentCompany: row.currentCompany || "",
@@ -215,7 +215,7 @@ router.get('/download/csv', async (req, res) => {
             return res.status(404).send("No alumni data found");
         }
 
-        const fields = ['name','email','password','branch','graduationYear','currentCompany','designation','location','linkedin','status'];
+        const fields = ['name', 'email', 'password', 'branch', 'graduationYear', 'currentCompany', 'designation', 'location', 'linkedin', 'status'];
         const parser = new Parser({ fields });
         const csvData = parser.parse(alumni);
 
@@ -254,7 +254,7 @@ router.get('/download/excel', async (req, res) => {
 });
 
 router.get('/jobs', (req, res) => {
-  
+
     const sampleJobs = [
         { title: 'Frontend Developer', company: 'Google', location: 'Bengaluru', type: 'Full-time', postedAgo: '2d ago' },
         { title: 'Backend Engineering Intern', company: 'Microsoft', location: 'Remote', type: 'Internship', postedAgo: '5d ago' },
@@ -271,7 +271,7 @@ router.get('/jobs', (req, res) => {
 
 
 router.get('/jobs/new', (req, res) => {
-    
+
     res.send("This is the page to create a new job posting.");
 });
 
@@ -279,29 +279,29 @@ router.get('/jobs/new', (req, res) => {
 router.get('/campaigns', (req, res) => {
     // This is temporary data. You'll fetch this from your database later.
     const sampleCampaigns = [
-        { 
-            title: 'Tech Lab Modernization', 
-            raised: 850000, 
-            goal: 1500000, 
+        {
+            title: 'Tech Lab Modernization',
+            raised: 850000,
+            goal: 1500000,
             daysLeft: 45,
             imageUrl: 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&q=80'
         },
-        { 
-            title: 'Student Scholarship Fund', 
-            raised: 210000, 
-            goal: 500000, 
+        {
+            title: 'Student Scholarship Fund',
+            raised: 210000,
+            goal: 500000,
             daysLeft: 60,
             imageUrl: 'https://newhorizonindia.edu/wp-content/uploads/2024/08/download-15-1024x683.png'
         },
-        { 
-            title: 'Campus Green Initiative', 
-            raised: 95000, 
-            goal: 200000, 
+        {
+            title: 'Campus Green Initiative',
+            raised: 95000,
+            goal: 200000,
             daysLeft: 30,
             imageUrl: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80'
         },
     ];
-    
+
     const donationStats = {
         totalRaised: 1155000,
         totalDonors: 478,
@@ -338,14 +338,14 @@ router.get('/verification', async (req, res) => {
 router.post('/verification/approve/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { role } = req.query; 
+        const { role } = req.query;
 
         if (role === 'alumni') {
             await Alumni.findByIdAndUpdate(id, { status: 'Verified' });
         } else if (role === 'student') {
             await Student.findByIdAndUpdate(id, { status: 'Verified' });
         }
-        
+
         console.log(`Approved ${role} with ID: ${id}`);
         res.redirect('/college/verification');
     } catch (error) {

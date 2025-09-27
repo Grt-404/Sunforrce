@@ -4,7 +4,7 @@ const collegeSchema = new Schema({
     role: String,
     fullname: String,
     domain: String,
-
+    email: String,
 
 
     alumni: {
