@@ -1,80 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Upload CSV — SAMPARK</title>
     <!-- All head content (CSS, fonts, etc.) is the same as your other pages -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
-      tailwind.config = { theme: { extend: { colors: { background: "#f8f5f2", foreground: "#1f1c18", card: "#ffffff", "card-foreground": "#1f1c18", primary: "#a16207", "primary-foreground": "#ffffff", secondary: "#b99553", border: "rgba(0, 0, 0, 0.08)", }, fontFamily: { sans: ["Inter", "sans-serif"], serif: ["Playfair Display", "serif"], }, boxShadow: { soft: "0 4px 12px rgba(0, 0, 0, 0.05)", }, }, }, };
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: "#f8f5f2",
+              foreground: "#1f1c18",
+              card: "#ffffff",
+              "card-foreground": "#1f1c18",
+              primary: "#a16207",
+              "primary-foreground": "#ffffff",
+              secondary: "#b99553",
+              border: "rgba(0, 0, 0, 0.08)",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              serif: ["Playfair Display", "serif"],
+            },
+            boxShadow: { soft: "0 4px 12px rgba(0, 0, 0, 0.05)" },
+          },
+        },
+      };
     </script>
-</head>
-<body class="bg-background text-foreground font-sans">
-  <div class="flex h-screen">
-    <!-- Sidebar -->
-    <aside class="w-64 flex-shrink-0 bg-card border-r border-border flex-col hidden md:flex">
-        <div class="h-16 flex items-center justify-center border-b border-border">
-            <h1 class="text-2xl font-serif font-bold text-primary">SAMPARK</h1>
+  </head>
+  <body class="bg-background text-foreground font-sans">
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <aside
+        class="w-64 flex-shrink-0 bg-card border-r border-border flex-col hidden md:flex"
+      >
+        <div
+          class="h-16 flex items-center justify-center border-b border-border"
+        >
+          <h1 class="text-2xl font-serif font-bold text-primary">SAMPARK</h1>
         </div>
         <nav class="flex-grow p-4 space-y-2">
-            <a href="/college/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"><i data-lucide="layout-dashboard" class="w-5 h-5"></i><span>Dashboard</span></a>
-            <a href="/college/alumni" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"><i data-lucide="users" class="w-5 h-5"></i><span>Alumni</span></a>
-            <a href="/college/jobs" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"><i data-lucide="briefcase" class="w-5 h-5"></i><span>Jobs & Internships</span></a>
-            <a href="/college/campaigns" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"><i data-lucide="gem" class="w-5 h-5"></i><span>Donations & Campaign</span></a>
-            <a href="/college/verification" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"><i data-lucide="user-check" class="w-5 h-5"></i><span>Verification Requests</span></a>
+          <a
+            href="/college/dashboard"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"
+            ><i data-lucide="layout-dashboard" class="w-5 h-5"></i
+            ><span>Dashboard</span></a
+          >
+          <a
+            href="/college/alumni"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"
+            ><i data-lucide="users" class="w-5 h-5"></i><span>Alumni</span></a
+          >
+          <a
+            href="/college/jobs"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"
+            ><i data-lucide="briefcase" class="w-5 h-5"></i
+            ><span>Jobs & Internships</span></a
+          >
+          <a
+            href="/college/campaigns"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"
+            ><i data-lucide="gem" class="w-5 h-5"></i
+            ><span>Donations & Campaign</span></a
+          >
+          <a
+            href="/college/verification"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"
+            ><i data-lucide="user-check" class="w-5 h-5"></i
+            ><span>Verification Requests</span></a
+          >
         </nav>
         <div class="p-4 border-t border-border">
-            <button class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold shadow-soft"><i data-lucide="log-out" class="w-4 h-4"></i>Logout</button>
+          <a href="/logout"><button class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold shadow-soft">
+                <i data-lucide="log-out" class="w-4 h-4"></i>
+                Logout
+            </button></a>
+            
         </div>
-    </aside>
+      </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto p-4 md:p-8">
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto p-4 md:p-8">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-6">
-                <a href="/college/alumni" class="flex items-center gap-2 text-sm text-gray-500 hover:text-primary font-semibold">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                    Back to Alumni List
-                </a>
-                <h2 class="text-2xl md:text-3xl font-serif font-bold text-foreground mt-2">Upload CSV File</h2>
-                <p class="text-gray-500">Upload a CSV file with alumni data to add multiple records at once.</p>
-            </div>
+          <div class="mb-6">
+            <a
+              href="/college/alumni"
+              class="flex items-center gap-2 text-sm text-gray-500 hover:text-primary font-semibold"
+            >
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>
+              Back to Alumni List
+            </a>
+            <h2
+              class="text-2xl md:text-3xl font-serif font-bold text-foreground mt-2"
+            >
+              Upload CSV File
+            </h2>
+            <p class="text-gray-500">
+              Upload a CSV file with alumni data to add multiple records at
+              once.
+            </p>
+          </div>
 
-            <!-- This wrapper centers the form on the page -->
-            <div class="max-w-3xl mx-auto">
-                <form action="/college/upload/csv" method="POST" enctype="multipart/form-data" class="bg-card p-6 md:p-8 rounded-xl shadow-soft">
-                    <label for="file-upload" class="flex flex-col items-center justify-center w-full h-64 border-2 border-border border-dashed rounded-lg cursor-pointer bg-background/50 hover:bg-background">
-                        <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center">
-                            <i data-lucide="upload-cloud" class="w-10 h-10 md:w-12 md:h-12 text-gray-400 mb-3"></i>
-                            <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                            <p class="text-xs text-gray-500">CSV file (MAX. 5MB)</p>
-                            <p id="file-name" class="text-sm text-primary font-semibold mt-2 px-4 truncate"></p>
-                        </div>
-                        <input id="file-upload" name="alumni-csv" type="file" class="hidden" accept=".csv" />
-                    </label>
-                    <div class="mt-6 flex justify-end">
-                        <button type="submit" class="w-full md:w-auto px-8 py-2.5 rounded-md bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors shadow-soft">
-                            Upload and Process File
-                        </button>
-                    </div>
-                </form>
-            </div>
+          <!-- This wrapper centers the form on the page -->
+          <div class="max-w-3xl mx-auto">
+            <form
+              action="/college/upload/csv"
+              method="POST"
+              enctype="multipart/form-data"
+              class="bg-card p-6 md:p-8 rounded-xl shadow-soft"
+            >
+              <label
+                for="file-upload"
+                class="flex flex-col items-center justify-center w-full h-64 border-2 border-border border-dashed rounded-lg cursor-pointer bg-background/50 hover:bg-background"
+              >
+                <div
+                  class="flex flex-col items-center justify-center pt-5 pb-6 text-center"
+                >
+                  <i
+                    data-lucide="upload-cloud"
+                    class="w-10 h-10 md:w-12 md:h-12 text-gray-400 mb-3"
+                  ></i>
+                  <p class="mb-2 text-sm text-gray-500">
+                    <span class="font-semibold">Click to upload</span> or drag
+                    and drop
+                  </p>
+                  <p class="text-xs text-gray-500">CSV file (MAX. 5MB)</p>
+                  <p
+                    id="file-name"
+                    class="text-sm text-primary font-semibold mt-2 px-4 truncate"
+                  ></p>
+                </div>
+                <input
+                  id="file-upload"
+                  name="alumni-csv"
+                  type="file"
+                  class="hidden"
+                  accept=".csv"
+                />
+              </label>
+              <div class="mt-6 flex justify-end">
+                <button
+                  type="submit"
+                  class="w-full md:w-auto px-8 py-2.5 rounded-md bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors shadow-soft"
+                >
+                  Upload and Process File
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-    </main>
-  </div>
-  <script>
-    lucide.createIcons();
-    document.getElementById('file-upload').onchange = function () {
+      </main>
+    </div>
+    <script>
+      lucide.createIcons();
+      document.getElementById("file-upload").onchange = function () {
         if (this.files.length > 0) {
-            document.getElementById('file-name').textContent = this.files[0].name;
+          document.getElementById("file-name").textContent = this.files[0].name;
         }
-    };
-  </script>
-</body>
+      };
+    </script>
+  </body>
 </html>
-

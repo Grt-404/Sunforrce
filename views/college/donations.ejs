@@ -1,117 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Donations & Campaigns — SAMPARK</title>
     <!-- All head content (CSS, fonts, etc.) is the same as your other pages -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
-      tailwind.config = { theme: { extend: { colors: { background: "#f8f5f2", foreground: "#1f1c18", card: "#ffffff", "card-foreground": "#1f1c18", primary: "#a16207", "primary-foreground": "#ffffff", secondary: "#b99553", border: "rgba(0, 0, 0, 0.08)", }, fontFamily: { sans: ["Inter", "sans-serif"], serif: ["Playfair Display", "serif"], }, boxShadow: { soft: "0 4px 12px rgba(0, 0, 0, 0.05)", lift: "0 10px 25px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)"}, }, }, };
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: "#f8f5f2",
+              foreground: "#1f1c18",
+              card: "#ffffff",
+              "card-foreground": "#1f1c18",
+              primary: "#a16207",
+              "primary-foreground": "#ffffff",
+              secondary: "#b99553",
+              border: "rgba(0, 0, 0, 0.08)",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              serif: ["Playfair Display", "serif"],
+            },
+            boxShadow: {
+              soft: "0 4px 12px rgba(0, 0, 0, 0.05)",
+              lift: "0 10px 25px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)",
+            },
+          },
+        },
+      };
     </script>
-</head>
-<body class="bg-background text-foreground font-sans">
-  <div class="flex h-screen">
-    <!-- Sidebar -->
-    <aside class="w-64 flex-shrink-0 bg-card border-r border-border flex-col hidden md:flex">
-        <div class="h-16 flex items-center justify-center border-b border-border">
-            <h1 class="text-2xl font-serif font-bold text-primary">SAMPARK</h1>
+  </head>
+  <body class="bg-background text-foreground font-sans">
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <aside
+        class="w-64 flex-shrink-0 bg-card border-r border-border flex-col hidden md:flex"
+      >
+        <div
+          class="h-16 flex items-center justify-center border-b border-border"
+        >
+          <h1 class="text-2xl font-serif font-bold text-primary">SAMPARK</h1>
         </div>
         <nav class="flex-grow p-4 space-y-2">
-            <a href="/college/dashboard" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"><i data-lucide="layout-dashboard" class="w-5 h-5"></i><span>Dashboard</span></a>
-            <a href="/college/alumni" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"><i data-lucide="users" class="w-5 h-5"></i><span>Alumni</span></a>
-            <a href="/college/jobs" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"><i data-lucide="briefcase" class="w-5 h-5"></i><span>Jobs & Internships</span></a>
-            <a href="/college/campaigns" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg bg-primary/10 text-primary"><i data-lucide="gem" class="w-5 h-5"></i><span>Donations & Campaign</span></a>
-            <a href="/college/verification" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"><i data-lucide="user-check" class="w-5 h-5"></i><span>Verification Requests</span></a>
+          <a
+            href="/college/dashboard"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"
+            ><i data-lucide="layout-dashboard" class="w-5 h-5"></i
+            ><span>Dashboard</span></a
+          >
+          <a
+            href="/college/alumni"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"
+            ><i data-lucide="users" class="w-5 h-5"></i><span>Alumni</span></a
+          >
+          <a
+            href="/college/jobs"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"
+            ><i data-lucide="briefcase" class="w-5 h-5"></i
+            ><span>Jobs & Internships</span></a
+          >
+          <a
+            href="/college/campaigns"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg bg-primary/10 text-primary"
+            ><i data-lucide="gem" class="w-5 h-5"></i
+            ><span>Donations & Campaign</span></a
+          >
+          <a
+            href="/college/verification"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors"
+            ><i data-lucide="user-check" class="w-5 h-5"></i
+            ><span>Verification Requests</span></a
+          >
         </nav>
         <div class="p-4 border-t border-border">
-            <button class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold shadow-soft"><i data-lucide="log-out" class="w-4 h-4"></i>Logout</button>
+          <a href="/logout"><button class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold shadow-soft">
+                <i data-lucide="log-out" class="w-4 h-4"></i>
+                Logout
+            </button></a>
+            
         </div>
-    </aside>
+      </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto p-4 md:p-8">
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto p-4 md:p-8">
         <div class="max-w-7xl mx-auto">
-            <!-- Header -->
-            <div class="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
-                <div>
-                    <h2 class="text-3xl font-serif font-bold text-foreground">Donations & Campaigns</h2>
-                    <p class="text-gray-500">Manage fundraising campaigns and track contributions.</p>
-                </div>
-                <a href="/college/campaigns/new" class="w-full md:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold shadow-soft">
-                    <i data-lucide="plus" class="w-5 h-5"></i>
-                    Create New Campaign
-                </a>
+          <!-- Header -->
+          <div
+            class="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4"
+          >
+            <div>
+              <h2 class="text-3xl font-serif font-bold text-foreground">
+                Donations & Campaigns
+              </h2>
+              <p class="text-gray-500">
+                Manage fundraising campaigns and track contributions.
+              </p>
             </div>
+            <a
+              href="/college/campaigns/new"
+              class="w-full md:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold shadow-soft"
+            >
+              <i data-lucide="plus" class="w-5 h-5"></i>
+              Create New Campaign
+            </a>
+          </div>
 
-            <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <div class="bg-card rounded-xl shadow-soft p-6 flex items-center gap-5">
-                    <div class="bg-primary/10 p-3 rounded-full"><i data-lucide="indian-rupee" class="w-8 h-8 text-primary"></i></div>
-                    <div>
-                        <p class="text-sm text-gray-500">Total Raised</p>
-                        <p class="text-3xl font-bold text-foreground">₹<%= stats.totalRaised.toLocaleString('en-IN') %></p>
-                    </div>
-                </div>
-                <div class="bg-card rounded-xl shadow-soft p-6 flex items-center gap-5">
-                    <div class="bg-primary/10 p-3 rounded-full"><i data-lucide="heart" class="w-8 h-8 text-primary"></i></div>
-                    <div>
-                        <p class="text-sm text-gray-500">Total Donors</p>
-                        <p class="text-3xl font-bold text-foreground"><%= stats.totalDonors %></p>
-                    </div>
-                </div>
-                 <div class="bg-card rounded-xl shadow-soft p-6 flex items-center gap-5">
-                    <div class="bg-primary/10 p-3 rounded-full"><i data-lucide="target" class="w-8 h-8 text-primary"></i></div>
-                    <div>
-                        <p class="text-sm text-gray-500">Active Campaigns</p>
-                        <p class="text-3xl font-bold text-foreground"><%= campaigns.length %></p>
-                    </div>
-                </div>
+          <!-- Stats Cards -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
+          >
+            <div
+              class="bg-card rounded-xl shadow-soft p-6 flex items-center gap-5"
+            >
+              <div class="bg-primary/10 p-3 rounded-full">
+                <i data-lucide="indian-rupee" class="w-8 h-8 text-primary"></i>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500">Total Raised</p>
+                <p class="text-3xl font-bold text-foreground">
+                  ₹<%= stats.totalRaised.toLocaleString('en-IN') %>
+                </p>
+              </div>
             </div>
+            <div
+              class="bg-card rounded-xl shadow-soft p-6 flex items-center gap-5"
+            >
+              <div class="bg-primary/10 p-3 rounded-full">
+                <i data-lucide="heart" class="w-8 h-8 text-primary"></i>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500">Total Donors</p>
+                <p class="text-3xl font-bold text-foreground">
+                  <%= stats.totalDonors %>
+                </p>
+              </div>
+            </div>
+            <div
+              class="bg-card rounded-xl shadow-soft p-6 flex items-center gap-5"
+            >
+              <div class="bg-primary/10 p-3 rounded-full">
+                <i data-lucide="target" class="w-8 h-8 text-primary"></i>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500">Active Campaigns</p>
+                <p class="text-3xl font-bold text-foreground">
+                  <%= campaigns.length %>
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <!-- Campaign Listings -->
-            <h3 class="text-xl font-serif font-bold text-foreground mb-4">Active Campaigns</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                <% if (campaigns && campaigns.length > 0) { %>
-                    <% campaigns.forEach(campaign => { %>
-                        <div class="bg-card rounded-xl shadow-soft overflow-hidden border border-transparent hover:border-primary transition-all duration-300 hover:shadow-lift flex flex-col">
-                            <img src="<%= campaign.imageUrl %>" alt="<%= campaign.title %>" class="w-full h-48 object-cover">
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h4 class="font-serif text-xl font-bold text-foreground"><%= campaign.title %></h4>
-                                <div class="flex justify-between items-center my-3">
-                                    <span class="text-sm font-semibold text-primary">₹<%= campaign.raised.toLocaleString('en-IN') %></span>
-                                    <span class="text-sm text-gray-500">Goal: ₹<%= campaign.goal.toLocaleString('en-IN') %></span>
-                                </div>
-                                <div class="w-full bg-background rounded-full h-2.5 mb-3">
-                                    <div class="bg-primary h-2.5 rounded-full" style="width: <%= (campaign.raised / campaign.goal) * 100 %>%"></div>
-                                </div>
-                                <div class="flex items-center gap-2 text-sm text-gray-500 mb-6">
-                                    <i data-lucide="clock" class="w-4 h-4"></i>
-                                    <span><%= campaign.daysLeft %> days left</span>
-                                </div>
-                                <div class="mt-auto">
-                                    <a href="#" class="w-full text-center block px-4 py-2 rounded-md bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors font-semibold">
-                                        View Details
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    <% }); %>
-                <% } else { %>
-                    <div class="md:col-span-3 text-center p-12 text-gray-500 bg-card rounded-xl shadow-soft">
-                        <p>There are no active campaigns at the moment.</p>
-                    </div>
-                <% } %>
+          <!-- Campaign Listings -->
+          <h3 class="text-xl font-serif font-bold text-foreground mb-4">
+            Active Campaigns
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <% if (campaigns && campaigns.length > 0) { %> <%
+            campaigns.forEach(campaign => { %>
+            <div
+              class="bg-card rounded-xl shadow-soft overflow-hidden border border-transparent hover:border-primary transition-all duration-300 hover:shadow-lift flex flex-col"
+            >
+              <img
+                src="<%= campaign.imageUrl %>"
+                alt="<%= campaign.title %>"
+                class="w-full h-48 object-cover"
+              />
+              <div class="p-6 flex flex-col flex-grow">
+                <h4 class="font-serif text-xl font-bold text-foreground">
+                  <%= campaign.title %>
+                </h4>
+                <div class="flex justify-between items-center my-3">
+                  <span class="text-sm font-semibold text-primary"
+                    >₹<%= campaign.raised.toLocaleString('en-IN') %></span
+                  >
+                  <span class="text-sm text-gray-500"
+                    >Goal: ₹<%= campaign.goal.toLocaleString('en-IN') %></span
+                  >
+                </div>
+                <div class="w-full bg-background rounded-full h-2.5 mb-3">
+                  <div
+                    class="bg-primary h-2.5 rounded-full"
+                    style="
+                      width: <%= (campaign.raised / campaign.goal) * 100 %>%;
+                    "
+                  ></div>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+                  <i data-lucide="clock" class="w-4 h-4"></i>
+                  <span><%= campaign.daysLeft %> days left</span>
+                </div>
+                <div class="mt-auto">
+                  <a
+                    href="#"
+                    class="w-full text-center block px-4 py-2 rounded-md bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors font-semibold"
+                  >
+                    View Details
+                  </a>
+                </div>
+              </div>
             </div>
+            <% }); %> <% } else { %>
+            <div
+              class="md:col-span-3 text-center p-12 text-gray-500 bg-card rounded-xl shadow-soft"
+            >
+              <p>There are no active campaigns at the moment.</p>
+            </div>
+            <% } %>
+          </div>
         </div>
-    </main>
-  </div>
-  <script>
-    lucide.createIcons();
-  </script>
-</body>
+      </main>
+    </div>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
 </html>
