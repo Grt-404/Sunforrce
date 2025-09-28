@@ -80,7 +80,7 @@ router.get('/alumni', async (req, res) => {
         const filteredAlumni = await Alumni.find(filterQuery).sort({ graduationYear: -1 });
 
 
-        res.render('college/alumni', {
+        res.render('college/Alumni', {
             alumni: filteredAlumni,
             query: req.query
         });
