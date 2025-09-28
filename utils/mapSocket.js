@@ -13,42 +13,39 @@ function initializeSocketHandlers(io) {
                     location: { $ne: "", $exists: true } 
                 });
 
-                // UPDATED: Process one at a time to be absolutely sure we don't hit rate limits.
-                const batchSize = 1;
+                const batchSize = 1; // Process one at a time to be safe
                 for (let i = 0; i < alumniWithLocation.length; i += batchSize) {
                     const batch = alumniWithLocation.slice(i, i + batchSize);
                     
                     const locationPromises = batch.map(async (alumnus) => {
                         try {
-                            const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(alumnus.location)}`;
+                            // NEW: Using the OpenCage Geocoding API
+                            const apiKey = process.env.OPENCAGE_API_KEY;
+                            if (!apiKey) {
+                                console.error("FATAL: OPENCAGE_API_KEY environment variable is not set.");
+                                return null;
+                            }
+                            const mapUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(alumnus.location)}&key=${apiKey}`;
                             
-                            const response = await axios.get(mapUrl, {
-                                headers: { 
-                                    'User-Agent': 'SAMPARK-Alumni-Portal/1.0 (aashutoshsharma2905@gmail.com)' 
-                                },
-                                timeout: 15000 // NEW: Add a 15-second timeout to the request
-                            });
-
+                            const response = await axios.get(mapUrl, { timeout: 15000 });
                             const data = response.data;
 
-                            if (data && data.length > 0) {
+                            if (data && data.results && data.results.length > 0) {
+                                const { lat, lng } = data.results[0].geometry;
                                 return {
-                                    lat: parseFloat(data[0].lat),
-                                    lng: parseFloat(data[0].lon),
+                                    lat,
+                                    lng,
                                     name: alumnus.name,
                                     title: `${alumnus.designation || 'Alumnus'} at ${alumnus.currentCompany || 'Not specified'}`
                                 };
                             }
+                            console.warn(`No results found for location: "${alumnus.location}"`);
                             return null;
                         } catch (err) {
-                            // ENHANCED ERROR LOGGING to provide more details on failure
                             if (axios.isAxiosError(err)) {
                                 console.error(`Geocoding failed for "${alumnus.location}": Axios Error - ${err.message}`);
                                 if (err.response) {
-                                    console.error('Status:', err.response.status);
-                                    console.error('Data:', err.response.data);
-                                } else if (err.request) {
-                                    console.error('No response received for request.');
+                                    console.error('Status:', err.response.status, 'Data:', err.response.data);
                                 }
                             } else {
                                 console.error(`Geocoding failed for "${alumnus.location}": General Error -`, err.message);
@@ -63,8 +60,7 @@ function initializeSocketHandlers(io) {
                         socket.emit('alumniLocationBatch', resolvedLocations);
                     }
                     
-                    // UPDATED: Increased delay between each request.
-                    await delay(2500); 
+                    await delay(1500); // A 1.5-second delay is safe for the free tier
                 }
                 socket.emit('locationsFinished');
             } catch (error) {
