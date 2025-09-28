@@ -13,7 +13,8 @@ function initializeSocketHandlers(io) {
                     location: { $ne: "", $exists: true } 
                 });
 
-                const batchSize = 2; // REDUCED BATCH SIZE to send fewer requests at once
+                // UPDATED: Process one at a time to be absolutely sure we don't hit rate limits.
+                const batchSize = 1;
                 for (let i = 0; i < alumniWithLocation.length; i += batchSize) {
                     const batch = alumniWithLocation.slice(i, i + batchSize);
                     
@@ -24,10 +25,11 @@ function initializeSocketHandlers(io) {
                             const response = await axios.get(mapUrl, {
                                 headers: { 
                                     'User-Agent': 'SAMPARK-Alumni-Portal/1.0 (aashutoshsharma2905@gmail.com)' 
-                                }
+                                },
+                                timeout: 15000 // NEW: Add a 15-second timeout to the request
                             });
 
-                            const data = response.data; // With axios, data is directly on the .data property
+                            const data = response.data;
 
                             if (data && data.length > 0) {
                                 return {
@@ -45,9 +47,11 @@ function initializeSocketHandlers(io) {
                                 if (err.response) {
                                     console.error('Status:', err.response.status);
                                     console.error('Data:', err.response.data);
+                                } else if (err.request) {
+                                    console.error('No response received for request.');
                                 }
                             } else {
-                                console.error(`Geocoding failed for "${alumnus.location}":`, err.message);
+                                console.error(`Geocoding failed for "${alumnus.location}": General Error -`, err.message);
                             }
                             return null;
                         }
@@ -59,7 +63,8 @@ function initializeSocketHandlers(io) {
                         socket.emit('alumniLocationBatch', resolvedLocations);
                     }
                     
-                    await delay(2000); // INCREASED DELAY between batches to be safer
+                    // UPDATED: Increased delay between each request.
+                    await delay(2500); 
                 }
                 socket.emit('locationsFinished');
             } catch (error) {
