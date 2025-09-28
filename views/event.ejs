@@ -10,7 +10,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 
     <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,19 +28,18 @@
                         primary: '#a16207',
                         'primary-foreground': '#ffffff',
                         secondary: '#b99553',
-                        accent: '#34d399',
                         border: 'rgba(0, 0, 0, 0.08)',
                         ring: 'rgba(161, 98, 7, 0.4)'
                     },
                     fontFamily: {
-                        sans: ['Lato', 'sans-serif'],
-                        serif: ['Lora', 'serif']
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
                     },
                     boxShadow: {
                         'soft': '0 4px 12px rgba(0, 0, 0, 0.05)',
                         'lift': '0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)',
                     },
-                    keyframes: {
+                     keyframes: {
                         'fade-in-up': { '0%': { opacity: 0, transform: 'translateY(10px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
                         'backgroundShift': {
                             '0%, 100%': { backgroundPosition: '0% 50%' },
@@ -68,72 +67,92 @@
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--tw-color-border);
         }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: var(--tw-color-primary);
+            border-bottom-color: var(--tw-color-primary);
+        }
         #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; }
     </style>
 </head>
 <body class="bg-background font-sans antialiased text-foreground">
     <canvas id="particle-canvas"></canvas>
 
-     <header class="fixed top-0 inset-x-0 z-40 glass-header">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="relative flex h-16 items-center justify-center">
-                <div class="absolute left-0">
-                     <a href="/alumni/dashboard" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors font-semibold">
-                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                        Back to Dashboard
-                    </a>
-                </div>
-                <div class="flex items-center">
-                    <h1 class="text-3xl font-serif font-bold text-primary">SAMPARK</h1>
-                </div>
+    <header class="fixed top-0 inset-x-0 z-40 glass-header">
+      <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-center">
+            <a href="/" class="text-3xl font-serif font-bold text-primary">SAMPARK</a>
+            <div class="absolute right-0 flex items-center">
+                <a href="/logout" class="px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold shadow-soft flex items-center gap-2">
+                    <i data-lucide="log-out" class="w-4 h-4"></i> Logout
+                </a>
             </div>
         </div>
+      </div>
     </header>
 
-    <main class="min-h-screen flex items-center justify-center pt-24 pb-12 px-4">
-        <div class="w-full max-w-2xl bg-card rounded-xl shadow-lift p-8 animate-fade-in-up">
-            <div class="text-center">
-                <h2 class="text-3xl font-serif font-bold text-foreground">Create an Event</h2>
-                <p class="text-gray-500 mt-2">Bring the alumni community together with a new event.</p>
+    <main class="pt-16">
+        <nav class="bg-card border-b border-border px-4 py-2 sticky top-16 z-30">
+            <div class="max-w-screen-xl mx-auto flex justify-center items-center">
+              <div class="flex gap-4 overflow-x-auto">
+                <a href="/alumni/dashboard" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="layout-dashboard"></i>Feed</a>
+                <a href="/alumni/network" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="users"></i>Network</a>
+                <a href="/alumni/jobs" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="briefcase"></i>Jobs</a>
+                <a href="/alumni/chat" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="message-square"></i>Messaging</a>
+                <a href="/alumni/event" class="nav-link active flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="calendar-plus"></i>Create Event</a>
+                <a href="/alumni/eventrequests" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="calendar"></i>Event Requests</a>
+              </div>
             </div>
-            
-            <form action="/alumni/event" method="POST" class="mt-8 space-y-6">
-                <div>
-                    <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">Event Title</label>
-                    <input type="text" id="title" name="title" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring transition-shadow" placeholder="e.g., Annual Alumni Meetup" required />
-                </div>
+        </nav>
 
-                <div>
-                    <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
-                    <textarea id="description" name="description" rows="4" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring transition-shadow" placeholder="Provide a brief description of the event."></textarea>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label for="date" class="block text-sm font-semibold text-gray-700 mb-2">Date & Time</label>
-                        <input type="datetime-local" id="date" name="date" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring transition-shadow" required />
-                    </div>
-                    <div>
-                        <label for="event-type" class="block text-sm font-semibold text-gray-700 mb-2">Event Type</label>
-                        <select id="event-type" name="eventType" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring transition-shadow bg-white">
-                            <option>Webinar</option>
-                            <option>Networking Session</option>
-                            <option>Workshop</option>
-                            <option>In-Person Meetup</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div>
-                    <label for="gmeetLink" class="block text-sm font-semibold text-gray-700 mb-2">Google Meet Link</label>
-                    <input type="url" id="gmeetLink" name="gmeetLink" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring transition-shadow" placeholder="https://meet.google.com/..." required />
+        <div class="max-w-3xl mx-auto p-6 md:p-8">
+            <div class="w-full bg-card rounded-xl shadow-lift p-8 animate-fade-in-up">
+                <div class="text-center">
+                    <h2 class="text-3xl font-serif font-bold text-foreground">Create an Event</h2>
+                    <p class="text-gray-500 mt-2">Bring the alumni community together with a new event.</p>
                 </div>
                 
-                <div class="pt-6 border-t border-border flex justify-between items-center">
-                    <a href="/alumni/dashboard" class="text-gray-600 hover:text-primary transition-colors font-semibold">Cancel</a>
-                    <button type="submit" class="px-6 py-2.5 bg-primary text-primary-foreground rounded-lg shadow-soft hover:bg-primary/90 transition-colors font-bold">Create Event</button>
-                </div>
-            </form>
+                <form action="/alumni/event" method="POST" class="mt-8 space-y-6">
+                    <div>
+                        <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">Event Title</label>
+                        <input type="text" id="title" name="title" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring transition-shadow bg-background" placeholder="e.g., Annual Alumni Meetup" required />
+                    </div>
+
+                    <div>
+                        <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+                        <textarea id="description" name="description" rows="4" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring transition-shadow bg-background" placeholder="Provide a brief description of the event."></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="date" class="block text-sm font-semibold text-gray-700 mb-2">Date & Time</label>
+                            <input type="datetime-local" id="date" name="date" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring transition-shadow bg-background" required />
+                        </div>
+                        <div>
+                            <label for="event-type" class="block text-sm font-semibold text-gray-700 mb-2">Event Type</label>
+                            <select id="event-type" name="eventType" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring transition-shadow bg-background">
+                                <option>Webinar</option>
+                                <option>Networking Session</option>
+                                <option>Workshop</option>
+                                <option>In-Person Meetup</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="gmeetLink" class="block text-sm font-semibold text-gray-700 mb-2">Google Meet Link</label>
+                        <input type="url" id="gmeetLink" name="gmeetLink" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring transition-shadow bg-background" placeholder="https://meet.google.com/..." required />
+                    </div>
+                    
+                    <div class="pt-6 border-t border-border flex justify-between items-center">
+                        <a href="/alumni/dashboard" class="text-gray-600 hover:text-primary transition-colors font-semibold">Cancel</a>
+                        <button type="submit" class="px-6 py-2.5 bg-primary text-primary-foreground rounded-lg shadow-soft hover:bg-primary/90 transition-colors font-bold">Create Event</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
 
@@ -173,3 +192,4 @@
     </script>
 </body>
 </html>
+

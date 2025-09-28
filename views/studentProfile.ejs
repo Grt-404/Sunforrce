@@ -125,6 +125,24 @@
                     <label for="contact" class="block text-sm font-medium text-gray-700 mb-1">Contact Number</label>
                     <input type="tel" name="contact" id="contact" value="<%= user.contact || '' %>" class="w-full border border-border rounded-md bg-background px-4 py-2.5 focus:ring-2 focus:ring-primary focus:outline-none">
                 </div>
+                <div>
+                    <label for="branch" class="block text-sm font-medium text-gray-700 mb-1">Branch</label>
+                    <input type="text" name="branch" id="branch" value="<%= user.branch || '' %>" placeholder="e.g., Computer Engineering" class="w-full border border-border rounded-md bg-background px-4 py-2.5 focus:ring-2 focus:ring-primary focus:outline-none">
+                </div>
+                
+                <!-- NEW: Interactive Interests Field -->
+                <div>
+                    <label for="interest-input" class="block text-sm font-medium text-gray-700 mb-1">My Interests</label>
+                    <div class="flex items-center gap-2">
+                         <input type="text" id="interest-input" placeholder="e.g., AI/ML" class="w-full border border-border rounded-md bg-background px-4 py-2.5 focus:ring-2 focus:ring-primary focus:outline-none">
+                         <button type="button" id="add-interest-btn" class="px-4 py-2.5 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground rounded-lg font-bold text-sm transition-colors">Add</button>
+                    </div>
+                    <div id="interests-container" class="mt-3 flex flex-wrap gap-2">
+                        <!-- Interest tags will be added here by JavaScript -->
+                    </div>
+                    <input type="hidden" name="interests" id="interests-hidden-input">
+                </div>
+
                  <button type="submit" class="w-full px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors shadow-soft">
                     Save Changes
                 </button>
@@ -193,10 +211,10 @@
       document.addEventListener("DOMContentLoaded", () => {
         lucide.createIcons();
         
+        // --- Image Preview Logic ---
         const imageUpload = document.getElementById('image-upload');
         const imagePreview = document.getElementById('profile-image-preview');
         const initialsPreview = document.getElementById('profile-initials-preview');
-
         imageUpload.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
@@ -205,7 +223,6 @@
                     if(imagePreview) {
                        imagePreview.src = e.target.result;
                     } else {
-                        // If there was no image before, create an img element
                         const newImg = document.createElement('img');
                         newImg.src = e.target.result;
                         newImg.alt = "Profile Photo";
@@ -216,7 +233,73 @@
                 reader.readAsDataURL(file);
             }
         });
+
+        // --- Interactive Interests Logic ---
+        const interestInput = document.getElementById('interest-input');
+        const addInterestBtn = document.getElementById('add-interest-btn');
+        const interestsContainer = document.getElementById('interests-container');
+        const hiddenInterestsInput = document.getElementById('interests-hidden-input');
+
+        // Function to update the hidden input value
+        const updateHiddenInput = () => {
+            const tags = interestsContainer.querySelectorAll('.interest-tag-text');
+            const interests = Array.from(tags).map(tag => tag.textContent);
+            hiddenInterestsInput.value = interests.join(',');
+        };
+
+        // Function to create a new interest tag
+        const createTag = (interest) => {
+            const tag = document.createElement('div');
+            tag.className = 'flex items-center bg-secondary text-primary-foreground text-sm font-semibold px-3 py-1 rounded-full';
+            
+            const tagText = document.createElement('span');
+            tagText.className = 'interest-tag-text';
+            tagText.textContent = interest;
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.className = 'ml-2 text-primary-foreground/70 hover:text-primary-foreground';
+            removeBtn.innerHTML = '<i data-lucide="x" class="w-4 h-4"></i>';
+
+            removeBtn.onclick = () => {
+                tag.remove();
+                updateHiddenInput();
+            };
+            
+            tag.appendChild(tagText);
+            tag.appendChild(removeBtn);
+            interestsContainer.appendChild(tag);
+            lucide.createIcons(); // Re-render icons after adding new one
+        };
+
+        // Add an interest
+        const addInterest = () => {
+            const interest = interestInput.value.trim();
+            if (interest) {
+                createTag(interest);
+                updateHiddenInput();
+                interestInput.value = '';
+            }
+        };
+
+        addInterestBtn.addEventListener('click', addInterest);
+        interestInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addInterest();
+            }
+        });
+
+        // Load existing interests on page load
+        const existingInterests = "<%= user.interests ? user.interests.join(',') : '' %>";
+        if (existingInterests) {
+            existingInterests.split(',').forEach(interest => {
+                if(interest) createTag(interest);
+            });
+            updateHiddenInput();
+        }
       });
     </script>
   </body>
 </html>
+

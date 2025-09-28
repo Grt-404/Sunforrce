@@ -78,106 +78,129 @@
             fill: #ef4444; /* red-500 */
             color: #ef4444;
         }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: var(--tw-color-primary);
+            border-bottom-color: var(--tw-color-primary);
+        }
     </style>
 </head>
 <body class="bg-background font-sans antialiased text-foreground">
     <canvas id="particle-canvas"></canvas>
 
     <header class="fixed top-0 inset-x-0 z-40 glass-header">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="relative flex h-16 items-center justify-center">
-                 <div class="absolute left-0">
-                     <a href="/student/dashboard" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors font-semibold">
-                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                        Back to Dashboard
-                    </a>
-                </div>
-                <div class="flex items-center">
-                    <a href="/" class="text-3xl font-serif font-bold text-primary">SAMPARK</a>
-                </div>
-            </div>
+      <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <a href="/" class="text-3xl font-serif font-bold text-primary">SAMPARK</a>
+          <a
+            href="/logout"
+            class="px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold shadow-soft flex items-center gap-2"
+          >
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+            Logout
+          </a>
         </div>
+      </div>
     </header>
 
-    <main class="pt-24 pb-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Main Feed -->
-            <div class="lg:col-span-2 space-y-6">
-                 <div class="text-center lg:text-left animate-fade-in-up">
-                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-foreground">Alumni Feed</h1>
-                    <p class="text-gray-500 mt-2">Insights, opportunities, and stories from the SAMPARK network.</p>
-                </div>
+    <main class="pt-16">
+        <nav class="bg-card border-b border-border px-4 py-2 sticky top-16 z-30">
+            <div class="max-w-screen-xl mx-auto flex justify-center items-center">
+              <div class="flex gap-4 overflow-x-auto">
+                 <a href="/student/dashboard" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+                <a href="/student/connections" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="users"></i>Connections</a>
+                <a href="/student/posts" class="nav-link active flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="newspaper"></i>Posts</a>
+                <a href="/student/referrals" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="handshake"></i>Ask for Referral</a>
+                <a href="/student/map" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="map"></i>Alumni Map</a>
+                <a href="/student/events" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="calendar"></i>Events</a>
+                <a href="/student/profile" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="user-circle"></i>My Profile</a>
+              </div>
+            </div>
+        </nav>
 
-                <% if (posts && posts.length) { %>
-                    <% posts.forEach((post, index) => { %>
-                        <div class="bg-card p-6 rounded-xl shadow-soft card-hover animate-fade-in-up" style="animation-delay: <%= (index + 1) * 100 %>ms">
-                            <!-- Author Info -->
-                            <div class="flex items-center space-x-4 mb-4">
-                                <% if (post.author && post.author.image) { %>
-                                    <img src="data:image/jpeg;base64,<%= post.author.image.toString('base64') %>" alt="Author profile picture" class="w-14 h-14 rounded-full object-cover ring-2 ring-primary/20" />
-                                <% } else { %>
-                                    <div class="w-14 h-14 rounded-full bg-secondary text-primary-foreground flex items-center justify-center font-bold text-2xl">
-                                        <%= post.author && post.author.name ? post.author.name.charAt(0).toUpperCase() : 'A' %>
+        <div class="pt-8 pb-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Feed -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="text-center lg:text-left animate-fade-in-up">
+                        <h1 class="text-4xl md:text-5xl font-serif font-bold text-foreground">Alumni Feed</h1>
+                        <p class="text-gray-500 mt-2">Insights, opportunities, and stories from the SAMPARK network.</p>
+                    </div>
+
+                    <% if (posts && posts.length) { %>
+                        <% posts.forEach((post, index) => { %>
+                            <div class="bg-card p-6 rounded-xl shadow-soft card-hover animate-fade-in-up" style="animation-delay: <%= (index + 1) * 100 %>ms">
+                                <!-- Author Info -->
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <% if (post.author && post.author.image) { %>
+                                        <img src="data:image/jpeg;base64,<%= post.author.image.toString('base64') %>" alt="Author profile picture" class="w-14 h-14 rounded-full object-cover ring-2 ring-primary/20" />
+                                    <% } else { %>
+                                        <div class="w-14 h-14 rounded-full bg-secondary text-primary-foreground flex items-center justify-center font-bold text-2xl">
+                                            <%= post.author && post.author.name ? post.author.name.charAt(0).toUpperCase() : 'A' %>
+                                        </div>
+                                    <% } %>
+                                    <div>
+                                        <p class="font-bold text-lg text-foreground"><%= post.author ? post.author.name : 'Unknown' %></p>
+                                        <p class="text-sm text-gray-500"><%= new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %></p>
+                                    </div>
+                                </div>
+
+                                <!-- Post Content -->
+                                <p class="text-gray-800 leading-relaxed whitespace-pre-wrap"><%= post.content %></p>
+
+                                <!-- Post Image -->
+                                <% if (post.image) { %>
+                                    <div class="mt-5 rounded-lg overflow-hidden border border-border">
+                                        <img src="data:image/jpeg;base64,<%= post.image.toString('base64') %>" alt="Post image" class="w-full h-auto max-h-[500px] object-contain"/>
                                     </div>
                                 <% } %>
-                                <div>
-                                    <p class="font-bold text-lg text-foreground"><%= post.author ? post.author.name : 'Unknown' %></p>
-                                    <p class="text-sm text-gray-500"><%= new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %></p>
+
+                                <!-- Actions -->
+                                <div class="mt-5 pt-4 border-t border-border flex items-center space-x-6 text-sm">
+                                    <% const hasLiked = post.likes.includes(user._id.toString()); %>
+                                    <button class="like-btn flex items-center gap-2 text-gray-500 hover:text-red-500 transition-colors <%= hasLiked ? 'liked' : '' %>" data-id="<%= post._id %>">
+                                        <i data-lucide="heart" class="w-5 h-5"></i>
+                                        <span class="font-medium"><span class="like-count"><%= post.likes.length %></span> Likes</span>
+                                    </button>
                                 </div>
                             </div>
-
-                            <!-- Post Content -->
-                            <p class="text-gray-800 leading-relaxed whitespace-pre-wrap"><%= post.content %></p>
-
-                            <!-- Post Image -->
-                            <% if (post.image) { %>
-                                <div class="mt-5 rounded-lg overflow-hidden border border-border">
-                                    <img src="data:image/jpeg;base64,<%= post.image.toString('base64') %>" alt="Post image" class="w-full h-auto max-h-[500px] object-contain"/>
-                                </div>
-                            <% } %>
-
-                            <!-- Actions -->
-                            <div class="mt-5 pt-4 border-t border-border flex items-center space-x-6 text-sm">
-                                <% const hasLiked = post.likes.includes(user._id.toString()); %>
-                                <button class="like-btn flex items-center gap-2 text-gray-500 hover:text-red-500 transition-colors <%= hasLiked ? 'liked' : '' %>" data-id="<%= post._id %>">
-                                    <i data-lucide="heart" class="w-5 h-5"></i>
-                                    <span class="font-medium"><span class="like-count"><%= post.likes.length %></span> Likes</span>
-                                </button>
-                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <div class="bg-card p-8 rounded-xl shadow-soft text-center text-gray-500 animate-fade-in-up">
+                            <p>No alumni posts found. The feed is quiet for now.</p>
                         </div>
-                    <% }) %>
-                <% } else { %>
-                    <div class="bg-card p-8 rounded-xl shadow-soft text-center text-gray-500 animate-fade-in-up">
-                        <p>No alumni posts found. The feed is quiet for now.</p>
+                    <% } %>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="lg:sticky lg:top-24 self-start space-y-6">
+                    <div class="bg-card rounded-xl shadow-soft p-6 animate-fade-in-up" style="animation-delay: 200ms;">
+                        <h3 class="text-xl font-serif text-foreground mb-4">Trending Topics</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-primary/10 text-primary text-sm font-semibold px-3 py-1 rounded-full">#FinTech</span>
+                            <span class="bg-primary/10 text-primary text-sm font-semibold px-3 py-1 rounded-full">#AI</span>
+                            <span class="bg-primary/10 text-primary text-sm font-semibold px-3 py-1 rounded-full">#CareerGrowth</span>
+                            <span class="bg-primary/10 text-primary text-sm font-semibold px-3 py-1 rounded-full">#Networking</span>
+                        </div>
                     </div>
-                <% } %>
+                     <div class="bg-card rounded-xl shadow-soft p-6 animate-fade-in-up" style="animation-delay: 300ms;">
+                        <h3 class="text-xl font-serif text-foreground mb-4">Engagement Analytics</h3>
+                         <div class="space-y-4">
+                             <div>
+                                 <div class="flex justify-between text-sm mb-1"><span class="font-semibold">Likes this week</span><span>1,204</span></div>
+                                 <div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-secondary h-2 rounded-full" style="width: 75%"></div></div>
+                             </div>
+                             <div>
+                                 <div class="flex justify-between text-sm mb-1"><span class="font-semibold">Connections Made</span><span>89</span></div>
+                                 <div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-secondary h-2 rounded-full" style="width: 50%"></div></div>
+                             </div>
+                         </div>
+                    </div>
+                </aside>
             </div>
-
-            <!-- Sidebar -->
-            <aside class="lg:sticky lg:top-24 self-start space-y-6">
-                <div class="bg-card rounded-xl shadow-soft p-6 animate-fade-in-up" style="animation-delay: 200ms;">
-                    <h3 class="text-xl font-serif text-foreground mb-4">Trending Topics</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-primary/10 text-primary text-sm font-semibold px-3 py-1 rounded-full">#FinTech</span>
-                        <span class="bg-primary/10 text-primary text-sm font-semibold px-3 py-1 rounded-full">#AI</span>
-                        <span class="bg-primary/10 text-primary text-sm font-semibold px-3 py-1 rounded-full">#CareerGrowth</span>
-                        <span class="bg-primary/10 text-primary text-sm font-semibold px-3 py-1 rounded-full">#Networking</span>
-                    </div>
-                </div>
-                 <div class="bg-card rounded-xl shadow-soft p-6 animate-fade-in-up" style="animation-delay: 300ms;">
-                    <h3 class="text-xl font-serif text-foreground mb-4">Engagement Analytics</h3>
-                     <div class="space-y-4">
-                        <div>
-                            <div class="flex justify-between text-sm mb-1"><span class="font-semibold">Likes this week</span><span>1,204</span></div>
-                            <div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-secondary h-2 rounded-full" style="width: 75%"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1"><span class="font-semibold">Connections Made</span><span>89</span></div>
-                            <div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-secondary h-2 rounded-full" style="width: 50%"></div></div>
-                        </div>
-                     </div>
-                </div>
-            </aside>
         </div>
     </main>
 
@@ -185,7 +208,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
 
-            // Staggered fade-in animation observer
             const animatedElements = document.querySelectorAll('.animate-fade-in-up');
             const animationObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -205,7 +227,6 @@
                 animationObserver.observe(el);
             });
 
-            // Like button handler
             document.querySelectorAll(".like-btn").forEach((button) => {
                 button.addEventListener("click", async () => {
                     const postId = button.getAttribute("data-id");
@@ -225,7 +246,6 @@
                 });
             });
 
-            // Particle Animation Script
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;

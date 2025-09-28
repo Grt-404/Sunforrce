@@ -36,7 +36,16 @@ const studentSchema = new Schema({
     connections: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "alumni" // Correctly referencing the 'alumni' model
-    }]
+    }],
+
+    branch: {
+        type: String,
+        default: ''
+    },
+    interests: {
+        type: [String], // Defines an array of strings
+        default: []
+    },
 });
 
 module.exports = mongoose.model("student", studentSchema);

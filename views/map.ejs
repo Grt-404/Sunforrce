@@ -140,16 +140,23 @@
         <!-- Right Column: Alumni List -->
         <div class="lg:col-span-1 bg-card/50 border-l border-border h-[calc(100vh-128px)] overflow-y-auto p-4">
             <h2 class="text-2xl font-serif font-bold text-foreground mb-4">Alumni Directory</h2>
-            <div class="space-y-3">
+            
+            <!-- NEW: Alumni Filter -->
+            <div class="relative mb-4">
+                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"></i>
+                <input type="text" id="alumni-search-input" placeholder="Search by name or title..." class="w-full pl-10 pr-4 py-2.5 border border-border rounded-md bg-background focus:ring-2 focus:ring-primary focus:outline-none">
+            </div>
+
+            <div id="alumni-list-container" class="space-y-3">
                 <% if (alumniList && alumniList.length > 0) { %>
                     <% alumniList.forEach(alumnus => { %>
-                        <div class="bg-card rounded-xl shadow-soft p-4 flex items-center gap-4 border border-transparent card-hover">
+                        <div class="alumni-list-item bg-card rounded-xl shadow-soft p-4 flex items-center gap-4 border border-transparent card-hover">
                             <img src="<%= alumnus.image ? 'data:image/jpeg;base64,' + alumnus.image.toString('base64') : 'https://placehold.co/64x64/b99553/ffffff?text=' + (alumnus.name ? alumnus.name.charAt(0) : 'A') %>" alt="Alumni Photo" class="h-14 w-14 rounded-full object-cover"/>
                             <div class="flex-grow">
                                 <h4 class="font-serif font-bold text-card-foreground"><%= alumnus.name %></h4>
                                 <p class="text-sm text-gray-600"><%= alumnus.designation %></p>
                             </div>
-                            <button class="flex-shrink-0 px-3 py-1.5 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground rounded-lg font-semibold text-xs transition-colors">
+                            <button data-alumni-id="<%= alumnus._id %>" class="connect-btn flex-shrink-0 px-3 py-1.5 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground rounded-lg font-semibold text-xs transition-colors">
                                 Connect
                             </button>
                         </div>
@@ -167,8 +174,6 @@
         lucide.createIcons();
 
         // --- Leaflet Map Initialization ---
-
-        // This is sample data. In a real application, you would pass this from your router.
         const alumniLocations = [
             { lat: 12.9716, lng: 77.5946, name: 'Priya Sharma', title: 'AI Engineer, Google' },
             { lat: 18.5204, lng: 73.8567, name: 'Rohan Mehta', title: 'Data Scientist, Microsoft' },
@@ -177,20 +182,64 @@
             { lat: 23.0225, lng: 72.5714, name: 'Vikram Patel', title: 'Product Manager, TCS' }
         ];
 
-        // Initialize the map and set its view to a default location (e.g., India)
         const map = L.map('map').setView([20.5937, 78.9629], 5);
-
-        // Add a tile layer to the map (this is the map's background)
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Add markers for each alumnus
         alumniLocations.forEach(alumnus => {
             const marker = L.marker([alumnus.lat, alumnus.lng]).addTo(map);
             marker.bindPopup(`<b>${alumnus.name}</b><br>${alumnus.title}`);
         });
+
+        // --- Connect Button Logic ---
+        const connectButtons = document.querySelectorAll(".connect-btn");
+        connectButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                const alumniId = this.dataset.alumniId;
+                this.disabled = true;
+                this.textContent = "Sending...";
+                fetch(`/student/connect/${alumniId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        this.textContent = "Request Sent";
+                        this.classList.remove('bg-primary/10', 'text-primary');
+                        this.classList.add('bg-gray-200', 'text-gray-500', 'cursor-not-allowed');
+                    } else {
+                        this.textContent = "Failed";
+                        this.disabled = false;
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                    this.textContent = "Error";
+                    this.disabled = false;
+                });
+            });
+        });
+
+        // --- NEW: Alumni List Filter Logic ---
+        const searchInput = document.getElementById('alumni-search-input');
+        const alumniCards = document.querySelectorAll('.alumni-list-item');
+
+        searchInput.addEventListener('keyup', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            alumniCards.forEach(card => {
+                const cardText = card.textContent.toLowerCase();
+                if (cardText.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
       });
     </script>
   </body>
 </html>
+
