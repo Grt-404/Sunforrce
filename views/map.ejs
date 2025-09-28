@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Connections — SAMPARK</title>
+    <title>Alumni Map — SAMPARK</title>
     <meta
       name="description"
       content="SAMPARK is a world-class alumni nexus for elite networking, career acceleration, and community impact."
@@ -24,6 +24,10 @@
     <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Leaflet Map Library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script>
       tailwind.config = {
@@ -48,29 +52,22 @@
               lift: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)",
               glow: "0 0 20px rgba(161, 98, 7, 0.15)",
             },
+            animation: {
+              backgroundShift: "backgroundShift 25s ease infinite",
+            },
             keyframes: {
-              "fade-in-up": {
-                "0%": { opacity: 0, transform: "translateY(20px)" },
-                "100%": { opacity: 1, transform: "translateY(0)" },
-              },
-              backgroundShift: {
+                 backgroundShift: {
                 "0%, 100%": { backgroundPosition: "0% 50%" },
                 "50%": { backgroundPosition: "100% 50%" },
               },
-            },
-            animation: {
-              "fade-in-up": "fade-in-up 0.8s ease-out forwards",
-              backgroundShift: "backgroundShift 25s ease infinite",
-            },
+            }
           },
         },
       };
     </script>
 
     <style>
-      html {
-        scroll-behavior: smooth;
-      }
+      html { scroll-behavior: smooth; }
       body {
         background: linear-gradient(-45deg, #f8f5f2, #fffefc, #fef8f0, #f8f5f2);
         background-size: 400% 400%;
@@ -82,9 +79,6 @@
         -webkit-backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--tw-color-border);
       }
-      #particle-canvas {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6;
-      }
       .nav-link {
         transition: all 0.2s ease-in-out;
         border-bottom: 2px solid transparent;
@@ -94,18 +88,19 @@
         color: var(--tw-color-primary);
         border-bottom-color: var(--tw-color-primary);
       }
-      .card-hover {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+       .card-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
       }
       .card-hover:hover {
         transform: translateY(-5px);
         box-shadow: var(--tw-shadow-lift), var(--tw-shadow-glow);
+        border-color: var(--tw-color-primary);
       }
+       /* Ensure map container has a height */
+      #map { height: calc(100vh - 128px); } /* Full viewport height minus header and nav */
     </style>
   </head>
   <body class="bg-background font-sans antialiased text-foreground">
-    <canvas id="particle-canvas"></canvas>
-
     <header class="fixed top-0 inset-x-0 z-40 glass-header">
       <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
@@ -126,54 +121,43 @@
         <div class="max-w-screen-xl mx-auto flex justify-center items-center">
           <div class="flex gap-4 overflow-x-auto">
              <a href="/student/dashboard" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="layout-dashboard"></i>Dashboard</a>
-            <a href="/student/connections" class="nav-link active flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="users"></i>Connections</a>
+            <a href="/student/connections" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="users"></i>Connections</a>
             <a href="/student/posts" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="newspaper"></i>Posts</a>
             <a href="/student/referrals" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="handshake"></i>Ask for Referral</a>
-            <a href="/student/map" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="map"></i>Alumni Map</a>
+            <a href="/student/map" class="nav-link active flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="map"></i>Alumni Map</a>
             <a href="/student/events" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="calendar"></i>Events</a>
             <a href="/student/profile" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="user-circle"></i>My Profile</a>
           </div>
         </div>
       </nav>
 
-      <div class="max-w-5xl mx-auto p-6 md:p-8">
-        <div class="mb-8">
-            <h2 class="text-3xl font-serif font-bold text-foreground">My Connections</h2>
-            <p class="text-gray-500 mt-1">Manage and interact with your professional network.</p>
+      <div class="grid grid-cols-1 lg:grid-cols-3">
+        <!-- Left Column: Map -->
+        <div class="lg:col-span-2">
+            <div id="map" class="w-full z-10"></div>
         </div>
-        
-        <div class="space-y-4">
-          <% if (connections && connections.length > 0) { %>
-            <% connections.forEach(alumnus => { %>
-              <div class="bg-card rounded-xl shadow-soft p-5 flex items-center justify-between card-hover">
-                <div class="flex items-center gap-4">
-                  <div class="w-16 h-16 bg-secondary rounded-full flex-shrink-0 flex items-center justify-center text-2xl font-bold text-primary-foreground">
-                    <%= alumnus.name ? alumnus.name.charAt(0).toUpperCase() : 'A' %>
-                  </div>
-                  <div>
-                    <h3 class="text-lg font-serif font-bold text-card-foreground"><%= alumnus.name %></h3>
-                    <p class="text-sm text-gray-600"><%= alumnus.designation %> at <%= alumnus.currentCompany %></p>
-                    <p class="text-xs text-gray-500 mt-1"><%= alumnus.branch %> | Class of <%= alumnus.graduationYear %></p>
-                  </div>
-                </div>
-                <div class="flex items-center gap-3">
-                    <a href="/student/chat/<%= alumnus._id %>" class="px-4 py-2 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground rounded-lg font-semibold text-sm transition-colors">
-                      Message
-                    </a>
-                    <a href="#" class="px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg text-sm font-semibold transition-colors">
-                        View Profile
-                    </a>
-                </div>
-              </div>
-            <% }); %>
-          <% } else { %>
-            <div class="text-center py-12 bg-card rounded-lg shadow-soft">
-                <p class="text-gray-600">You haven't made any connections yet.</p>
-                <a href="/student/dashboard" class="mt-4 inline-block px-6 py-2 bg-primary text-primary-foreground rounded-lg font-semibold shadow-soft hover:bg-primary/90 transition-colors">
-                    Find Alumni
-                </a>
+
+        <!-- Right Column: Alumni List -->
+        <div class="lg:col-span-1 bg-card/50 border-l border-border h-[calc(100vh-128px)] overflow-y-auto p-4">
+            <h2 class="text-2xl font-serif font-bold text-foreground mb-4">Alumni Directory</h2>
+            <div class="space-y-3">
+                <% if (alumniList && alumniList.length > 0) { %>
+                    <% alumniList.forEach(alumnus => { %>
+                        <div class="bg-card rounded-xl shadow-soft p-4 flex items-center gap-4 border border-transparent card-hover">
+                            <img src="<%= alumnus.image ? 'data:image/jpeg;base64,' + alumnus.image.toString('base64') : 'https://placehold.co/64x64/b99553/ffffff?text=' + (alumnus.name ? alumnus.name.charAt(0) : 'A') %>" alt="Alumni Photo" class="h-14 w-14 rounded-full object-cover"/>
+                            <div class="flex-grow">
+                                <h4 class="font-serif font-bold text-card-foreground"><%= alumnus.name %></h4>
+                                <p class="text-sm text-gray-600"><%= alumnus.designation %></p>
+                            </div>
+                            <button class="flex-shrink-0 px-3 py-1.5 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground rounded-lg font-semibold text-xs transition-colors">
+                                Connect
+                            </button>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p class="text-center text-gray-500 pt-10">No alumni found.</p>
+                <% } %>
             </div>
-          <% } %>
         </div>
       </div>
     </main>
@@ -181,19 +165,31 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         lucide.createIcons();
-        
-        // Particle animation logic
-        const canvas = document.getElementById("particle-canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        let particles = [];
-        const particleColor = "rgba(161, 98, 7, 0.4)";
-        class Particle { constructor(x, y) { this.x = x; this.y = y; this.size = Math.random() * 1.5 + 1; this.speedX = Math.random() * 0.3 - 0.15; this.speedY = Math.random() * 0.3 - 0.15; } update() { this.x += this.speedX; this.y += this.speedY; if (this.size > 0.1) this.size -= 0.005; } draw() { ctx.fillStyle = particleColor; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } }
-        function initParticles() { for (let i = 0; i < 50; i++) { particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height)); } }
-        function animateParticles() { if (!canvas) return; ctx.clearRect(0, 0, canvas.width, canvas.height); for (let i = 0; i < particles.length; i++) { particles[i].update(); particles[i].draw(); if (particles[i].size <= 0.1) { particles.splice(i, 1); i--; particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height)); } } requestAnimationFrame(animateParticles); }
-        initParticles(); animateParticles();
-        window.addEventListener("resize", () => { if (canvas) { canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles = []; initParticles(); } });
+
+        // --- Leaflet Map Initialization ---
+
+        // This is sample data. In a real application, you would pass this from your router.
+        const alumniLocations = [
+            { lat: 12.9716, lng: 77.5946, name: 'Priya Sharma', title: 'AI Engineer, Google' },
+            { lat: 18.5204, lng: 73.8567, name: 'Rohan Mehta', title: 'Data Scientist, Microsoft' },
+            { lat: 28.6139, lng: 77.2090, name: 'Anjali Verma', title: 'Full Stack Developer, Amazon' },
+            { lat: 19.0760, lng: 72.8777, name: 'Aditi Singh', title: 'Systems Engineer, Infosys' },
+            { lat: 23.0225, lng: 72.5714, name: 'Vikram Patel', title: 'Product Manager, TCS' }
+        ];
+
+        // Initialize the map and set its view to a default location (e.g., India)
+        const map = L.map('map').setView([20.5937, 78.9629], 5);
+
+        // Add a tile layer to the map (this is the map's background)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add markers for each alumnus
+        alumniLocations.forEach(alumnus => {
+            const marker = L.marker([alumnus.lat, alumnus.lng]).addTo(map);
+            marker.bindPopup(`<b>${alumnus.name}</b><br>${alumnus.title}`);
+        });
       });
     </script>
   </body>

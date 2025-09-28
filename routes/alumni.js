@@ -147,8 +147,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: "aashutoshsharma2905@gmail.com",
-    pass: "lgdbmlqvqwuotory",
+    user: process.env.EMAIL ,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -341,6 +341,77 @@ router.post("/eventrequests/create-event/:id", async (req, res) => {
     console.error(err);
     res.status(500).send("Server Error");
   }
+});
+
+router.get('/network', isLoggedIn, async (req, res) => {
+    try {
+        const { search, branch, graduationYear, location } = req.query;
+
+        // Base query to only fetch verified alumni
+        const filterQuery = { status: 'Verified' };
+
+        // Add filters to the query if they exist
+        if (search) {
+            const searchRegex = new RegExp(search, 'i'); // Case-insensitive regex
+            filterQuery.$or = [
+                { name: searchRegex },
+                { currentCompany: searchRegex },
+                { designation: searchRegex }
+            ];
+        }
+        if (branch) {
+            filterQuery.branch = branch;
+        }
+        if (graduationYear) {
+            filterQuery.graduationYear = parseInt(graduationYear);
+        }
+        if (location) {
+            filterQuery.location = new RegExp(location, 'i');
+        }
+
+        const alumniList = await Alumni.find(filterQuery);
+
+        res.render('network', {
+            user: req.user, // The logged-in alumni
+            alumniList: alumniList, // The filtered list of alumni to display
+            query: req.query // Pass the query parameters to pre-fill the form
+        });
+
+    } catch (error) {
+        console.error("Error fetching alumni network:", error);
+        res.status(500).send("Server Error");
+    }
+});
+
+
+router.get('/jobs', isLoggedIn, async (req, res) => {
+    try {
+        // In a real app, you would fetch from a 'Job' collection
+        // const jobs = await Job.find({ status: 'active' });
+
+        // For now, using sample data
+        const sampleJobs = [
+            { _id: '1', title: 'Senior Frontend Engineer', company: 'Google', location: 'Bengaluru', type: 'Full-time', postedAgo: '3d ago' },
+            { _id: '2', title: 'Product Management Intern', company: 'Microsoft', location: 'Remote', type: 'Internship', postedAgo: '1w ago' },
+            { _id: '3', title: 'Lead Data Scientist', company: 'Amazon', location: 'Hyderabad', type: 'Full-time', postedAgo: '1w ago' },
+            { _id: '4', title: 'UX/UI Designer', company: 'Swiggy', location: 'Remote', type: 'Contract', postedAgo: '2w ago' },
+            { _id: '5', title: 'DevOps Engineer', company: 'Oracle', location: 'Pune', type: 'Full-time', postedAgo: '3w ago' },
+        ];
+        
+        res.render('jobs', {
+            user: req.user,
+            jobList: sampleJobs, // Pass sample data to the template
+            query: req.query
+        });
+    } catch (error) {
+        console.error("Error fetching jobs page:", error);
+        res.status(500).send("Server Error");
+    }
+});
+
+// Placeholder for the "Post New Job" page
+router.get('/jobs/new', isLoggedIn, (req, res) => {
+    res.send("Page to create a new job posting will go here.");
 });
 
 module.exports = router;

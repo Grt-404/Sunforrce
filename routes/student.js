@@ -8,6 +8,8 @@ const EventRequest = require("../models/eventRequest-model");
 const Student = require("../models/student-model");
 const Alumni = require("../models/alumni-model");
 const Event = require("../models/event-model");
+const multer = require("multer");
+const upload = multer();
 
 // routes/student.js
 
@@ -227,6 +229,87 @@ router.get("/posts", isLoggedIn, async (req, res) => {
     console.error("❌ Error loading dashboard:", err);
     res.status(500).send("Server Error");
   }
+});
+
+router.get("/referrals" , isLoggedIn , async (req,res)=>{
+  const student = await Student.findById(req.user._id)
+      .populate('connections');
+
+  res.render("studentRef" , {
+      user: req.user,
+      connections: student.connections
+    })
+})
+
+router.get("/map" ,isLoggedIn, async(req,res)=>{
+  const alumniList = await Alumni.find();
+  res.render("map", {
+      alumniList, 
+    });
+});
+
+router.get('/profile', isLoggedIn, async (req, res) => {
+    try {
+        // 1. Fetch the logged-in student's data.
+        // 2. Populate the 'connections' field to get details of connected alumni.
+        const student = await Student.findById(req.user._id)
+            .populate({
+                path: 'connections',
+                select: 'name designation currentCompany image' // Specify which alumni fields to fetch
+            });
+        
+        // 3. Find all event requests created by this student.
+        const eventRequests = await EventRequest.find({ requestedBy: req.user._id })
+            .sort({ createdAt: -1 }); // Show the most recent requests first
+
+        if (!student) {
+            // Safety check: if user is logged in but not found in DB, redirect to login.
+            req.flash('error', 'Could not find your profile. Please log in again.');
+            return res.redirect('/student/login');
+        }
+
+        // 4. Render the profile page with all the necessary data.
+        res.render('studentProfile', {
+            user: student,
+            connections: student.connections,
+            eventRequests: eventRequests
+        });
+    } catch (error) {
+        console.error("Error loading profile page:", error);
+        req.flash('error', 'An error occurred while loading your profile.');
+        res.redirect('/student/dashboard');
+    }
+});
+
+// POST route to update the profile information
+router.post('/profile', isLoggedIn, upload.single('image'), async (req, res) => {
+    try {
+        const student = await Student.findById(req.user._id);
+
+        if (!student) {
+            req.flash('error', 'Could not find your profile to update.');
+            return res.redirect('/student/login');
+        }
+
+        // Update text fields from the form body
+        student.fullname = req.body.fullname || student.fullname;
+        student.contact = req.body.contact || student.contact;
+
+        // If a file was uploaded, update the image field with the file's buffer
+        if (req.file) {
+            student.image = req.file.buffer;
+        }
+
+        // Save the updated student document to the database
+        await student.save();
+
+        req.flash('success', 'Profile updated successfully!');
+        res.redirect('/student/profile'); // Redirect back to the profile page
+    } catch (err) {
+        console.error("Error updating profile:", err);
+        req.flash('error', 'An error occurred while updating your profile.');
+        res.redirect('/student/profile');
+    }
 });
 
 module.exports = router;
