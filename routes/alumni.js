@@ -220,22 +220,32 @@ router.get("/event", (req, res) => {
   res.render("event");
 });
 
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 async function sendEmails(title, description, link) {
   try {
     const studentList = await Student.find({}, "email fullname");
-    console.log(`Preparing to send emails to ${studentList.length} students.`);
+    const BATCH_SIZE = 10; // send 10 emails at a time
 
-    // Process students one by one using a for...of loop to send emails sequentially.
-    for (const student of studentList) {
-      try {
-        await transporter.sendMail({
-          from: '"Ashutosh" <aashutoshsharma2905@gmail.com>',
-          to: student.email,
-          subject: title,
-          text: `Hello ${student.fullname},\n\nYour meeting has been scheduled.\n\nTitle:\n${title}\nDescription:\n${description}\nGoogle Meet Link:\n${link}\n\nThanks,\nAshutosh Sharma`,
-          html: `
+    for (let i = 0; i < studentList.length; i += BATCH_SIZE) {
+      const batch = studentList.slice(i, i + BATCH_SIZE);
+
+      // send this batch in parallel
+      await Promise.all(
+        batch.map((student) =>
+          transporter.sendMail({
+            from: '"Ashutosh" <aashutoshsharma2905@gmail.com>',
+            to: student.email,
+            subject: title,
+            text: `Hello ${student.fullname},
+
+Your meeting has been scheduled.
+
+Title:\n${title}
+Description:\n${description}
+Google Meet Link:\n${link}
+
+Thanks,
+Ashutosh Sharma`,
+            html: `
             <div style="font-family: Arial, sans-serif; line-height: 1.6;">
                 <h2>Meeting Scheduled</h2>
                 <p>Hello <b>${student.fullname}</b>,</p>
@@ -248,20 +258,15 @@ async function sendEmails(title, description, link) {
                 <p>Thanks,<br>Ashutosh Sharma</p>
             </div>
           `,
-        });
-        console.log(`Email sent successfully to ${student.email}`);
-      } catch (emailError) {
-        console.error(`Failed to send email to ${student.email}:`, emailError);
-        // This ensures that even if one email fails, the loop continues for other students.
-      }
-      
-      // Wait for 1 second before sending the next email to respect rate limits.
-      await delay(1000); 
-    }
-    console.log("Finished sending all emails.");
+          })
+        )
+      );
 
+      console.log(`Batch ${i / BATCH_SIZE + 1} sent`);
+      await new Promise((r) => setTimeout(r, 1000)); // wait 1 second between batches
+    }
   } catch (err) {
-    console.error("Error fetching student list for sending emails:", err);
+    console.error("Error sending meeting emails:", err);
     throw err;
   }
 }
