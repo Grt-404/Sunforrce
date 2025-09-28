@@ -48,7 +48,6 @@ module.exports.registerUser = async function (req, res) {
     try {
         const { email, fullname, password, role } = req.body;
 
-        // Decide which model to use
         let Model;
         if (role === "alumni") Model = alumniModel;
         else if (role === "college") Model = collegeModel;
@@ -58,35 +57,38 @@ module.exports.registerUser = async function (req, res) {
             return res.redirect("/");
         }
 
-        // Check if user already exists in that collection
         let existingUser = await Model.findOne({ email });
         if (existingUser) {
             req.flash("error", "You already have an account, please login");
             return res.redirect("/");
         }
 
-        // Hash password
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
 
-        // Create user
-        const createdUser = await Model.create({
+        // 👇 normalize field
+        const userData = {
             email,
-            fullname,
             password: hash,
             role
-        });
+        };
 
-        // Generate token
+        if (role === "alumni") {
+            userData.name = fullname;   // store in `name` field
+        } else {
+            userData.fullname = fullname; // store in `fullname` field
+        }
+
+        const createdUser = await Model.create(userData);
+
         const token = generateToken(createdUser);
         res.cookie("token", token);
 
-        // Redirect — you can customize per role
         return res.redirect(`/${role}/dashboard`);
-
     } catch (err) {
         console.error(err.message);
         req.flash("error", "Server Error");
         return res.redirect("/");
     }
 };
+

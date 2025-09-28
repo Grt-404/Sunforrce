@@ -132,7 +132,7 @@ router.get('/connections', isLoggedIn, async (req, res) => {
 router.get("/dashboard", isLoggedIn, async (req, res) => {
   try {
     const posts = await Post.find().populate("author");
-    const AlumniList = await Alumni.find();
+    const AlumniList = await Alumni.find().sort({ createdAt: -1 })
 
     const today = new Date();
 
@@ -246,16 +246,15 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 router.get("/map", isLoggedIn, async (req, res) => {
     try {
         // 1. Fetch all alumni with a location specified to display in the sidebar
-        const alumniWithLocation = await Alumni.find({ 
+        const alumniData = await Alumni.find({ 
             _id: { $ne: req.user._id },
-            location: { $ne: "", $exists: true } 
         });
         
         // 2. Render the view immediately without location data for the map.
         // The locations will be fetched via WebSocket after the page loads.
         res.render("map", {
             user: req.user,
-            alumniList: alumniWithLocation, 
+            alumniList: alumniData, 
         });
     } catch (err) {
         console.error("Error loading alumni map page:", err)

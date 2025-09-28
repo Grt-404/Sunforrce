@@ -1,6 +1,7 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 
-const MONGO_URL = 'mongodb://127.0.0.1:27017/SIH';
+const MONGO_URL = process.env.ATLASDB_URL;
 
 mongoose.connect(MONGO_URL, {
     useNewUrlParser: true,
@@ -10,6 +11,7 @@ mongoose.connect(MONGO_URL, {
 }).catch((err) => {
     console.log(err);
 });
+
 
 const Schema = mongoose.Schema;
 
