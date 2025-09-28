@@ -45,6 +45,11 @@ app.use("/college", collegeRouter);
 app.use('/', indexRouter);
 app.use('/post', postsRoutes);
 
+
+const initializeSocketHandlers = require('./utils/mapSocket'); 
+
+
+
 // ===================================================
 // --- 5. SERVER-SIDE SOCKET.IO LOGIC (JWT Corrected) ---
 // ===================================================
@@ -140,6 +145,10 @@ io.on('connection', (socket) => {
         }
     });
 });
+
+
+
+initializeSocketHandlers(io);
 // --- END OF SOCKET.IO LOGIC ---
 
 const PORT = process.env.PORT || 3000;

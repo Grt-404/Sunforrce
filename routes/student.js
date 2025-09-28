@@ -241,20 +241,24 @@ router.get("/referrals" , isLoggedIn , async (req,res)=>{
     })
 })
 
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 router.get("/map", isLoggedIn, async (req, res) => {
     try {
-        // Fetch all alumni from the database, excluding the currently logged-in student's
-        // own profile if they happen to also be in the alumni collection.
-        const alumniList = await Alumni.find({ _id: { $ne: req.user._id } });
+        // 1. Fetch all alumni with a location specified to display in the sidebar
+        const alumniWithLocation = await Alumni.find({ 
+            _id: { $ne: req.user._id },
+            location: { $ne: "", $exists: true } 
+        });
         
-        // Render the alumni-map.ejs view and pass the list of alumni to it
+        // 2. Render the view immediately without location data for the map.
+        // The locations will be fetched via WebSocket after the page loads.
         res.render("map", {
-            user: req.user, // Pass the logged-in user if needed
-            alumniList, 
+            user: req.user,
+            alumniList: alumniWithLocation, 
         });
     } catch (err) {
         console.error("Error loading alumni map page:", err)
-        // Redirect to a safe page in case of an error
         res.redirect('/student/dashboard');
     }
 });

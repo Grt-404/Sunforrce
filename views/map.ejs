@@ -141,7 +141,6 @@
         <div class="lg:col-span-1 bg-card/50 border-l border-border h-[calc(100vh-128px)] overflow-y-auto p-4">
             <h2 class="text-2xl font-serif font-bold text-foreground mb-4">Alumni Directory</h2>
             
-            <!-- NEW: Alumni Filter -->
             <div class="relative mb-4">
                 <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"></i>
                 <input type="text" id="alumni-search-input" placeholder="Search by name or title..." class="w-full pl-10 pr-4 py-2.5 border border-border rounded-md bg-background focus:ring-2 focus:ring-primary focus:outline-none">
@@ -169,29 +168,42 @@
       </div>
     </main>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         lucide.createIcons();
 
         // --- Leaflet Map Initialization ---
-        const alumniLocations = [
-            { lat: 12.9716, lng: 77.5946, name: 'Priya Sharma', title: 'AI Engineer, Google' },
-            { lat: 18.5204, lng: 73.8567, name: 'Rohan Mehta', title: 'Data Scientist, Microsoft' },
-            { lat: 28.6139, lng: 77.2090, name: 'Anjali Verma', title: 'Full Stack Developer, Amazon' },
-            { lat: 19.0760, lng: 72.8777, name: 'Aditi Singh', title: 'Systems Engineer, Infosys' },
-            { lat: 23.0225, lng: 72.5714, name: 'Vikram Patel', title: 'Product Manager, TCS' }
-        ];
-
-        const map = L.map('map').setView([20.5937, 78.9629], 5);
+        const map = L.map('map').setView([20.5937, 78.9629], 5); // Default view centered on India
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        alumniLocations.forEach(alumnus => {
-            const marker = L.marker([alumnus.lat, alumnus.lng]).addTo(map);
-            marker.bindPopup(`<b>${alumnus.name}</b><br>${alumnus.title}`);
+        // --- Socket.IO Logic for Dynamic Map Markers ---
+        const socket = io();
+
+        // 1. Tell the server we are ready to receive locations
+        socket.emit('getAlumniLocations');
+
+        // 2. Listen for incoming batches of locations
+        socket.on('alumniLocationBatch', (locations) => {
+            console.log('Received location batch:', locations);
+            locations.forEach(alumnus => {
+                if(alumnus.lat && alumnus.lng) {
+                    const marker = L.marker([alumnus.lat, alumnus.lng]).addTo(map);
+                    marker.bindPopup(`<b>${alumnus.name}</b><br>${alumnus.title}`);
+                }
+            });
         });
 
+        socket.on('locationsFinished', () => {
+            console.log('All alumni locations have been loaded.');
+        });
+        
+        socket.on('locationError', (error) => {
+            console.error('Server error fetching locations:', error.message);
+        });
+        
         // --- Connect Button Logic ---
         const connectButtons = document.querySelectorAll(".connect-btn");
         connectButtons.forEach(button => {
@@ -221,7 +233,7 @@
             });
         });
 
-        // --- NEW: Alumni List Filter Logic ---
+        // --- Alumni List Filter Logic ---
         const searchInput = document.getElementById('alumni-search-input');
         const alumniCards = document.querySelectorAll('.alumni-list-item');
 
@@ -237,7 +249,6 @@
                 }
             });
         });
-
       });
     </script>
   </body>
