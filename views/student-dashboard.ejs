@@ -139,7 +139,7 @@
               ><i data-lucide="message-square"></i>Messages</a
             >
             <a
-              href="/student/dashboard"
+              href="/student/connections"
               class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"
               ><i data-lucide="users"></i>Connections</a
             >
@@ -246,12 +246,12 @@
                     <%= alumni.designation%>, <%= alumni.currentCompany %>
                   </p>
                 </div>
-                <a
-                  href="/student/dashboard/<%= alumni._id %>"
-                  class="flex-shrink-0 px-4 py-2 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-lg font-bold text-sm transition-all duration-300 transform hover:scale-105"
-                >
-                  Connect
-                </a>
+                <button
+    data-alumni-id="<%= alumni._id %>"
+    class="connect-btn flex-shrink-0 px-4 py-2 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-lg font-bold text-sm transition-all duration-300 transform hover:scale-105"
+>
+    Connect
+</button>
               </div>
               <% }) %>
             </div>
@@ -323,6 +323,44 @@
     </main>
 
     <script>
+    // Add this inside your document.addEventListener("DOMContentLoaded", () => { ... });
+
+const connectButtons = document.querySelectorAll(".connect-btn");
+
+connectButtons.forEach(button => {
+    button.addEventListener("click", function() {
+        const alumniId = this.dataset.alumniId;
+        
+        // Disable button to prevent multiple clicks
+        this.disabled = true;
+        this.textContent = "Sending...";
+
+        fetch(`/student/connect/${alumniId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                // Success!
+                this.textContent = "Request Sent";
+                this.classList.remove('bg-primary/10', 'text-primary');
+                this.classList.add('bg-gray-200', 'text-gray-500', 'cursor-not-allowed');
+            } else {
+                // Handle potential errors from the server
+                this.textContent = "Failed";
+                this.disabled = false; // Re-enable if failed
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            this.textContent = "Error";
+            this.disabled = false; // Re-enable on network error
+        });
+    });
+});
       document.addEventListener("DOMContentLoaded", () => {
         lucide.createIcons();
 

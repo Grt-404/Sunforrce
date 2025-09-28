@@ -1,35 +1,22 @@
+// models/student-model.js
+
 const { mongoose, Schema } = require('../config/mongoose-connection');
 
-const studentSchema = mongoose.Schema({
-    role: String,
+const studentSchema = new Schema({
+    role: {
+        type: String,
+        default: 'student'
+    },
     fullname: String,
     email: String,
-    setrequests: [
-        {
-            product: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "alumni"
-            },
-
-        }
-    ],
-
-
-
-
-    // isadmin: Boolean,
-    acceptedRequests: {
-        type: Array,
-        default: []
-    },
     contact: Number,
-    image: {
-        type: Buffer,
-        required: false
-    },
     password: {
         type: String,
         required: true
+    },
+    image: {
+        type: Buffer,
+        required: false
     },
     status: {
         type: String,
@@ -37,5 +24,19 @@ const studentSchema = mongoose.Schema({
         default: 'Pending'
     },
 
-})
+    // --- NEW/UPDATED FIELDS FOR CONNECTIONS ---
+
+    // Stores IDs of alumni the student has sent a request to.
+    sentRequests: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "alumni" // Correctly referencing the 'alumni' model
+    }],
+
+    // Stores IDs of alumni the student is connected with.
+    connections: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "alumni" // Correctly referencing the 'alumni' model
+    }]
+});
+
 module.exports = mongoose.model("student", studentSchema);

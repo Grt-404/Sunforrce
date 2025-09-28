@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Connections</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* A few helper styles to make the nav links work */
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover {
+            color: #a16207; /* Corresponds to your primary color */
+            border-bottom-color: #a16207;
+        }
+    </style>
+</head>
+<body class="bg-[#f8f5f2] text-[#1f1c18] font-sans">
+
+    <header class="fixed top-0 inset-x-0 z-40" style="background: rgba(255, 253, 250, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0, 0, 0, 0.08);">
+        <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+            <div class="relative flex h-16 items-center justify-between">
+                <a href="/" class="text-3xl font-serif font-bold text-[#a16207]">SAMPARK</a>
+                <a href="/logout" class="px-4 py-2 rounded-md bg-[#a16207] text-white hover:bg-opacity-90 transition-colors font-semibold shadow-sm flex items-center gap-2">
+                    <i data-lucide="log-out" class="w-4 h-4"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="bg-white border-b border-gray-200 px-4 py-2 sticky top-16 z-30">
+        <div class="max-w-screen-xl mx-auto flex justify-between items-center">
+            <div class="flex gap-4 overflow-x-auto">
+                <a href="/student/dashboard" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold">Messages</a>
+                <a href="/student/connections" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold" style="color: #a16207; border-bottom-color: #a16207;">Connections</a>
+                <a href="/student/posts" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold">Posts</a>
+                <a href="/student/dashboard" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold">My Profile</a>
+            </div>
+            <div class="relative">
+                 <input type="text" placeholder="Search alumni..." class="w-64 rounded-md border border-gray-300 bg-gray-50 py-2 pl-9 pr-4 text-sm focus:ring-2 focus:ring-[#a16207] focus:outline-none" />
+                 <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400"></i>
+            </div>
+        </div>
+    </nav>
+    <main class="container mx-auto px-4 py-8 pt-40"> <h1 class="text-3xl font-serif text-center mb-8">My Connections</h1>
+
+        <div class="max-w-3xl mx-auto space-y-4">
+            <% if (connections && connections.length > 0) { %>
+                <% connections.forEach(alumnus => { %>
+                    <div class="bg-white rounded-xl shadow-sm p-5 flex items-center justify-between transition-transform transform hover:scale-[1.02]">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 bg-gray-200 rounded-full flex-shrink-0 flex items-center justify-center text-2xl font-bold text-gray-500">
+                                <%= alumnus.name.charAt(0) %>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-[#1f1c18]"><%= alumnus.name %></h3>
+                                <p class="text-sm text-gray-600"><%= alumnus.designation %> at <%= alumnus.currentCompany %></p>
+                                <p class="text-xs text-gray-500 mt-1"><%= alumnus.branch %> | Class of <%= alumnus.graduationYear %></p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                             <a href="/student/chat/<%= alumnus._id %>" class="px-4 py-2 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-lg font-bold text-sm">
+    Message
+</a>
+                                 
+                             <a href="#" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm">
+                                 View Profile
+                             </a>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="text-center py-10 bg-white rounded-lg shadow-sm">
+                    <p class="text-gray-600">You haven't made any connections yet.</p>
+                    <a href="/student/dashboard" class="mt-4 inline-block px-6 py-2 bg-[#a16207] text-white rounded-lg font-semibold">
+                        Find Alumni
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </main>
+
+    <script>
+        // This script is needed to render the icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

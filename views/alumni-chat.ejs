@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat | Alumni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Simple scrollbar styling */
+        #message-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        #message-container::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="flex h-screen text-gray-800">
+        <!-- Left Sidebar: Student Connections -->
+        <aside class="w-1/4 bg-white border-r flex flex-col">
+            <div class="p-4 border-b">
+                <h2 class="text-lg font-semibold">Your Connections</h2>
+                 <a href="/alumni/dashboard" class="text-sm text-blue-600 hover:underline">← Back to Dashboard</a>
+            </div>
+            <ul class="flex-1 overflow-y-auto">
+                <% if (connections && connections.length > 0) { %>
+                    <% connections.forEach(student => { %>
+                        <a href="/alumni/chat/<%= student._id %>">
+                            <li class="p-4 hover:bg-gray-50 cursor-pointer <%= activeChat && activeChat._id.equals(student._id) ? 'bg-blue-100 font-semibold' : '' %>">
+                                <%= student.fullname %>
+                            </li>
+                        </a>
+                    <% }) %>
+                <% } else { %>
+                     <li class="p-4 text-gray-500">You have no connections yet.</li>
+                <% } %>
+            </ul>
+        </aside>
+
+        <!-- Right Side: Chat Window -->
+        <main class="w-3/4 flex flex-col bg-gray-50">
+            <% if (activeChat) { %>
+                <header class="p-4 bg-white border-b font-bold text-lg">
+                    Chat with <%= activeChat.fullname %>
+                </header>
+
+                <div id="message-container" class="flex-1 p-4 overflow-y-auto">
+                    <!-- Messages will be loaded here -->
+                    <% messages.forEach(msg => { %>
+                        <div class="mb-4 <%= msg.from.equals(user._id) ? 'text-right' : '' %>">
+                            <div class="inline-block p-2 px-3 rounded-lg <%= msg.from.equals(user._id) ? 'bg-blue-500 text-white' : 'bg-white border' %>">
+                                <%= msg.content %>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+
+                <form id="chat-form" class="p-4 bg-white border-t">
+                    <input id="message-input" type="text" placeholder="Type a message..." class="w-full p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none" autocomplete="off">
+                </form>
+            <% } else { %>
+                 <div class="flex-1 p-4 flex items-center justify-center">
+                    <div class="text-center text-gray-500">
+                        <i data-lucide="messages-square" class="w-16 h-16 mx-auto text-gray-300"></i>
+                        <h2 class="mt-2 text-xl font-semibold">Welcome to your Messages</h2>
+                        <p>Select a connection to start chatting.</p>
+                    </div>
+                </div>
+            <% } %>
+        </main>
+    </div>
+
+    <!-- Client-side Socket.IO script (only if a chat is active) -->
+    <% if (activeChat) { %>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io();
+
+            const chatForm = document.getElementById('chat-form');
+            const messageInput = document.getElementById('message-input');
+            const messageContainer = document.getElementById('message-container');
+            const recipientId = "<%= activeChat._id %>";
+
+            // Scroll to the bottom of the messages on page load
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+
+            // Send message
+            chatForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const content = messageInput.value.trim();
+                if (content) {
+                    socket.emit('private_message', {
+                        content,
+                        to: recipientId,
+                        toModel: 'student' // Alumni sends to a student
+                    });
+                    messageInput.value = '';
+                }
+            });
+
+            // Receive message
+            socket.on('new_message', (msg) => {
+                // Only add the message if it belongs to this specific chat
+                if (msg.from === recipientId || msg.to === recipientId) {
+                    const isSender = msg.from === "<%= user._id %>";
+                    const messageDiv = document.createElement('div');
+                    messageDiv.classList.add('mb-4');
+                    if (isSender) {
+                        messageDiv.classList.add('text-right');
+                    }
+
+                    messageDiv.innerHTML = `
+                        <div class="inline-block p-2 px-3 rounded-lg ${isSender ? 'bg-blue-500 text-white' : 'bg-white border'}">
+                            ${msg.content}
+                        </div>
+                    `;
+                    messageContainer.appendChild(messageDiv);
+                    messageContainer.scrollTop = messageContainer.scrollHeight;
+                }
+            });
+        </script>
+    <% } %>
+     <script>
+        // This script is needed to render the icons if they are used
+        lucide.createIcons();
+    </script>
+</body>
+</html>

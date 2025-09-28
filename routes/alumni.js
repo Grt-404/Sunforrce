@@ -8,29 +8,137 @@ const Student = require("../models/student-model");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
 const EventRequest = require("../models/eventRequest-model");
-
+const Message = require('../models/message-model');
 const upload = multer();
 const Post = require("../models/post-model");
 
+router.get('/chat', isLoggedIn, async (req, res) => {
+  try {
+    const alumni = await Alumni.findById(req.user._id).populate('connections');
+
+    // If the alumni has connections, redirect to a chat with the first one.
+    if (alumni.connections && alumni.connections.length > 0) {
+      const firstConnectionId = alumni.connections[0]._id;
+      return res.redirect(`/alumni/chat/${firstConnectionId}`);
+    } else {
+      // If no connections, render the chat page with an empty state.
+      res.render('alumni-chat', {
+        user: req.user,
+        connections: [],
+        activeChat: null, // No active chat
+        messages: []
+      });
+    }
+  } catch (error) {
+    console.error("Error loading main alumni chat page:", error);
+    req.flash('error', 'Something went wrong.');
+    res.redirect('/alumni/dashboard');
+  }
+});
+
+
+// --- ROUTE TO RENDER A SPECIFIC CHAT WITH A STUDENT ---
+router.get('/chat/:studentId', isLoggedIn, async (req, res) => {
+  try {
+    const alumni = await Alumni.findById(req.user._id).populate('connections');
+    const student = await Student.findById(req.params.studentId);
+
+    // Security Check: Ensure the student is actually a connection
+    if (!student || !alumni.connections.some(conn => conn._id.equals(student._id))) {
+      // If there are no connections at all, handle that case gracefully
+      if (alumni.connections.length === 0) {
+        return res.render('alumni-chat', {
+          user: req.user,
+          connections: [],
+          activeChat: null,
+          messages: []
+        });
+      }
+      req.flash('error', 'You can only chat with your connections.');
+      return res.redirect('/alumni/dashboard');
+    }
+
+    // Fetch the chat history between the alumnus and this student
+    const messages = await Message.find({
+      $or: [
+        { from: alumni._id, to: student._id },
+        { from: student._id, to: alumni._id }
+      ]
+    }).sort({ createdAt: 'asc' });
+
+    // Render the chat view
+    res.render('alumni-chat', {
+      user: req.user,
+      connections: alumni.connections, // This is a list of students
+      activeChat: student,              // The student the alumni is currently chatting with
+      messages: messages
+    });
+
+  } catch (error) {
+    console.error("Error loading alumni chat page:", error);
+    req.flash('error', 'Something went wrong.');
+    res.redirect('/alumni/dashboard');
+  }
+});
 // inside router.get('/dashboard', isLoggedIn, ...) handler:
 router.get("/dashboard", isLoggedIn, async (req, res) => {
   try {
+    const alumni = await Alumni.findById(req.user._id)
+      .populate('invitations');
     const user = req.user; // coming from isLoggedIn middleware
     // fetch posts (all alumni posts)
     const posts = await Post.find()
       .populate("author", "name currentCompany designation image")
       .sort({ createdAt: -1 });
 
-    const requests = await EventRequest.find({ status: "pending" , upvotes: { $gt: 4 } })
+    const requests = await EventRequest.find({ status: "pending", upvotes: { $gt: 4 } })
       .populate("requestedBy", "fullname") // populate student's name
       .sort({ createdAt: -1 })
       .limit(3);
 
-    res.render("alumni-dashboard", { user, posts , requests });
+    res.render("alumni-dashboard", { user, posts, requests, invitations: alumni.invitations });
   } catch (err) {
     console.error(err);
     req.flash?.("error", "Unable to load dashboard");
     res.redirect("/");
+  }
+});
+// routes/alumni.js
+
+router.post('/connections/respond/:studentId', isLoggedIn, async (req, res) => {
+  try {
+    const { action } = req.body; // This will be 'accept' or 'reject'
+    const alumniId = req.user._id;
+    const studentId = req.params.studentId;
+
+    const alumni = await Alumni.findById(alumniId);
+    const student = await Student.findById(studentId);
+
+    if (!student) {
+      return res.status(404).json({ error: "Student not found." });
+    }
+
+    // --- ALWAYS REMOVE THE PENDING REQUEST ---
+    // Pull the student's ID from the alumni's invitations list
+    alumni.invitations.pull(studentId);
+    // Pull the alumni's ID from the student's sent requests list
+    student.sentRequests.pull(alumniId);
+
+    // --- IF ACCEPTED, ADD TO CONNECTIONS ---
+    if (action === 'accept') {
+      // Add to both users' connections lists
+      alumni.connections.push(studentId);
+      student.connections.push(alumniId);
+    }
+
+    await alumni.save();
+    await student.save();
+
+    res.status(200).json({ message: `Request ${action}ed successfully.` });
+
+  } catch (error) {
+    console.error("Error responding to request:", error);
+    res.status(500).json({ error: "Server error." });
   }
 });
 

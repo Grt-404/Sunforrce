@@ -171,7 +171,7 @@
               ><i data-lucide="briefcase"></i>Jobs</a
             >
             <a
-              href="/alumni/dashboard"
+              href="/alumni/chat"
               class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"
               ><i data-lucide="message-square"></i>Messaging</a
             >
@@ -432,6 +432,30 @@
 
           <!-- Right Column: Opportunities -->
           <aside class="lg:col-span-1 lg:sticky lg:top-36 self-start space-y-6">
+          <div class="bg-card rounded-xl shadow-soft p-6 animate-fade-in-up" style="animation-delay: 300ms">
+    <h3 class="text-xl font-serif text-foreground mb-4">
+        Connection Requests
+    </h3>
+    <div id="invitations-list" class="space-y-4">
+        <% if (invitations && invitations.length > 0) { %>
+            <% invitations.forEach(student => { %>
+                <div class="invitation-card pt-4 border-t border-border first:pt-0 first:border-none" data-student-id="<%= student._id %>">
+                    <p class="font-semibold text-card-foreground"><%= student.fullname %></p>
+                    <div class="mt-3 flex items-center gap-2">
+                        <button data-action="accept" data-student-id="<%= student._id %>" class="respond-btn w-full px-3 py-1.5 bg-green-600 text-white rounded-md text-sm font-semibold hover:bg-green-700 transition-colors">
+                            Accept
+                        </button>
+                        <button data-action="reject" data-student-id="<%= student._id %>" class="respond-btn w-full px-3 py-1.5 bg-gray-200 text-gray-700 rounded-md text-sm font-semibold hover:bg-gray-300 transition-colors">
+                            Reject
+                        </button>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-gray-500 text-sm">No new connection requests.</p>
+        <% } %>
+    </div>
+</div>
             <div
               class="bg-card rounded-xl shadow-soft p-6 animate-fade-in-up"
               style="animation-delay: 400ms"
@@ -469,6 +493,45 @@
     </main>
 
     <script>
+    // Add this inside your document.addEventListener("DOMContentLoaded", () => { ... });
+
+document.getElementById('invitations-list').addEventListener('click', function(event) {
+    // Check if a respond button was clicked
+    if (event.target.classList.contains('respond-btn')) {
+        const button = event.target;
+        const studentId = button.dataset.studentId;
+        const action = button.dataset.action; // 'accept' or 'reject'
+        
+        // Find the parent card to remove it later
+        const invitationCard = button.closest('.invitation-card');
+
+        fetch(`/alumni/connections/respond/${studentId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ action: action })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                // Success! Remove the invitation card from the UI
+                invitationCard.style.transition = 'opacity 0.5s';
+                invitationCard.style.opacity = '0';
+                setTimeout(() => {
+                    invitationCard.remove();
+                    // Optional: Check if the list is now empty and show the "No new requests" message
+                    if (document.getElementById('invitations-list').children.length === 0) {
+                         document.getElementById('invitations-list').innerHTML = '<p class="text-gray-500 text-sm">No new connection requests.</p>';
+                    }
+                }, 500);
+            } else {
+                console.error("Failed to respond:", data.error);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+});
       document.addEventListener("DOMContentLoaded", () => {
         lucide.createIcons();
 

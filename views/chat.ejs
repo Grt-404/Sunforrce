@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with <%= activeChat.name %></title>
+    <!-- Assuming you are using Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Simple scrollbar styling */
+        #message-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        #message-container::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- Left Sidebar: List of Connections -->
+        <aside class="w-1/4 bg-white border-r flex flex-col">
+            <div class="p-4 border-b">
+                <h2 class="text-xl font-semibold text-gray-800">Connections</h2>
+            </div>
+            <ul class="overflow-y-auto flex-1">
+                <% connections.forEach(conn => { %>
+                    <a href="/student/chat/<%= conn._id %>" class="block">
+                        <li class="p-4 flex items-center gap-3 cursor-pointer transition-colors <%= activeChat._id.equals(conn._id) ? 'bg-blue-100 font-semibold text-blue-800' : 'hover:bg-gray-50' %>">
+                            <!-- Placeholder for profile picture -->
+                            <div class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-gray-500">
+                                <%= conn.name.charAt(0) %>
+                            </div>
+                            <span><%= conn.name %></span>
+                        </li>
+                    </a>
+                <% }) %>
+            </ul>
+        </aside>
+
+        <!-- Right Side: Main Chat Window -->
+        <main class="w-3/4 flex flex-col bg-gray-50">
+            <!-- Chat Header -->
+            <header class="p-4 bg-white border-b shadow-sm">
+                <h3 class="text-xl font-bold text-gray-900">Chat with <%= activeChat.name %></h3>
+                <p class="text-sm text-gray-500"><%= activeChat.designation %> @ <%= activeChat.currentCompany %></p>
+            </header>
+
+            <!-- Message Display Area -->
+            <div id="message-container" class="flex-1 p-6 overflow-y-auto">
+                <% messages.forEach(msg => { %>
+                    <div class="mb-4 flex <%= msg.from.equals(user._id) ? 'justify-end' : 'justify-start' %>">
+                        <div class="max-w-md p-3 rounded-lg <%= msg.from.equals(user._id) ? 'bg-blue-600 text-white rounded-br-none' : 'bg-white text-gray-800 rounded-bl-none shadow-sm' %>">
+                            <p><%= msg.content %></p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+
+            <!-- Message Input Form -->
+            <div class="p-4 bg-white border-t">
+                <form id="chat-form" class="flex items-center gap-3">
+                    <input id="message-input" type="text" placeholder="Type a message..." autocomplete="off" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">Send</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- This script is required to connect to your Socket.IO server -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Establish a connection to the server
+        const socket = io();
+
+        // Get DOM elements
+        const chatForm = document.getElementById('chat-form');
+        const messageInput = document.getElementById('message-input');
+        const messageContainer = document.getElementById('message-container');
+        
+        // Get user and recipient IDs from the EJS template
+        const senderId = "<%= user._id %>";
+        const recipientId = "<%= activeChat._id %>";
+        
+        // Function to scroll to the bottom of the chat
+        function scrollToBottom() {
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+        
+        // Scroll to the bottom on page load
+        scrollToBottom();
+
+        // --- SENDING A MESSAGE ---
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const content = messageInput.value.trim();
+            if (content) {
+                // Emit a 'private_message' event to the server
+                socket.emit('private_message', {
+                    content,
+                    to: recipientId,
+                    toModel: 'alumni' // Hardcoded since students are chatting with alumni
+                });
+                messageInput.value = ''; // Clear the input field
+                messageInput.focus();
+            }
+        });
+
+        // --- RECEIVING A NEW MESSAGE ---
+        socket.on('new_message', (msg) => {
+            // Check if the message belongs to the currently active chat
+            if ((msg.from === senderId && msg.to === recipientId) || (msg.from === recipientId && msg.to === senderId)) {
+                const isSender = msg.from === senderId;
+                
+                const messageWrapper = document.createElement('div');
+                messageWrapper.classList.add('mb-4', 'flex', isSender ? 'justify-end' : 'justify-start');
+
+                messageWrapper.innerHTML = `
+                    <div class="max-w-md p-3 rounded-lg ${isSender ? 'bg-blue-600 text-white rounded-br-none' : 'bg-white text-gray-800 rounded-bl-none shadow-sm'}">
+                        <p>${msg.content}</p>
+                    </div>
+                `;
+                messageContainer.appendChild(messageWrapper);
+                scrollToBottom(); // Scroll to the new message
+            }
+        });
+    </script>
+</body>
+</html>
