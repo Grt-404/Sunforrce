@@ -51,10 +51,30 @@
         },
       };
     </script>
+    <style>
+        /* Keyframe animation for cards fading in and moving up */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Class to apply the animation */
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0; /* Start as invisible */
+        }
+    </style>
 </head>
 <body class="bg-background text-foreground font-sans">
   <div class="flex h-screen">
-    <aside class="w-64 flex-shrink-0 bg-card border-r border-border flex flex-col">
+    
+    <aside class="w-64 flex-shrink-0 bg-card/80 backdrop-blur-md border-r border-border flex flex-col">
         <div class="h-16 flex items-center justify-center border-b border-border">
             <h1 class="text-2xl font-serif font-bold text-primary">SAMPARK</h1>
         </div>
@@ -68,13 +88,13 @@
                 <i data-lucide="users" class="w-5 h-5"></i>
                 <span>Alumni</span>
             </a>
-            <a href="/college/jobs" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors">
+            <a href="/college/jobIntern" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors">
                 <i data-lucide="briefcase" class="w-5 h-5"></i>
                 <span>Jobs & Internships</span>
             </a>
-            <a href="/college/campaigns" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors">
+            <a href="/college/donations" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors">
                 <i data-lucide="gem" class="w-5 h-5"></i>
-                <span>Donations & Campaign</span>
+                <span>Donations</span>
             </a>
             <a href="/college/verification" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg text-gray-600 hover:bg-primary/10 hover:text-primary transition-colors">
                 <i data-lucide="user-check" class="w-5 h-5"></i>
@@ -83,7 +103,7 @@
         </nav>
         
         <div class="p-4 border-t border-border">
-            <button class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold shadow-soft">
+            <button class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 hover:scale-105 font-semibold shadow-soft">
                 <i data-lucide="log-out" class="w-4 h-4"></i>
                 Logout
             </button>
@@ -93,44 +113,44 @@
     <main class="flex-1 overflow-y-auto p-8">
         <div class="max-w-7xl mx-auto">
             
-            <div class="bg-card rounded-xl shadow-soft p-6 mb-8">
+            <div class="bg-card rounded-xl shadow-soft p-6 mb-8 animate-fadeInUp transition-all duration-300 hover:shadow-lift hover:-translate-y-1" style="animation-delay: 100ms;">
                 <h2 class="text-2xl font-serif font-bold text-foreground text-center mb-4">Rajiv Gandhi Institute of Petroleum Technology</h2>
                 <img src="https://www.rgipt.ac.in/site/writereaddata/HomePage/Header/H_202505211113236489.jpg" alt="College Campus" class="w-full h-48 object-cover rounded-lg">
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <div class="bg-card rounded-xl shadow-soft p-6 flex items-center gap-5">
+                <div class="bg-card rounded-xl shadow-soft p-6 flex items-center gap-5 transition-all duration-300 hover:shadow-lift hover:-translate-y-2 hover:scale-[1.02] animate-fadeInUp" style="animation-delay: 200ms;">
                     <div class="bg-primary/10 p-3 rounded-full">
                         <i data-lucide="users" class="w-8 h-8 text-primary"></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Students Registered</p>
-                        <p class="text-3xl font-bold text-foreground">4,500</p>
+                        <p class="text-3xl font-bold text-foreground"><%= students.length.toLocaleString('en-IN') %></p>
                     </div>
                 </div>
-                <div class="bg-card rounded-xl shadow-soft p-6 flex items-center gap-5">
+                <div class="bg-card rounded-xl shadow-soft p-6 flex items-center gap-5 transition-all duration-300 hover:shadow-lift hover:-translate-y-2 hover:scale-[1.02] animate-fadeInUp" style="animation-delay: 300ms;">
                     <div class="bg-primary/10 p-3 rounded-full">
                         <i data-lucide="graduation-cap" class="w-8 h-8 text-primary"></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Alumni Registered</p>
-                        <p class="text-3xl font-bold text-foreground">12,345</p>
+                        <p class="text-3xl font-bold text-foreground"><%= alumnis.length.toLocaleString('en-IN') %></p>
                     </div>
                 </div>
-                 <div class="bg-card rounded-xl shadow-soft p-6 flex items-center gap-5">
+                <div class="bg-card rounded-xl shadow-soft p-6 flex items-center gap-5 transition-all duration-300 hover:shadow-lift hover:-translate-y-2 hover:scale-[1.02] animate-fadeInUp" style="animation-delay: 400ms;">
                     <div class="bg-primary/10 p-3 rounded-full">
-                        <i data-lucide="user-check" class="w-8 h-8 text-primary"></i>
+                        <i data-lucide="globe" class="w-8 h-8 text-primary"></i>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500">Verification Requests</p>
-                        <p class="text-3xl font-bold text-foreground">17</p>
+                        <p class="text-sm text-gray-500">Alumni Presence</p>
+                        <p class="text-3xl font-bold text-foreground">25+</p>
                     </div>
                 </div>
             </div>
 
-            <div>
+            <div class="animate-fadeInUp" style="animation-delay: 500ms;">
                 <h3 class="text-xl font-serif font-bold text-foreground mb-4">Running Campaigns</h3>
-                <div class="bg-card rounded-xl shadow-soft p-6">
+                <div class="bg-card rounded-xl shadow-soft p-6 transition-all duration-300 hover:shadow-lift hover:-translate-y-1">
                     <div class="space-y-6">
                         <div>
                             <div class="flex justify-between items-center mb-1">
@@ -165,3 +185,4 @@
   </script>
 </body>
 </html>
+

@@ -6,6 +6,8 @@ const Alumni = require('../models/alumni-model');
 const Student = require("../models/student-model");
 const multer = require("multer");
 const path = require("path");
+const alumniModel = require("../models/alumni-model")
+const studentModel = require("../models/student-model")
 
 
 const fs = require("fs");
@@ -34,8 +36,10 @@ router.post("/register", (req, res) => {
 router.get("/login", (req, res) => {
     res.render("login-college");
 });
-router.get("/dashboard", (req, res) => {
-    res.render("college/dashboard");
+router.get("/dashboard", async (req, res) => {
+    const students = await studentModel.find();
+    const alumnis = await alumniModel.find();
+    res.render("college/dashboard", { students, alumnis });
 })
 
 router.post("/login", (req, res) => {

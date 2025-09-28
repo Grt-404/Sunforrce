@@ -3,7 +3,7 @@
 const { mongoose, Schema } = require('../config/mongoose-connection');
 
 const alumniSchema = new Schema({
-    name: {
+    fullname: {
         type: String,
         trim: true
     },
