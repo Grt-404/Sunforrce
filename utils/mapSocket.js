@@ -21,7 +21,7 @@ function initializeSocketHandlers(io) {
                             headers: { 
                                 // IMPORTANT: You MUST provide a valid User-Agent with your email address.
                                 // This is required by the Nominatim API's usage policy.
-                                'User-Agent': 'SAMPARK-Alumni-Portal/1.0 (youremail@example.com)' 
+                                'User-Agent': 'SAMPARK-Alumni-Portal/1.0 (aashutoshsharma2905@gmail.com)' 
                             }
                         })
                         .then(async res => {
