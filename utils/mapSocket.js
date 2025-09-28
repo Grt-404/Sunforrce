@@ -1,4 +1,4 @@
-const Alumni = require("../models/alumni-model"); // Adjust path if needed
+const Alumni = require("./models/alumni-model"); // Adjust path if needed
 const axios = require("axios"); // Import axios
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -13,7 +13,7 @@ function initializeSocketHandlers(io) {
                     location: { $ne: "", $exists: true } 
                 });
 
-                const batchSize = 5;
+                const batchSize = 2; // REDUCED BATCH SIZE to send fewer requests at once
                 for (let i = 0; i < alumniWithLocation.length; i += batchSize) {
                     const batch = alumniWithLocation.slice(i, i + batchSize);
                     
@@ -21,7 +21,6 @@ function initializeSocketHandlers(io) {
                         try {
                             const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(alumnus.location)}`;
                             
-                            // UPDATED: Using axios.get instead of fetch
                             const response = await axios.get(mapUrl, {
                                 headers: { 
                                     'User-Agent': 'SAMPARK-Alumni-Portal/1.0 (aashutoshsharma2905@gmail.com)' 
@@ -40,8 +39,16 @@ function initializeSocketHandlers(io) {
                             }
                             return null;
                         } catch (err) {
-                            // Enhanced error logging
-                            console.error(`Geocoding failed for "${alumnus.location}":`, err.message);
+                            // ENHANCED ERROR LOGGING to provide more details on failure
+                            if (axios.isAxiosError(err)) {
+                                console.error(`Geocoding failed for "${alumnus.location}": Axios Error - ${err.message}`);
+                                if (err.response) {
+                                    console.error('Status:', err.response.status);
+                                    console.error('Data:', err.response.data);
+                                }
+                            } else {
+                                console.error(`Geocoding failed for "${alumnus.location}":`, err.message);
+                            }
                             return null;
                         }
                     });
@@ -52,7 +59,7 @@ function initializeSocketHandlers(io) {
                         socket.emit('alumniLocationBatch', resolvedLocations);
                     }
                     
-                    await delay(1000); // Reduced delay slightly, can be adjusted
+                    await delay(2000); // INCREASED DELAY between batches to be safer
                 }
                 socket.emit('locationsFinished');
             } catch (error) {
