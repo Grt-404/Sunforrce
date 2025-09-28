@@ -1,4 +1,4 @@
-const Alumni = require("./models/alumni-model"); // Adjust path if needed
+const Alumni = require("../models/alumni-model"); // Adjust path if needed
 const axios = require("axios"); // Import axios
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
