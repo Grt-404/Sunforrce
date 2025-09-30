@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Register — SAMPARK</title>
-    <meta name="description" content="Join the SAMPARK alumni nexus."/>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23a16207'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3EA%3C/text%3E%3C/svg%3E" />
+    <title>Register — Sunforce Green Energy</title>
+    <meta name="description" content="Join the Sunforce Green Energy client portal."/>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2322C55E'/%3E%3Cstop offset='100%25' stop-color='%2316A34A'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3ES%3C/text%3E%3C/svg%3E" />
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 
-    <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -25,11 +23,10 @@
                         foreground: '#1f1c18',
                         card: '#ffffff',
                         'card-foreground': '#1f1c18',
-                        primary: '#a16207',
+                        primary: '#16a34a',
                         'primary-foreground': '#ffffff',
-                        secondary: '#b99553',
+                        secondary: '#22c55e',
                         border: 'rgba(0, 0, 0, 0.08)',
-                        ring: 'rgba(161, 98, 7, 0.4)'
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -58,7 +55,7 @@
     <style>
         html { scroll-behavior: smooth; }
         body {
-            background: linear-gradient(-45deg, #f8f5f2, #fffefc, #fef8f0, #f8f5f2);
+            background: linear-gradient(-45deg, #f0fdf4, #f9fafb, #eefbf3, #f9fafb);
             background-size: 400% 400%;
             animation: backgroundShift 25s ease infinite;
         }
@@ -79,7 +76,7 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-center">
                 <div class="flex items-center">
-                    <a href="/" class="text-3xl font-serif font-bold text-primary">SAMPARK</a>
+                    <a href="/" class="text-3xl font-serif font-bold text-primary">Sunforce</a>
                 </div>
             </div>
         </div>
@@ -87,40 +84,36 @@
 
     <main class="min-h-screen flex flex-col items-center justify-center pt-24 pb-12 px-4">
         <div class="text-center animate-fade-in-up">
-            <h2 class="text-4xl md:text-5xl font-serif font-bold text-foreground">Join the SAMPARK Nexus</h2>
-            <p class="text-gray-500 mt-2 max-w-2xl mx-auto">Choose your role to begin your journey. Connect, grow, and contribute to a network built on excellence.</p>
+            <h2 class="text-4xl md:text-5xl font-serif font-bold text-foreground">Join Sunforce</h2>
+            <p class="text-gray-500 mt-2 max-w-2xl mx-auto">Choose your account type to get started with Sunforce Green Energy.</p>
         </div>
         
-        <div class="mt-12 w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Alumni Card -->
-            <a href="/alumni/register" class="choice-card block bg-card rounded-xl shadow-soft overflow-hidden text-center animate-fade-in-up" style="animation-delay: 200ms;">
-                <img src="https://images.pexels.com/photos/5474028/pexels-photo-5474028.jpeg" alt="A successful professional alumni" class="h-48 w-full object-cover">
+        <div class="mt-12 w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8">
+            <a href="/student/register" class="choice-card block bg-card rounded-xl shadow-soft overflow-hidden text-center animate-fade-in-up" style="animation-delay: 200ms;">
+                <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="A team of professionals collaborating" class="h-48 w-full object-cover">
                 <div class="p-6">
-                    <h3 class="text-2xl font-serif font-bold text-primary">I am an Alumnus</h3>
-                    <p class="text-sm text-gray-500 mt-2">Mentor the next generation, expand your professional network, and solidify your legacy.</p>
+                    <h3 class="text-2xl font-serif font-bold text-primary">I am a Client</h3>
+                    <p class="text-sm text-gray-500 mt-2">Request site visits, track your project status, and manage your renewable energy solutions with ease.</p>
                 </div>
             </a>
             
-            <!-- Student Card -->
-            <a href="/student/register" class="choice-card block bg-card rounded-xl shadow-soft overflow-hidden text-center animate-fade-in-up" style="animation-delay: 400ms;">
-                 <img src="https://images.pexels.com/photos/21006299/pexels-photo-21006299.jpeg" alt="An ambitious student" class="h-48 w-full object-cover">
+            <a href="/alumni/register" class="choice-card block bg-card rounded-xl shadow-soft overflow-hidden text-center animate-fade-in-up" style="animation-delay: 400ms;">
+                 <img src="https://images.pexels.com/photos/1181298/pexels-photo-1181298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="A person managing tasks on a computer" class="h-48 w-full object-cover">
                 <div class="p-6">
-                    <h3 class="text-2xl font-serif font-bold text-primary">I am a Student</h3>
-                    <p class="text-sm text-gray-500 mt-2">Connect with industry leaders, find mentors, and get a head start on your career path.</p>
+                    <h3 class="text-2xl font-serif font-bold text-primary">I am an Admin</h3>
+                    <p class="text-sm text-gray-500 mt-2">Access the dashboard to manage clients, approve site visits, and oversee all company operations.</p>
                 </div>
             </a>
-
-            <!-- College Card -->
-            <a href="/college/register" class="choice-card block bg-card rounded-xl shadow-soft overflow-hidden text-center animate-fade-in-up" style="animation-delay: 600ms;">
+             <a href="/college/register" class="choice-card block bg-card rounded-xl shadow-soft overflow-hidden text-center animate-fade-in-up" style="animation-delay: 600ms;">
                  <img src="https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg" alt="A modern university campus" class="h-48 w-full object-cover">
                 <div class="p-6">
-                    <h3 class="text-2xl font-serif font-bold text-primary">I am a College</h3>
+                    <h3 class="text-2xl font-serif font-bold text-primary">I am the owner</h3>
                     <p class="text-sm text-gray-500 mt-2">Build a powerful, engaged alumni ecosystem and track the success of your graduates.</p>
                 </div>
             </a>
         </div>
         
-        <p class="mt-12 text-center text-sm text-gray-600 animate-fade-in-up" style="animation-delay: 800ms;">
+        <p class="mt-12 text-center text-sm text-gray-600 animate-fade-in-up" style="animation-delay: 600ms;">
             Already have an account? <a href="/login" class="font-semibold text-primary hover:underline">Login here</a>
         </p>
     </main>
@@ -134,7 +127,7 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             let particles = [];
-            const particleColor = 'rgba(161, 98, 7, 0.5)';
+            const particleColor = 'rgba(22, 163, 74, 0.5)';
 
             class Particle {
                 constructor(x, y) { this.x = x; this.y = y; this.size = Math.random() * 1.5 + 1; this.speedX = Math.random() * 0.4 - 0.2; this.speedY = Math.random() * 0.4 - 0.2; }
@@ -168,4 +161,3 @@
     </script>
 </body>
 </html>
-

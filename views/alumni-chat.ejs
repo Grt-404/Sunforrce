@@ -3,24 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat | Alumni</title>
+    <title>Chat | Sunforce Admin</title>
     
-    <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- Theme Configuration -->
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              background: "#f8f5f2", foreground: "#1f1c18", card: "#ffffff",
-              "card-foreground": "#1f1c18", primary: "#a16207", "primary-foreground": "#ffffff",
-              secondary: "#b99553", border: "rgba(0, 0, 0, 0.08)",
+              background: "#f8f5f2",
+              foreground: "#1f1c18",
+              card: "#ffffff",
+              "card-foreground": "#1f1c18",
+              primary: "#16a34a",
+              "primary-foreground": "#ffffff",
+              secondary: "#22c55e",
+              border: "rgba(0, 0, 0, 0.08)",
             },
             fontFamily: {
-              sans: ["Inter", "sans-serif"], serif: ["Playfair Display", "serif"],
+              sans: ["Inter", "sans-serif"],
+              serif: ["Playfair Display", "serif"],
             },
             boxShadow: { soft: "0 4px 12px rgba(0, 0, 0, 0.05)" },
           },
@@ -39,10 +49,9 @@
 <body class="font-sans text-foreground">
 
     <div class="flex h-screen overflow-hidden bg-background">
-        <!-- Left Sidebar: List of Student Connections -->
         <aside class="w-full md:w-1/3 lg:w-1/4 bg-card border-r border-border flex flex-col">
             <div class="p-4 border-b border-border">
-                <h2 class="text-2xl font-serif font-bold text-primary">Student Messages</h2>
+                <h2 class="text-2xl font-serif font-bold text-primary">Client Messages</h2>
             </div>
             <ul class="overflow-y-auto flex-1">
                 <% if (connections && connections.length > 0) { %>
@@ -50,7 +59,7 @@
                         <a href="/alumni/chat/<%= student._id %>" class="block">
                             <li class="p-4 flex items-center gap-4 cursor-pointer transition-colors <%= activeChat && activeChat._id.equals(student._id) ? 'bg-primary/10' : 'hover:bg-background' %>">
                                 <div class="w-12 h-12 bg-secondary rounded-full flex-shrink-0 flex items-center justify-center font-bold text-primary-foreground text-xl">
-                                    <%= student.fullname ? student.fullname.charAt(0).toUpperCase() : 'S' %>
+                                    <%= student.fullname ? student.fullname.charAt(0).toUpperCase() : 'C' %>
                                 </div>
                                 <div>
                                    <p class="font-semibold text-card-foreground <%= activeChat && activeChat._id.equals(student._id) ? 'text-primary' : '' %>"><%= student.fullname %></p>
@@ -59,32 +68,29 @@
                         </a>
                     <% }); %>
                 <% } else { %>
-                    <li class="p-4 text-center text-gray-500">You have no connections yet.</li>
+                    <li class="p-4 text-center text-gray-500">You have no client connections.</li>
                 <% } %>
             </ul>
         </aside>
 
-        <!-- Right Side: Main Chat Window -->
         <main class="w-full md:w-2/3 lg:w-3/4 flex flex-col">
             <% if (activeChat) { %>
-                <!-- Chat Header -->
                 <header class="p-4 bg-card border-b border-border shadow-soft flex items-center justify-between z-10">
                     <div class="flex items-center gap-4">
                          <div class="w-12 h-12 bg-secondary rounded-full flex-shrink-0 flex items-center justify-center font-bold text-primary-foreground text-xl">
-                            <%= activeChat.fullname ? activeChat.fullname.charAt(0).toUpperCase() : 'S' %>
+                            <%= activeChat.fullname ? activeChat.fullname.charAt(0).toUpperCase() : 'C' %>
                          </div>
                          <div>
                             <h3 class="text-xl font-serif font-bold text-card-foreground">Chat with <%= activeChat.fullname %></h3>
-                            <p class="text-sm text-gray-500">Student</p>
+                            <p class="text-sm text-gray-500">Client</p>
                          </div>
                     </div>
                      <a href="/alumni/dashboard" class="hidden md:flex items-center gap-2 px-4 py-2 rounded-md bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors font-semibold">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i>
                         Back to Dashboard
-                    </a>
+                     </a>
                 </header>
 
-                <!-- Message Display Area -->
                 <div id="message-container" class="flex-1 p-6 overflow-y-auto space-y-4">
                     <% messages.forEach(msg => { %>
                         <div class="flex <%= msg.from.equals(user._id) ? 'justify-end' : 'justify-start' %>">
@@ -95,11 +101,10 @@
                     <% }) %>
                 </div>
 
-                <!-- Message Input Form -->
                 <div class="p-4 bg-card border-t border-border">
                     <form id="chat-form" class="flex items-center gap-3">
                         <input id="message-input" type="text" placeholder="Type a message..." autocomplete="off" class="w-full p-3 border border-border bg-background rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
-                        <button type="submit" class="bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors shadow-soft flex items-center gap-2">
+                        <button type="submit" class="bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg hover:bg-green-700 transition-colors shadow-soft flex items-center gap-2">
                             <span>Send</span>
                             <i data-lucide="send" class="w-4 h-4"></i>
                         </button>
@@ -109,15 +114,14 @@
                 <div class="flex-1 p-4 flex items-center justify-center">
                     <div class="text-center text-gray-500">
                         <i data-lucide="messages-square" class="w-20 h-20 mx-auto text-gray-300"></i>
-                        <h2 class="mt-4 text-2xl font-serif font-semibold">Welcome to your Messages</h2>
-                        <p>Select a connection to start chatting.</p>
+                        <h2 class="mt-4 text-2xl font-serif font-semibold">Client Messaging</h2>
+                        <p>Select a client from the list to begin a conversation.</p>
                     </div>
                 </div>
             <% } %>
         </main>
     </div>
 
-    <!-- Socket.IO script -->
     <% if (activeChat) { %>
         <script src="/socket.io/socket.io.js"></script>
         <script>
@@ -146,7 +150,7 @@
                     socket.emit('private_message', {
                         content,
                         to: recipientId,
-                        toModel: 'student' // Alumni sends to a student
+                        toModel: 'student' // This MUST match the backend model name
                     });
                     messageInput.value = '';
                     messageInput.focus();

@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Login — AURA</title>
-    <meta name="description" content="Access the AURA alumni nexus."/>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23a16207'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3EA%3C/text%3E%3C/svg%3E" />
+    <title>Login — Sunforce Green Energy</title>
+    <meta name="description" content="Access the Sunforce Green Energy client portal."/>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2310B981'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3ES%3C/text%3E%3C/svg%3E" />
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 
-    <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -21,12 +19,12 @@
             theme: {
                 extend: {
                     colors: {
-                        background: '#f8f5f2',
-                        foreground: '#1f1c18',
-                        card: '#ffffff',
-                        primary: '#a16207',
-                        'primary-foreground': '#ffffff',
-                        secondary: '#b99553',
+                        background: '#F9FAFB',
+                        foreground: '#1F2937',
+                        card: '#FFFFFF',
+                        primary: '#059669', // Darker Emerald
+                        'primary-foreground': '#FFFFFF',
+                        secondary: '#10B981', // Lighter Emerald
                         border: 'rgba(0, 0, 0, 0.08)',
                     },
                     fontFamily: {
@@ -52,15 +50,15 @@
 
     <style>
         .glass-card {
-            background: rgba(248, 245, 242, 0.85);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(161, 98, 7, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(16, 185, 129, 0.15);
         }
         #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.5; }
         .bg-slide {
             position: absolute;
-            inset: -5%; /* Start slightly larger for zoom effect */
+            inset: -5%;
             width: 110%;
             height: 110%;
             background-size: cover;
@@ -70,11 +68,11 @@
         }
         .cta-button {
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(161, 98, 7, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
         }
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(161, 98, 7, 0.3), 0 3px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3), 0 3px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -82,16 +80,15 @@
     <canvas id="particle-canvas"></canvas>
     
     <div id="bg-slider" class="fixed inset-0 z-[-2] overflow-hidden">
-        <!-- Images will be injected here by JS -->
-        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="absolute inset-0 bg-black/50"></div>
     </div>
 
     <main class="min-h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-md glass-card rounded-2xl p-8 md:p-12 animate-fade-in-up">
             <div class="text-center">
-                 <a href="/" class="text-4xl font-serif font-bold text-primary inline-block mb-4">Sampark</a>
+                 <a href="/" class="text-4xl font-serif font-bold text-primary inline-block mb-4">Sunforce</a>
                 <h2 class="text-3xl font-serif font-bold text-foreground">Welcome Back</h2>
-                <p class="text-gray-500 mt-2">Access the world's most powerful alumni network.</p>
+                <p class="text-gray-500 mt-2">Access your client & admin portal.</p>
             </div>
             
             <form action="/login" method="POST" class="mt-8 space-y-6">
@@ -120,13 +117,13 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
 
-             // --- Netflix-style Background Slider ---
+             // --- Background Slider ---
             const bgSlider = document.getElementById('bg-slider');
             const images = [
-                'https://images.pexels.com/photos/6550115/pexels-photo-6550115.jpeg',
-                'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071',
-                'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070',
-                'https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1974'
+                'https://images.pexels.com/photos/31767621/pexels-photo-31767621.jpeg',
+                'https://images.pexels.com/photos/30201600/pexels-photo-30201600.jpeg',
+                'https://images.pexels.com/photos/7498498/pexels-photo-7498498.jpeg',
+                'https://images.pexels.com/photos/29683816/pexels-photo-29683816.jpeg'
             ];
             let currentImageIndex = 0;
 
@@ -135,7 +132,6 @@
                 slide.className = 'bg-slide';
                 slide.style.backgroundImage = `url('${imageUrl}')`;
                 slide.style.opacity = index === 0 ? '1' : '0';
-                 // Alternate animation direction
                 slide.style.animationDirection = index % 2 === 0 ? 'normal' : 'reverse';
                 bgSlider.prepend(slide);
                 return slide;
@@ -145,14 +141,12 @@
 
             function nextSlide() {
                 const nextImageIndex = (currentImageIndex + 1) % images.length;
-                
                 slides[currentImageIndex].style.opacity = '0';
                 slides[nextImageIndex].style.opacity = '1';
-                
                 currentImageIndex = nextImageIndex;
             }
 
-            setInterval(nextSlide, 7000); // Change image every 7 seconds
+            setInterval(nextSlide, 7000);
             
             // --- Particle Animation Script ---
             const canvas = document.getElementById('particle-canvas');
@@ -160,7 +154,7 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             let particles = [];
-            const particleColor = 'rgba(161, 98, 7, 0.4)';
+            const particleColor = 'rgba(16, 185, 129, 0.4)'; // Emerald Green particles
 
             class Particle {
                 constructor(x, y) { this.x = x; this.y = y; this.size = Math.random() * 1.5 + 1; this.speedX = Math.random() * 0.4 - 0.2; this.speedY = Math.random() * 0.4 - 0.2; }
@@ -194,4 +188,3 @@
     </script>
 </body>
 </html>
-

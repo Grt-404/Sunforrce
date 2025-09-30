@@ -36,7 +36,7 @@ router.post("/register", (req, res) => {
 router.get("/login", (req, res) => {
     res.render("login-college");
 });
-router.get("/dashboard",isLoggedIn, async (req, res) => {
+router.get("/dashboard", isLoggedIn, async (req, res) => {
     const students = await studentModel.find();
     const alumnis = await alumniModel.find();
     res.render("college/dashboard", { students, alumnis });
@@ -49,7 +49,7 @@ router.post("/login", (req, res) => {
 
 
 
-router.get('/alumni',isLoggedIn, async (req, res) => {
+router.get('/alumni', isLoggedIn, async (req, res) => {
     try {
         // Get filter criteria from the URL's query parameters
         const { search, department, year } = req.query;
@@ -257,7 +257,7 @@ router.get('/download/excel', async (req, res) => {
     }
 });
 
-router.get('/jobs',isLoggedIn, (req, res) => {
+router.get('/jobs', isLoggedIn, (req, res) => {
 
     const sampleJobs = [
         { title: 'Frontend Developer', company: 'Google', location: 'Bengaluru', type: 'Full-time', postedAgo: '2d ago' },
@@ -280,7 +280,7 @@ router.get('/jobs/new', (req, res) => {
 });
 
 
-router.get('/campaigns',isLoggedIn, (req, res) => {
+router.get('/campaigns', isLoggedIn, (req, res) => {
     // This is temporary data. You'll fetch this from your database later.
     const sampleCampaigns = [
         {
@@ -321,7 +321,7 @@ router.get('/campaigns/new', (req, res) => {
 });
 
 
-router.get('/verification',isLoggedIn, async (req, res) => {
+router.get('/verification', isLoggedIn, async (req, res) => {
     try {
         // Fetch all alumni with a 'Pending' status
         const pendingAlumni = await Alumni.find({ status: 'Pending' });

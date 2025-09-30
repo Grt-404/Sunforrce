@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Create Event — SAMPARK</title>
-    <meta name="description" content="Schedule an event based on a student's request."/>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23a16207'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3EA%3C/text%3E%3C/svg%3E" />
+    <title>Schedule Visit — Sunforce</title>
+    <meta name="description" content="Schedule a site visit based on a client's request."/>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2322C55E'/%3E%3Cstop offset='100%25' stop-color='%2316A34A'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3ES%3C/text%3E%3C/svg%3E" />
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 
-    <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -25,9 +23,9 @@
                         foreground: '#1f1c18',
                         card: '#ffffff',
                         'card-foreground': '#1f1c18',
-                        primary: '#a16207',
+                        primary: '#16a34a',
                         'primary-foreground': '#ffffff',
-                        secondary: '#b99553',
+                        secondary: '#22c55e',
                         border: 'rgba(0, 0, 0, 0.08)',
                     },
                     fontFamily: {
@@ -54,7 +52,7 @@
 
     <style>
         body {
-            background: linear-gradient(-45deg, #f8f5f2, #fffefc, #fef8f0, #f8f5f2);
+            background: linear-gradient(-45deg, #f0fdf4, #f9fafb, #eefbf3, #f9fafb);
             background-size: 400% 400%;
             animation: backgroundShift 25s ease infinite;
         }
@@ -69,18 +67,18 @@
             <div class="text-center mb-4">
                  <a href="/alumni/eventrequests" class="inline-flex items-center gap-2 text-gray-600 hover:text-primary transition-colors font-semibold">
                     <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                    Back to Event Requests
+                    Back to Visit Requests
                 </a>
             </div>
 
             <div class="bg-card p-8 rounded-2xl shadow-lift">
-                <h2 class="text-3xl font-serif font-bold text-foreground text-center mb-2">Create Event</h2>
-                <p class="text-gray-500 text-center mb-8">Schedule an event based on the student's request.</p>
+                <h2 class="text-3xl font-serif font-bold text-foreground text-center mb-2">Schedule Site Visit</h2>
+                <p class="text-gray-500 text-center mb-8">Confirm the details for the client's requested site visit.</p>
 
                 <div class="bg-background/80 p-6 rounded-xl border border-border mb-6">
                     <h3 class="text-xl font-serif font-semibold text-card-foreground mb-2">Request Details</h3>
                     <p class="text-foreground font-medium"><strong>Title:</strong> <%= request.title %></p>
-                    <p class="text-gray-600 mt-2"><strong>Description:</strong> <%= request.description %></p>
+                    <p class="text-gray-600 mt-2"><strong>Details:</strong> <%= request.description %></p>
                 </div>
 
                 <form action="/alumni/eventrequests/create-event/<%= request._id %>" method="POST" class="space-y-6">
@@ -96,7 +94,7 @@
                     </div>
 
                     <div>
-                        <label for="gmeetLink" class="block text-card-foreground font-semibold mb-2">Google Meet Link</label>
+                        <label for="gmeetLink" class="block text-card-foreground font-semibold mb-2">Meeting Link (if applicable)</label>
                         <input 
                             type="url" 
                             id="gmeetLink" 
@@ -109,9 +107,9 @@
 
                     <button 
                         type="submit" 
-                        class="w-full bg-primary text-primary-foreground font-bold py-3 px-4 rounded-xl hover:bg-primary/90 transition-transform transform hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-primary/50"
+                        class="w-full bg-primary text-primary-foreground font-bold py-3 px-4 rounded-xl hover:bg-green-700 transition-transform transform hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-primary/50"
                     >
-                        Create Event
+                        Schedule Visit
                     </button>
                 </form>
             </div>
@@ -122,13 +120,12 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             
-            // Particle animation script (optional, but consistent with other pages)
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             let particles = [];
-            const particleColor = 'rgba(161, 98, 7, 0.5)';
+            const particleColor = 'rgba(22, 163, 74, 0.5)';
             class Particle {
                 constructor(x, y) { this.x = x; this.y = y; this.size = Math.random() * 1.5 + 1; this.speedX = Math.random() * 0.4 - 0.2; this.speedY = Math.random() * 0.4 - 0.2; }
                 update() { this.x += this.speedX; this.y += this.speedY; if (this.size > 0.1) this.size -= 0.005; }

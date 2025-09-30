@@ -3,17 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Profile — SAMPARK</title>
+    <title>My Profile — Sunforce</title>
     <meta
       name="description"
-      content="SAMPARK is a world-class alumni nexus for elite networking, career acceleration, and community impact."
+      content="Manage your Sunforce Green Energy client profile."
     />
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23a16207'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3EA%3C/text%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2322C55E'/%3E%3Cstop offset='100%25' stop-color='%2316A34A'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3ES%3C/text%3E%3C/svg%3E"
     />
 
-    <!-- Fonts & Libraries -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -29,8 +28,8 @@
           extend: {
             colors: {
               background: "#f8f5f2", foreground: "#1f1c18", card: "#ffffff",
-              "card-foreground": "#1f1c18", primary: "#a16207", "primary-foreground": "#ffffff",
-              secondary: "#b99553", border: "rgba(0, 0, 0, 0.08)",
+              "card-foreground": "#1f1c18", primary: "#16a34a", "primary-foreground": "#ffffff",
+              secondary: "#22c55e", border: "rgba(0, 0, 0, 0.08)",
             },
             fontFamily: {
               sans: ["Inter", "sans-serif"], serif: ["Playfair Display", "serif"],
@@ -38,7 +37,7 @@
             boxShadow: {
               soft: "0 4px 12px rgba(0, 0, 0, 0.05)",
               lift: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)",
-              glow: "0 0 20px rgba(161, 98, 7, 0.15)",
+              glow: "0 0 20px rgba(22, 163, 74, 0.15)",
             },
             animation: { backgroundShift: "backgroundShift 25s ease infinite" },
             keyframes: {
@@ -50,11 +49,11 @@
     </script>
     <style>
       body {
-        background: linear-gradient(-45deg, #f8f5f2, #fffefc, #fef8f0, #f8f5f2);
+        background: linear-gradient(-45deg, #f0fdf4, #f9fafb, #eefbf3, #f9fafb);
         background-size: 400% 400%; animation: backgroundShift 25s ease infinite;
       }
       .glass-header {
-        background: rgba(255, 253, 250, 0.85); backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--tw-color-border);
       }
       .nav-link {
@@ -69,8 +68,8 @@
     <header class="fixed top-0 inset-x-0 z-40 glass-header">
       <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
-          <a href="/" class="text-3xl font-serif font-bold text-primary">SAMPARK</a>
-          <a href="/logout" class="px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-semibold shadow-soft flex items-center gap-2">
+          <a href="/" class="text-3xl font-serif font-bold text-primary">Sunforce</a>
+          <a href="/logout" class="px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-green-700 transition-colors font-semibold shadow-soft flex items-center gap-2">
             <i data-lucide="log-out" class="w-4 h-4"></i> Logout
           </a>
         </div>
@@ -82,11 +81,10 @@
         <div class="max-w-screen-xl mx-auto flex justify-center items-center">
           <div class="flex gap-4 overflow-x-auto">
             <a href="/student/dashboard" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="layout-dashboard"></i>Dashboard</a>
-            <a href="/student/connections" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="users"></i>Connections</a>
-            <a href="/student/posts" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="newspaper"></i>Posts</a>
-            <a href="/student/referrals" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="handshake"></i>Ask for Referral</a>
-            <a href="/student/map" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="map"></i>Alumni Map</a>
-            <a href="/student/events" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="calendar"></i>Events</a>
+            <a href="/student/connections" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="users"></i>Our Team</a>
+            <a href="/student/posts" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="newspaper"></i>Announcements</a>
+            <a href="/student/map" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="map"></i>Global Reach</a>
+            <a href="/student/events" class="nav-link flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="calendar"></i>Site Visit Requests</a>
             <a href="/student/profile" class="nav-link active flex-shrink-0 flex items-center gap-2 px-3 py-2 text-sm font-semibold"><i data-lucide="user-circle"></i>My Profile</a>
           </div>
         </div>
@@ -94,20 +92,19 @@
 
       <div class="max-w-screen-xl mx-auto p-6 md:p-8">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <!-- Left Column: Profile Form -->
           <div class="lg:col-span-1">
              <form action="/student/profile" method="POST" enctype="multipart/form-data" class="bg-card rounded-xl shadow-soft p-6 space-y-6 sticky top-36">
                 <div class="text-center">
                     <label for="image-upload" class="cursor-pointer group relative inline-block">
-                        <% if (user.image) { %>
+                         <% if (user.image) { %>
                             <img src="data:image/jpeg;base64,<%= user.image.toString('base64') %>" alt="Profile Photo" id="profile-image-preview" class="h-28 w-28 rounded-full object-cover ring-4 ring-primary/20 shadow-soft mx-auto"/>
                         <% } else { %>
-                            <div id="profile-initials-preview" class="h-28 w-28 rounded-full flex items-center justify-center bg-secondary text-primary-foreground text-5xl font-bold ring-4 ring-primary/20 shadow-soft mx-auto">
-                                <%= user.fullname ? user.fullname.charAt(0).toUpperCase() : "S" %>
+                             <div id="profile-initials-preview" class="h-28 w-28 rounded-full flex items-center justify-center bg-secondary text-primary-foreground text-5xl font-bold ring-4 ring-primary/20 shadow-soft mx-auto">
+                                <%= user.fullname ? user.fullname.charAt(0).toUpperCase() : "C" %>
                             </div>
                         <% } %>
                         <div class="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i data-lucide="camera" class="w-8 h-8 text-white"></i>
+                             <i data-lucide="camera" class="w-8 h-8 text-white"></i>
                         </div>
                     </label>
                     <input type="file" name="image" id="image-upload" class="hidden" accept="image/*">
@@ -121,44 +118,40 @@
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
                     <input type="email" name="email" id="email" value="<%= user.email %>" class="w-full border border-border rounded-md bg-gray-100 px-4 py-2.5" readonly>
                 </div>
-                 <div>
+                  <div>
                     <label for="contact" class="block text-sm font-medium text-gray-700 mb-1">Contact Number</label>
                     <input type="tel" name="contact" id="contact" value="<%= user.contact || '' %>" class="w-full border border-border rounded-md bg-background px-4 py-2.5 focus:ring-2 focus:ring-primary focus:outline-none">
                 </div>
                 <div>
-                    <label for="branch" class="block text-sm font-medium text-gray-700 mb-1">Branch</label>
-                    <input type="text" name="branch" id="branch" value="<%= user.branch || '' %>" placeholder="e.g., Computer Engineering" class="w-full border border-border rounded-md bg-background px-4 py-2.5 focus:ring-2 focus:ring-primary focus:outline-none">
+                    <label for="branch" class="block text-sm font-medium text-gray-700 mb-1">Property Type</label>
+                    <input type="text" name="branch" id="branch" value="<%= user.branch || '' %>" placeholder="e.g., Residential, Commercial" class="w-full border border-border rounded-md bg-background px-4 py-2.5 focus:ring-2 focus:ring-primary focus:outline-none">
                 </div>
                 
-                <!-- NEW: Interactive Interests Field -->
                 <div>
-                    <label for="interest-input" class="block text-sm font-medium text-gray-700 mb-1">My Interests</label>
+                     <label for="interest-input" class="block text-sm font-medium text-gray-700 mb-1">Services of Interest</label>
                     <div class="flex items-center gap-2">
-                         <input type="text" id="interest-input" placeholder="e.g., AI/ML" class="w-full border border-border rounded-md bg-background px-4 py-2.5 focus:ring-2 focus:ring-primary focus:outline-none">
+                         <input type="text" id="interest-input" placeholder="e.g., Solar Panels" class="w-full border border-border rounded-md bg-background px-4 py-2.5 focus:ring-2 focus:ring-primary focus:outline-none">
                          <button type="button" id="add-interest-btn" class="px-4 py-2.5 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground rounded-lg font-bold text-sm transition-colors">Add</button>
                     </div>
                     <div id="interests-container" class="mt-3 flex flex-wrap gap-2">
-                        <!-- Interest tags will be added here by JavaScript -->
-                    </div>
+                        </div>
                     <input type="hidden" name="interests" id="interests-hidden-input">
                 </div>
 
-                 <button type="submit" class="w-full px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors shadow-soft">
+                 <button type="submit" class="w-full px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-green-700 transition-colors shadow-soft">
                     Save Changes
-                </button>
+                 </button>
              </form>
           </div>
 
-          <!-- Right Column: Connections & Events -->
           <div class="lg:col-span-2 space-y-8">
-            <!-- Connections Section -->
             <div>
-              <div class="flex justify-between items-center mb-4">
-                 <h3 class="text-2xl font-serif font-bold text-foreground">My Connections (<%= connections.length %>)</h3>
+               <div class="flex justify-between items-center mb-4">
+                 <h3 class="text-2xl font-serif font-bold text-foreground">Our Team (<%= connections.length %>)</h3>
                  <a href="/student/connections" class="px-4 py-2 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-lg font-bold text-sm transition-colors">View All</a>
               </div>
               <div class="bg-card rounded-xl shadow-soft p-6">
-                <% if (connections && connections.length > 0) { %>
+                 <% if (connections && connections.length > 0) { %>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <% connections.slice(0, 4).forEach(alumnus => { %>
                            <div class="flex items-center gap-3">
@@ -169,35 +162,33 @@
                                    <p class="font-semibold text-card-foreground"><%= alumnus.name %></p>
                                    <p class="text-xs text-gray-500"><%= alumnus.designation %></p>
                                </div>
-                           </div>
+                          </div>
                         <% }); %>
                     </div>
                 <% } else { %>
-                    <p class="text-center text-gray-500 py-4">You haven't made any connections yet.</p>
+                    <p class="text-center text-gray-500 py-4">You haven't connected with any team members yet.</p>
                 <% } %>
               </div>
             </div>
 
-            <!-- Event Requests Section -->
             <div>
-              <h3 class="text-2xl font-serif font-bold text-foreground mb-4">My Event Requests</h3>
+              <h3 class="text-2xl font-serif font-bold text-foreground mb-4">My Site Visit Requests</h3>
               <div class="bg-card rounded-xl shadow-soft">
                 <div class="space-y-2">
-                   <% if (eventRequests && eventRequests.length > 0) { %>
+                    <% if (eventRequests && eventRequests.length > 0) { %>
                         <% eventRequests.forEach(request => { %>
                             <div class="p-5 flex justify-between items-center border-b border-border last:border-b-0">
-                                <div>
+                                 <div>
                                     <p class="font-semibold text-card-foreground"><%= request.title %></p>
                                     <p class="text-sm text-gray-500">Submitted on <%= new Date(request.createdAt).toLocaleDateString() %></p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="font-bold text-primary"><%= request.upvotes %> Upvotes</p>
-                                    <p class="text-xs text-gray-500"><%= request.status %></p>
+                                    <p class="font-bold capitalize text-sm <%= request.status === 'pending' ? 'text-yellow-500' : 'text-primary' %>"><%= request.status %></p>
                                 </div>
                             </div>
                         <% }); %>
                    <% } else { %>
-                        <p class="text-center text-gray-500 p-10">You haven't made any event requests.</p>
+                        <p class="text-center text-gray-500 p-10">You haven't made any site visit requests.</p>
                    <% } %>
                 </div>
               </div>
@@ -239,40 +230,33 @@
         const addInterestBtn = document.getElementById('add-interest-btn');
         const interestsContainer = document.getElementById('interests-container');
         const hiddenInterestsInput = document.getElementById('interests-hidden-input');
-
-        // Function to update the hidden input value
+        
         const updateHiddenInput = () => {
             const tags = interestsContainer.querySelectorAll('.interest-tag-text');
             const interests = Array.from(tags).map(tag => tag.textContent);
             hiddenInterestsInput.value = interests.join(',');
         };
-
-        // Function to create a new interest tag
+        
         const createTag = (interest) => {
             const tag = document.createElement('div');
             tag.className = 'flex items-center bg-secondary text-primary-foreground text-sm font-semibold px-3 py-1 rounded-full';
-            
             const tagText = document.createElement('span');
             tagText.className = 'interest-tag-text';
             tagText.textContent = interest;
-            
             const removeBtn = document.createElement('button');
             removeBtn.type = 'button';
             removeBtn.className = 'ml-2 text-primary-foreground/70 hover:text-primary-foreground';
             removeBtn.innerHTML = '<i data-lucide="x" class="w-4 h-4"></i>';
-
             removeBtn.onclick = () => {
                 tag.remove();
                 updateHiddenInput();
             };
-            
             tag.appendChild(tagText);
             tag.appendChild(removeBtn);
             interestsContainer.appendChild(tag);
-            lucide.createIcons(); // Re-render icons after adding new one
+            lucide.createIcons();
         };
-
-        // Add an interest
+        
         const addInterest = () => {
             const interest = interestInput.value.trim();
             if (interest) {
@@ -289,8 +273,7 @@
                 addInterest();
             }
         });
-
-        // Load existing interests on page load
+        
         const existingInterests = "<%= user.interests ? user.interests.join(',') : '' %>";
         if (existingInterests) {
             existingInterests.split(',').forEach(interest => {
@@ -302,4 +285,3 @@
     </script>
   </body>
 </html>
-

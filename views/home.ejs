@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SAMPARK - The Alumni Nexus</title>
+    <title>Sunforce Green Energy - Powering a Sustainable Future</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,11 +13,12 @@
             theme: {
                 extend: {
                     colors: {
-                        'brand-cream': '#FFFBF5',
-                        'brand-petal': '#F2E6E0',
-                        'brand-gold': '#BBA14F',
-                        'brand-bark': '#5E503F',
-                        'brand-midnight': '#1C1C1C',
+                        'brand-bg': '#F9FAFB', // Very light gray
+                        'brand-primary': '#10B981', // Emerald 500
+                        'brand-secondary': '#059669', // Emerald 600
+                        'brand-dark': '#1F2937', // Gray 800
+                        'brand-light': '#FFFFFF',
+                        'brand-accent': '#34D399', // Emerald 400
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -28,9 +29,9 @@
                         'fade-in-up': { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
                         'marquee': { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-100%)' } }
                     },
-                     animation: {
+                    animation: {
                         'fade-in-up': 'fade-in-up 1s ease-out forwards',
-                        'marquee': 'marquee 30s linear infinite',
+                        'marquee': 'marquee 40s linear infinite',
                     }
                 }
             }
@@ -40,8 +41,8 @@
         html { scroll-behavior: smooth; }
         body {
             font-family: theme('fontFamily.sans');
-            background-color: theme('colors.brand-cream');
-            color: theme('colors.brand-bark');
+            background-color: theme('colors.brand-bg');
+            color: theme('colors.brand-dark');
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -58,225 +59,178 @@
             border: 1px solid transparent;
         }
         
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .hero-slide {
-            transition: opacity 1.5s ease-in-out;
-        }
-         .marquee-container {
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-        }
-        .marquee-content {
-            display: flex;
-            width: 200%; /* Needs to be double the container width for a seamless loop */
-            animation: marquee 30s linear infinite;
-        }
-        .marquee-item {
-            flex-shrink: 0;
-            width: 50%; /* Each set of logos takes up half the marquee content width */
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .category-circle-inner {
-            transition: background-color 0.4s ease;
-        }
-        .category-circle:hover .category-circle-inner {
-            background-color: theme('colors.brand-gold');
-        }
-        .category-circle:hover h3 {
-            color: #ffffff;
-        }
-        .category-circle h3 {
-            transition: color 0.4s ease;
-        }
-        .category-circle img {
-             transition: transform 0.4s ease, filter 0.4s ease;
-             filter: brightness(1);
-        }
-        .category-circle:hover img {
-            transform: scale(1.05);
-            filter: brightness(1.1);
-        }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 1.2s ease-out, transform 1.2s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .hero-slide { transition: opacity 1.5s ease-in-out; }
+         .marquee-container { overflow: hidden; position: relative; width: 100%; }
+        .marquee-content { display: flex; width: 200%; animation: marquee 40s linear infinite; }
+        .marquee-item { flex-shrink: 0; width: 50%; display: flex; justify-content: space-around; align-items: center; }
+        .category-circle-inner { transition: background-color 0.4s ease; }
+        .category-circle:hover .category-circle-inner { background-color: theme('colors.brand-primary'); }
+        .category-circle:hover h3 { color: #ffffff; }
+        .category-circle h3 { transition: color 0.4s ease; }
+        .category-circle img { transition: transform 0.4s ease, filter 0.4s ease; filter: brightness(1); }
+        .category-circle:hover img { transform: scale(1.05); filter: brightness(1.1); }
     </style>
 </head>
-<body class="bg-brand-cream">
+<body class="bg-brand-bg">
 
-    <div class="bg-gradient-to-b from-brand-petal via-brand-cream to-brand-cream">
-        <!-- Header -->
-        <header class="fixed w-full z-30 bg-brand-cream/80 backdrop-blur-lg border-b border-brand-petal">
+    <div class="bg-gradient-to-b from-emerald-50 via-brand-bg to-brand-bg">
+        <header class="fixed w-full z-30 bg-white/80 backdrop-blur-lg border-b border-gray-200">
             <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
                 <nav class="hidden md:flex flex-1 justify-start space-x-10 text-sm uppercase tracking-widest">
-                    <a href="#features" class="hover:text-brand-gold transition">Features</a>
-                    <a href="#mission" class="hover:text-brand-gold transition">Our Mission</a>
+                    <a href="#features" class="hover:text-brand-primary transition">Our Solutions</a>
+                    <a href="#mission" class="hover:text-brand-primary transition">Our Mission</a>
                 </nav>
                 <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <a href="/" class="text-3xl font-serif tracking-wide text-brand-bark">Sampark</a>
+                    <a href="/" class="text-3xl font-serif tracking-wide text-brand-dark">Sunforce</a>
                 </div>
                 <nav class="hidden md:flex flex-1 justify-end space-x-10 text-sm uppercase tracking-widest">
-                    <a href="#testimonials" class="hover:text-brand-gold transition">Success Stories</a>
-                    <a href="/login" class="hover:text-brand-gold transition">Login</a>
+                    <a href="#testimonials" class="hover:text-brand-primary transition">Client Stories</a>
+                    <a href="/login" class="hover:text-brand-primary transition">Login</a>
                 </nav>
                 <div class="md:hidden flex-1 justify-end text-right">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </div>
             </div>
         </header>
 
         <main>
-            <!-- Hero Slider -->
             <section class="h-screen relative pt-20 overflow-hidden" id="hero-slider">
-                <!-- Slide 1 -->
                 <div class="hero-slide absolute inset-0 w-full h-full">
-                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg');"></div>
-                    <div class="absolute inset-0 bg-brand-bark/40"></div>
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/1379636/pexels-photo-1379636.jpeg');"></div>
+                    <div class="absolute inset-0 bg-brand-dark/50"></div>
                     <div class="relative z-10 h-full flex flex-col items-center justify-center text-white text-center px-6">
-                        <h1 class="text-6xl md:text-8xl font-display mb-6 leading-tight">Your Future, Connected.</h1>
-                        <p class="text-lg md:text-xl max-w-2xl mx-auto font-serif">Unlock your potential with an unparalleled network of mentors and leaders.</p>
-                        <a href="/register" class="btn bg-brand-gold text-white hover:bg-white hover:text-brand-gold border-brand-gold mt-8">Join The Network</a>
+                        <h1 class="text-6xl md:text-8xl font-display mb-6 leading-tight">Power Your Tomorrow.</h1>
+                        <p class="text-lg md:text-xl max-w-2xl mx-auto font-serif">Harness the sun's energy with state-of-the-art solar solutions for your home and business.</p>
+                        <a href="/register" class="btn bg-brand-primary text-white hover:bg-white hover:text-brand-dark border-brand-primary mt-8">Get a Free Quote</a>
                     </div>
                 </div>
-                <!-- Slide 2 -->
                 <div class="hero-slide absolute inset-0 w-full h-full opacity-0">
-                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/6550407/pexels-photo-6550407.jpeg');"></div>
-                    <div class="absolute inset-0 bg-brand-bark/40"></div>
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/1229042/pexels-photo-1229042.jpeg');"></div>
+                    <div class="absolute inset-0 bg-brand-dark/50"></div>
                     <div class="relative z-10 h-full flex flex-col items-center justify-center text-white text-center px-6">
-                        <h1 class="text-6xl md:text-8xl font-display mb-6 leading-tight">Legacy Meets Opportunity.</h1>
-                        <p class="text-lg md:text-xl max-w-2xl mx-auto font-serif">Forge the connections that will define your career trajectory.</p>
-                        <a href="/register" class="btn bg-brand-gold text-white hover:bg-white hover:text-brand-gold border-brand-gold mt-8">Join Our Mission</a>
+                        <h1 class="text-6xl md:text-8xl font-display mb-6 leading-tight">A Greener Future Starts Here.</h1>
+                        <p class="text-lg md:text-xl max-w-2xl mx-auto font-serif">Join the renewable energy revolution and reduce your carbon footprint with Sunforce.</p>
+                        <a href="/register" class="btn bg-brand-primary text-white hover:bg-white hover:text-brand-dark border-brand-primary mt-8">Explore Solutions</a>
                     </div>
                 </div>
                 <button id="prev-slide" class="absolute z-20 left-4 md:left-10 top-1/2 -translate-y-1/2 w-12 h-12 text-white/70 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
                 <button id="next-slide" class="absolute z-20 right-4 md:right-10 top-1/2 -translate-y-1/2 w-12 h-12 text-white/70 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
             </section>
 
-            <!-- Marquee Section -->
             <section class="py-16">
                 <div class="container mx-auto px-6 fade-in">
-                    <p class="text-center text-sm uppercase tracking-widest text-brand-bark/50 mb-6">Our Alumni Are Leaders At</p>
+                    <p class="text-center text-sm uppercase tracking-widest text-brand-dark/50 mb-6">TRUSTED BY INDUSTRY LEADERS & PARTNERS</p>
                     <div class="marquee-container">
                         <div class="marquee-content">
                             <div class="marquee-item">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1200px-Google_2015_logo.svg.png" alt="Google" class="h-6 mx-8">
-                               
-                               
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1200px-Amazon_logo.svg.png" alt="Amazon" class="h-6 mx-8">
-                                
+                                <img src="https://w7.pngwing.com/pngs/308/404/png-transparent-siemens-business-sivantos-automation-innovation-business-text-people-logo-thumbnail.png" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
+                                <img src="https://www.vhv.rs/dpng/d/121-1211603_transparent-general-electric-logo-png-general-electric-company.png" alt="General Electric" class="h-10 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
+                                <img src="https://www.vhv.rs/dpng/d/276-2768996_schneider-electric-logo-schneider-electric-png-transparent-png.png" alt="Schneider Electric" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
+                                <img src="https://w7.pngwing.com/pngs/604/618/png-transparent-larsen-toubro-limited-mmh-architectural-engineering-business-l-t-hydrocarbon-engineering-business-blue-text-trademark.png" alt="L&T" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
+                                <img src="https://e7.pngegg.com/pngimages/776/997/png-clipart-tata-motors-tata-group-company-india-tata-sons-india-blue-angle-thumbnail.png" alt="Tata Power" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
                             </div>
                             <div class="marquee-item">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1200px-Google_2015_logo.svg.png" alt="Google" class="h-6 mx-8">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Goldman_Sachs_logo.svg/1200px-Goldman_Sachs_logo.svg.png" alt="Goldman Sachs" class="h-6 mx-8">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/McKinsey_%26_Company_logo.svg/1200px-McKinsey_%26_Company_logo.svg.png" alt="McKinsey & Company" class="h-8 mx-8">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1200px-Amazon_logo.svg.png" alt="Amazon" class="h-6 mx-8">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Shopify_logo_2018.svg/1200px-Shopify_logo_2018.svg.png" alt="Shopify" class="h-6 mx-8">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Siemens_Energy_logo.svg" alt="Siemens Energy" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/General_Electric_logo.svg/1200px-General_Electric_logo.svg.png" alt="General Electric" class="h-10 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Schneider_Electric_2012_logo.svg/1280px-Schneider_Electric_2012_logo.svg.png" alt="Schneider Electric" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Larsen_%26_Toubro_logo.svg/1200px-Larsen_%26_Toubro_logo.svg.png" alt="L&T" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Tata_Power_Logo.svg/1200px-Tata_Power_Logo.svg.png" alt="Tata Power" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- USP Features Section -->
             <section id="features" class="py-24 md:py-32 px-6">
                  <div class="max-w-4xl mx-auto text-center mb-16 fade-in">
-                    <h2 class="text-5xl md:text-6xl font-display mb-4">An Ecosystem for Growth</h2>
-                    <p class="text-base md:text-lg text-brand-bark/80 font-serif">Sampark is more than a portal—it's an intelligent platform designed to amplify your career.</p>
+                    <h2 class="text-5xl md:text-6xl font-display mb-4">An Ecosystem for Energy Independence</h2>
+                    <p class="text-base md:text-lg text-brand-dark/80 font-serif">Sunforce is more than just panels—it's an intelligent platform designed to optimize your energy savings.</p>
                 </div>
                 <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
                     <div class="bg-white p-8 rounded-lg shadow-sm fade-in" style="transition-delay: 100ms;">
-                        <h3 class="text-2xl font-serif text-brand-bark mb-3">Your Personal Career AI</h3>
-                        <p class="text-brand-bark/70">Based on your interests, our AI suggests relevant courses, resources, and connections, providing a personalized roadmap for your professional development.</p>
+                        <h3 class="text-2xl font-serif text-brand-dark mb-3">Your Personal Energy AI</h3>
+                        <p class="text-brand-dark/70">Based on your usage, our AI suggests the most efficient solutions and provides a personalized roadmap to lower your energy bills and maximize savings.</p>
                     </div>
-                     <div class="bg-white p-8 rounded-lg shadow-sm fade-in" style="transition-delay: 200ms;">
-                        <h3 class="text-2xl font-serif text-brand-bark mb-3">Impact, Recognized</h3>
-                        <p class="text-brand-bark/70">Our gamified points system rewards meaningful contributions. Earn 200 points for donations, 100 for mentoring a junior, and unlock exclusive benefits.</p>
+                      <div class="bg-white p-8 rounded-lg shadow-sm fade-in" style="transition-delay: 200ms;">
+                        <h3 class="text-2xl font-serif text-brand-dark mb-3">Savings, Recognized</h3>
+                        <p class="text-brand-dark/70">Our system tracks your energy savings and carbon offset. Refer new clients to earn credits towards system upgrades and exclusive partner benefits.</p>
                     </div>
-                     <div class="bg-brand-bark text-white p-8 rounded-lg shadow-lg fade-in" style="transition-delay: 300ms;">
+                     <div class="bg-brand-dark text-white p-8 rounded-lg shadow-lg fade-in" style="transition-delay: 300ms;">
                         <div class="flex items-center justify-between mb-3">
-                            <h3 class="text-2xl font-serif">Exclusive Mentorship</h3>
-                             <span class="text-xs uppercase tracking-widest bg-brand-gold text-white font-semibold py-1 px-3 rounded-full">Premium</span>
+                            <h3 class="text-2xl font-serif">Priority Support</h3>
+                             <span class="text-xs uppercase tracking-widest bg-brand-primary text-white font-semibold py-1 px-3 rounded-full">Premium</span>
                         </div>
-                        <p class="text-brand-cream/80">Access one-on-one guidance from industry titans. Our premium mentorship program is your direct line to the top.</p>
+                        <p class="text-gray-300/80">Access dedicated energy consultants and 24/7 system monitoring. Our premium support ensures your system performs at its peak, hassle-free.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Global Reach Section -->
-            <section class="py-24 md:py-32 bg-brand-bark text-white">
+            <section id="mission" class="py-24 md:py-32 bg-brand-dark text-white">
                 <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 px-6 items-center">
                     <div class="fade-in">
-                        <h2 class="text-5xl md:text-6xl font-display mb-6">A Global Nexus of Influence</h2>
-                        <p class="text-lg text-brand-cream/80 leading-relaxed font-serif">Our alumni network isn't confined by geography. With members in key leadership roles across every major continent, your next opportunity is always within reach.</p>
+                        <h2 class="text-5xl md:text-6xl font-display mb-6">A Nationwide Force for Change</h2>
+                        <p class="text-lg text-gray-300/80 leading-relaxed font-serif">From residential rooftops to large-scale commercial projects, Sunforce is powering communities across the nation, making sustainable energy accessible to all.</p>
                     </div>
                      <div class="fade-in" style="transition-delay: 150ms;">
-                        <img src="https://images.pexels.com/photos/21370289/pexels-photo-21370289.jpeg" alt="A dark world map with glowing points indicating a global network" class="w-full h-full object-contain">
+                        <img src="https://images.pexels.com/photos/1583582/pexels-photo-1583582.jpeg" alt="A map of India with glowing points indicating a nationwide network" class="w-full h-full object-cover rounded-lg">
                     </div>
                 </div>
             </section>
 
-            <!-- Connect by Industry -->
             <section class="py-24 md:py-32">
                 <div class="container mx-auto px-6">
-                    <div class="text-center mb-16 fade-in"><h2 class="text-5xl md:text-6xl font-display">Connect by Industry</h2></div>
+                    <div class="text-center mb-16 fade-in"><h2 class="text-5xl md:text-6xl font-display">Our Core Solutions</h2></div>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
                         <a href="/login" class="category-circle text-center group fade-in" style="transition-delay: 100ms;">
-                            <div class="relative w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full overflow-hidden bg-brand-petal">
+                            <div class="relative w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full overflow-hidden bg-emerald-100">
                                 <div class="category-circle-inner absolute inset-0 opacity-70"></div>
-                                <img src="https://images.pexels.com/photos/3746957/pexels-photo-3746957.jpeg" alt="A woman exiting a private jet" class="relative z-10 w-full h-full object-cover">
+                                <img src="https://images.pexels.com/photos/9875408/pexels-photo-9875408.jpeg" alt="Residential solar panels on a roof" class="relative z-10 w-full h-full object-cover">
                             </div>
-                            <h3 class="mt-6 text-xl uppercase tracking-widest text-brand-bark">Entrepreneurship</h3>
+                            <h3 class="mt-6 text-xl uppercase tracking-widest text-brand-dark">Residential Solar</h3>
                         </a>
                         <a href="/login" class="category-circle text-center group fade-in" style="transition-delay: 200ms;">
-                            <div class="relative w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full overflow-hidden bg-brand-petal">
+                            <div class="relative w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full overflow-hidden bg-emerald-100">
                                 <div class="category-circle-inner absolute inset-0 opacity-70"></div>
-                                <img src="https://images.pexels.com/photos/1181316/pexels-photo-1181316.jpeg" alt="A woman in a modern tech office" class="relative z-10 w-full h-full object-cover">
+                                <img src="https://images.pexels.com/photos/9800005/pexels-photo-9800005.jpeg" alt="Large solar farm for commercial use" class="relative z-10 w-full h-full object-cover">
                             </div>
-                            <h3 class="mt-6 text-xl uppercase tracking-widest text-brand-bark">Technology</h3>
+                            <h3 class="mt-6 text-xl uppercase tracking-widest text-brand-dark">Commercial & Industrial</h3>
                         </a>
                         <a href="/login" class="category-circle text-center group fade-in" style="transition-delay: 300ms;">
-                             <div class="relative w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full overflow-hidden bg-brand-petal">
-                                <div class="category-circle-inner absolute inset-0 opacity-70"></div>
-                                <img src="https://images.pexels.com/photos/33821892/pexels-photo-33821892.jpeg" alt="A person in a creative studio setting" class="relative z-10 w-full h-full object-cover">
+                             <div class="relative w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full overflow-hidden bg-emerald-100">
+                                 <div class="category-circle-inner absolute inset-0 opacity-70"></div>
+                                <img src="https://images.pexels.com/photos/9800002/pexels-photo-9800002.jpeg" alt="An electric vehicle charging" class="relative z-10 w-full h-full object-cover">
                             </div>
-                            <h3 class="mt-6 text-xl uppercase tracking-widest text-brand-bark">Creative Arts</h3>
+                            <h3 class="mt-6 text-xl uppercase tracking-widest text-brand-dark">EV Charging</h3>
                         </a>
                     </div>
                 </div>
             </section>
         
-            <!-- Testimonials -->
-             <section id="testimonials" class="py-24 md:py-32 bg-brand-petal">
+            <section id="testimonials" class="py-24 md:py-32 bg-emerald-50">
                 <div class="max-w-4xl mx-auto text-center px-6 fade-in">
-                    <h2 class="text-5xl md:text-6xl font-display text-brand-bark">Success, Accelerated.</h2>
-                    <div class="mt-8 text-xl md:text-2xl font-serif text-brand-bark/80 leading-relaxed">
-                        <p>"Through Sampark, I found a mentor who guided me through a career pivot into tech. The access to this level of leadership is unparalleled. It was truly life-changing."</p>
+                    <h2 class="text-5xl md:text-6xl font-display text-brand-dark">Savings You Can See.</h2>
+                    <div class="mt-8 text-xl md:text-2xl font-serif text-brand-dark/80 leading-relaxed">
+                        <p>"Working with Sunforce was seamless. They guided us through the entire process, and our electricity bills have been cut by over 80%. It's an investment that pays for itself."</p>
                     </div>
                     <div class="mt-8 flex items-center justify-center space-x-4">
-                        <img class="h-16 w-16 rounded-full object-cover" src="https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=500" alt="Profile of Priya Sharma">
+                        <img class="h-16 w-16 rounded-full object-cover" src="https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=500" alt="Profile of a happy client">
                         <div>
-                            <p class="font-semibold text-brand-bark">Priya Sharma</p>
-                            <p class="text-sm text-brand-bark/70">Software Engineer at Google</p>
+                            <p class="font-semibold text-brand-dark">Priya Sharma</p>
+                            <p class="text-sm text-brand-dark/70">Residential Client, Mumbai</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Join Waitlist -->
             <section class="py-20 md:py-24">
                 <div class="max-w-4xl mx-auto text-center px-6 fade-in">
-                    <h2 class="text-5xl md:text-6xl font-display text-brand-bark">Join The Inner Circle</h2>
-                    <p class="text-lg mt-4 max-w-xl mx-auto font-serif text-brand-bark/80">Receive an exclusive invitation and be the first to know when new features are released.</p>
-                    <form class="mt-8 max-w-md mx-auto flex border border-brand-bark/30 p-1 focus-within:border-brand-gold transition" action="/login">
-                        <input type="email" placeholder="Enter your email" class="w-full bg-transparent text-brand-bark px-4 py-3 focus:outline-none placeholder-brand-bark/50">
-                        <button type="submit" class="btn bg-brand-gold text-white hover:bg-brand-bark transition-colors uppercase tracking-wider px-6">Request Invite</button>
+                    <h2 class="text-5xl md:text-6xl font-display text-brand-dark">Ready for a Greener Tomorrow?</h2>
+                    <p class="text-lg mt-4 max-w-xl mx-auto font-serif text-brand-dark/80">Get a free, no-obligation consultation and find out how much you can save with solar.</p>
+                    <form class="mt-8 max-w-md mx-auto flex border border-brand-dark/30 p-1 focus-within:border-brand-primary transition" action="/login">
+                         <input type="email" placeholder="Enter your email" class="w-full bg-transparent text-brand-dark px-4 py-3 focus:outline-none placeholder-brand-dark/50">
+                        <button type="submit" class="btn bg-brand-primary text-white hover:bg-brand-dark transition-colors uppercase tracking-wider px-6">Get Started</button>
                     </form>
                 </div>
             </section>
@@ -285,39 +239,39 @@
         <footer class="pt-20 pb-10 px-6">
              <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-12 text-sm text-center md:text-left">
                 <div>
-                    <h4 class="font-semibold uppercase tracking-wider mb-4">SAMPARK</h4>
-                    <ul class="space-y-2 text-brand-bark/70">
-                        <li><a href="#mission" class="hover:text-brand-bark">Our Mission</a></li>
-                        <li><a href="#testimonials" class="hover:text-brand-bark">Success Stories</a></li>
-                        <li><a href="/login" class="hover:text-brand-bark">Contact</a></li>
+                    <h4 class="font-semibold uppercase tracking-wider mb-4">Sunforce</h4>
+                    <ul class="space-y-2 text-brand-dark/70">
+                        <li><a href="#mission" class="hover:text-brand-dark">Our Mission</a></li>
+                        <li><a href="#testimonials" class="hover:text-brand-dark">Client Stories</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">Contact</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold uppercase tracking-wider mb-4">Network</h4>
-                    <ul class="space-y-2 text-brand-bark/70">
-                        <li><a href="/login" class="hover:text-brand-bark">Find a Mentor</a></li>
-                        <li><a href="/login" class="hover:text-brand-bark">Events</a></li>
-                        <li><a href="/login" class="hover:text-brand-bark">Career Paths</a></li>
+                    <h4 class="font-semibold uppercase tracking-wider mb-4">Solutions</h4>
+                    <ul class="space-y-2 text-brand-dark/70">
+                        <li><a href="/login" class="hover:text-brand-dark">Residential</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">Commercial</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">EV Charging</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-semibold uppercase tracking-wider mb-4">Resources</h4>
-                    <ul class="space-y-2 text-brand-bark/70">
-                        <li><a href="/login" class="hover:text-brand-bark">Help Center</a></li>
-                        <li><a href="/login" class="hover:text-brand-bark">Privacy Policy</a></li>
-                        <li><a href="/login" class="hover:text-brand-bark">Terms of Service</a></li>
+                    <ul class="space-y-2 text-brand-dark/70">
+                        <li><a href="/login" class="hover:text-brand-dark">Help Center</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">Privacy Policy</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">Terms of Service</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-semibold uppercase tracking-wider mb-4">Follow Us</h4>
                     <div class="flex space-x-4 justify-center md:justify-start">
-                        <a href="#" class="text-brand-bark/70 hover:text-brand-bark">IG</a>
-                        <a href="#" class="text-brand-bark/70 hover:text-brand-bark">LI</a>
-                        <a href="#" class="text-brand-bark/70 hover:text-brand-bark">TW</a>
+                        <a href="#" class="text-brand-dark/70 hover:text-brand-dark">IG</a>
+                        <a href="#" class="text-brand-dark/70 hover:text-brand-dark">LI</a>
+                        <a href="#" class="text-brand-dark/70 hover:text-brand-dark">TW</a>
                     </div>
                 </div>
             </div>
-            <div class="mt-20 text-center text-xs text-brand-bark/50">&copy; 2025 SAMPARK. All Rights Reserved.</div>
+             <div class="mt-20 text-center text-xs text-brand-dark/50">&copy; <%= new Date().getFullYear() %> Sunforce Green Energy. All Rights Reserved.</div>
         </footer>
     </div>
 
@@ -360,4 +314,3 @@
     </script>
 </body>
 </html>
-
