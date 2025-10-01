@@ -31,7 +31,7 @@
                     },
                     animation: {
                         'fade-in-up': 'fade-in-up 1s ease-out forwards',
-                        'marquee': 'marquee 40s linear infinite',
+                        'marquee': 'marquee 25s linear infinite',
                     }
                 }
             }
@@ -95,8 +95,19 @@
             </div>
         </header>
 
+        <div class="fixed top-20 w-full z-20 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 text-white overflow-hidden whitespace-nowrap shadow-lg">
+            <div class="inline-block animate-marquee py-3">
+                <span class="text-base font-bold uppercase tracking-wider mx-8">
+                    ✨ #GSTDIWAS! Due to revised GST rates, all prices are now reduced by 10% until Diwali! ✨
+                </span>
+                <span class="text-base font-bold uppercase tracking-wider mx-8">
+                    ✨ #GSTDIWAS! Due to revised GST rates, all prices are now reduced by 10% until Diwali! ✨
+                </span>
+            </div>
+        </div>
+
         <main>
-            <section class="h-screen relative pt-20 overflow-hidden" id="hero-slider">
+            <section class="h-screen relative pt-32 overflow-hidden" id="hero-slider">
                 <div class="hero-slide absolute inset-0 w-full h-full">
                     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/1379636/pexels-photo-1379636.jpeg');"></div>
                     <div class="absolute inset-0 bg-brand-dark/50"></div>
@@ -118,67 +129,7 @@
                 <button id="prev-slide" class="absolute z-20 left-4 md:left-10 top-1/2 -translate-y-1/2 w-12 h-12 text-white/70 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
                 <button id="next-slide" class="absolute z-20 right-4 md:right-10 top-1/2 -translate-y-1/2 w-12 h-12 text-white/70 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
             </section>
-
-            <section class="py-16">
-                <div class="container mx-auto px-6 fade-in">
-                    <p class="text-center text-sm uppercase tracking-widest text-brand-dark/50 mb-6">TRUSTED BY INDUSTRY LEADERS & PARTNERS</p>
-                    <div class="marquee-container">
-                        <div class="marquee-content">
-                            <div class="marquee-item">
-                                <img src="https://w7.pngwing.com/pngs/308/404/png-transparent-siemens-business-sivantos-automation-innovation-business-text-people-logo-thumbnail.png" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                                <img src="https://www.vhv.rs/dpng/d/121-1211603_transparent-general-electric-logo-png-general-electric-company.png" alt="General Electric" class="h-10 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                              
-                                <img src="https://w7.pngwing.com/pngs/604/618/png-transparent-larsen-toubro-limited-mmh-architectural-engineering-business-l-t-hydrocarbon-engineering-business-blue-text-trademark.png" alt="L&T" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                                <img src="https://e7.pngegg.com/pngimages/776/997/png-clipart-tata-motors-tata-group-company-india-tata-sons-india-blue-angle-thumbnail.png" alt="Tata Power" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                            </div>
-                            <div class="marquee-item">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Siemens_Energy_logo.svg" alt="Siemens Energy" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/General_Electric_logo.svg/1200px-General_Electric_logo.svg.png" alt="General Electric" class="h-10 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Schneider_Electric_2012_logo.svg/1280px-Schneider_Electric_2012_logo.svg.png" alt="Schneider Electric" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Larsen_%26_Toubro_logo.svg/1200px-Larsen_%26_Toubro_logo.svg.png" alt="L&T" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Tata_Power_Logo.svg/1200px-Tata_Power_Logo.svg.png" alt="Tata Power" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="features" class="py-24 md:py-32 px-6">
-                 <div class="max-w-4xl mx-auto text-center mb-16 fade-in">
-                    <h2 class="text-5xl md:text-6xl font-display mb-4">An Ecosystem for Energy Independence</h2>
-                    <p class="text-base md:text-lg text-brand-dark/80 font-serif">Sunforce is more than just panels—it's an intelligent platform designed to optimize your energy savings.</p>
-                </div>
-                <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-                    <div class="bg-white p-8 rounded-lg shadow-sm fade-in" style="transition-delay: 100ms;">
-                        <h3 class="text-2xl font-serif text-brand-dark mb-3">Your Personal Energy AI</h3>
-                        <p class="text-brand-dark/70">Based on your usage, our AI suggests the most efficient solutions and provides a personalized roadmap to lower your energy bills and maximize savings.</p>
-                    </div>
-                      <div class="bg-white p-8 rounded-lg shadow-sm fade-in" style="transition-delay: 200ms;">
-                        <h3 class="text-2xl font-serif text-brand-dark mb-3">Savings, Recognized</h3>
-                        <p class="text-brand-dark/70">Our system tracks your energy savings and carbon offset. Refer new clients to earn credits towards system upgrades and exclusive partner benefits.</p>
-                    </div>
-                     <div class="bg-brand-dark text-white p-8 rounded-lg shadow-lg fade-in" style="transition-delay: 300ms;">
-                        <div class="flex items-center justify-between mb-3">
-                            <h3 class="text-2xl font-serif">Priority Support</h3>
-                             <span class="text-xs uppercase tracking-widest bg-brand-primary text-white font-semibold py-1 px-3 rounded-full">Premium</span>
-                        </div>
-                        <p class="text-gray-300/80">Access dedicated energy consultants and 24/7 system monitoring. Our premium support ensures your system performs at its peak, hassle-free.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="mission" class="py-24 md:py-32 bg-brand-dark text-white">
-                <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 px-6 items-center">
-                    <div class="fade-in">
-                        <h2 class="text-5xl md:text-6xl font-display mb-6">A Nationwide Force for Change</h2>
-                        <p class="text-lg text-gray-300/80 leading-relaxed font-serif">From residential rooftops to large-scale commercial projects, Sunforce is powering communities across the nation, making sustainable energy accessible to all.</p>
-                    </div>
-                     <div class="fade-in" style="transition-delay: 150ms;">
-                        <img src="https://images.pexels.com/photos/1583582/pexels-photo-1583582.jpeg" alt="A map of India with glowing points indicating a nationwide network" class="w-full h-full object-cover rounded-lg">
-                    </div>
-                </div>
-            </section>
-
+            
             <section class="py-24 md:py-32">
                 <div class="container mx-auto px-6">
                     <div class="text-center mb-16 fade-in"><h2 class="text-5xl md:text-6xl font-display">Our Core Solutions</h2></div>
@@ -198,8 +149,8 @@
                             <h3 class="mt-6 text-xl uppercase tracking-widest text-brand-dark">Commercial & Industrial</h3>
                         </a>
                         <a href="/soon" class="category-circle text-center group fade-in" style="transition-delay: 300ms;">
-                             <div class="relative w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full overflow-hidden bg-emerald-100">
-                                 <div class="category-circle-inner absolute inset-0 opacity-70"></div>
+                            <div class="relative w-48 h-48 md:w-64 md:h-64 mx-auto rounded-full overflow-hidden bg-emerald-100">
+                                <div class="category-circle-inner absolute inset-0 opacity-70"></div>
                                 <img src="https://images.pexels.com/photos/9800002/pexels-photo-9800002.jpeg" alt="An electric vehicle charging" class="relative z-10 w-full h-full object-cover">
                             </div>
                             <h3 class="mt-6 text-xl uppercase tracking-widest text-brand-dark">EV Charging</h3>
@@ -207,7 +158,60 @@
                     </div>
                 </div>
             </section>
-        
+
+            <section class="py-16">
+                <div class="container mx-auto px-6 fade-in">
+                    <p class="text-center text-sm uppercase tracking-widest text-brand-dark/50 mb-6">TRUSTED BY INDUSTRY LEADERS & PARTNERS</p>
+                    <div class="marquee-container">
+                        <div class="marquee-content">
+                            <div class="marquee-item">
+                                <img src="https://w7.pngwing.com/pngs/308/404/png-transparent-siemens-business-sivantos-automation-innovation-business-text-people-logo-thumbnail.png" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
+                                <img src="https://www.vhv.rs/dpng/d/121-1211603_transparent-general-electric-logo-png-general-electric-company.png" alt="General Electric" class="h-10 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
+                                <img src="https://w7.pngwing.com/pngs/604/618/png-transparent-larsen-toubro-limited-mmh-architectural-engineering-business-l-t-hydrocarbon-engineering-business-blue-text-trademark.png" alt="L&T" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
+                                <img src="https://e7.pngegg.com/pngimages/776/997/png-clipart-tata-motors-tata-group-company-india-tata-sons-india-blue-angle-thumbnail.png" alt="Tata Power" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="py-24 md:py-32 px-6">
+                <div class="max-w-4xl mx-auto text-center mb-16 fade-in">
+                    <h2 class="text-5xl md:text-6xl font-display mb-4">An Ecosystem for Energy Independence</h2>
+                    <p class="text-base md:text-lg text-brand-dark/80 font-serif">Sunforce is more than just panels—it's an intelligent platform designed to optimize your energy savings.</p>
+                </div>
+                <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-lg shadow-sm fade-in" style="transition-delay: 100ms;">
+                        <h3 class="text-2xl font-serif text-brand-dark mb-3">Your Personal Energy AI</h3>
+                        <p class="text-brand-dark/70">Based on your usage, our AI suggests the most efficient solutions and provides a personalized roadmap to lower your energy bills and maximize savings.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-sm fade-in" style="transition-delay: 200ms;">
+                        <h3 class="text-2xl font-serif text-brand-dark mb-3">Savings, Recognized</h3>
+                        <p class="text-brand-dark/70">Our system tracks your energy savings and carbon offset. Refer new clients to earn credits towards system upgrades and exclusive partner benefits.</p>
+                    </div>
+                    <div class="bg-brand-dark text-white p-8 rounded-lg shadow-lg fade-in" style="transition-delay: 300ms;">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-2xl font-serif">Priority Support</h3>
+                            <span class="text-xs uppercase tracking-widest bg-brand-primary text-white font-semibold py-1 px-3 rounded-full">Premium</span>
+                        </div>
+                        <p class="text-gray-300/80">Access dedicated energy consultants and 24/7 system monitoring. Our premium support ensures your system performs at its peak, hassle-free.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="mission" class="py-24 md:py-32 bg-brand-dark text-white">
+                <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 px-6 items-center">
+                    <div class="fade-in">
+                        <h2 class="text-5xl md:text-6xl font-display mb-6">A Nationwide Force for Change</h2>
+                        <p class="text-lg text-gray-300/80 leading-relaxed font-serif">From residential rooftops to large-scale commercial projects, Sunforce is powering communities across the nation, making sustainable energy accessible to all.</p>
+                    </div>
+                    <div class="fade-in" style="transition-delay: 150ms;">
+                        <img src="https://images.pexels.com/photos/1583582/pexels-photo-1583582.jpeg" alt="A map of India with glowing points indicating a nationwide network" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                </div>
+            </section>
+
             <section id="testimonials" class="py-24 md:py-32 bg-emerald-50">
                 <div class="max-w-4xl mx-auto text-center px-6 fade-in">
                     <h2 class="text-5xl md:text-6xl font-display text-brand-dark">Savings You Can See.</h2>
@@ -229,7 +233,7 @@
                     <h2 class="text-5xl md:text-6xl font-display text-brand-dark">Ready for a Greener Tomorrow?</h2>
                     <p class="text-lg mt-4 max-w-xl mx-auto font-serif text-brand-dark/80">Get a free, no-obligation consultation and find out how much you can save with solar.</p>
                     <form class="mt-8 max-w-md mx-auto flex border border-brand-dark/30 p-1 focus-within:border-brand-primary transition" action="/login">
-                         <input type="email" placeholder="Enter your email" class="w-full bg-transparent text-brand-dark px-4 py-3 focus:outline-none placeholder-brand-dark/50">
+                        <input type="email" placeholder="Enter your email" class="w-full bg-transparent text-brand-dark px-4 py-3 focus:outline-none placeholder-brand-dark/50">
                         <button type="submit" class="btn bg-brand-primary text-white hover:bg-brand-dark transition-colors uppercase tracking-wider px-6">Get Started</button>
                     </form>
                 </div>
@@ -272,7 +276,8 @@
                 </div>
             </div>
              <div class="mt-20 text-center text-xs text-brand-dark/50">&copy; <%= new Date().getFullYear() %> Sunforce Green Energy. All Rights Reserved.</div>
-        </footer>
+             <div class="mt-20 text-center text-xs text-brand-dark/50">&copy; All matters of dispute are subject to the exclusive jurisdiction of the competent courts and forums in Panchkula.</div>
+        </footer>1
     </div>
 
     <script>
