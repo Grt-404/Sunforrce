@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Work — Sunforce Green Energy</title>
+    <meta
+      name="description"
+      content="Explore Sunforce Green Energy's portfolio of solar projects across India."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2310B981'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3ES%3C/text%3E%3C/svg%3E"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#F9FAFB',
+                        'brand-primary': '#10B981',
+                        'brand-secondary': '#059669',
+                        'brand-dark': '#1F2937',
+                        'brand-light': '#FFFFFF',
+                        'brand-accent': '#34D399',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                        display: ['Playfair Display', 'serif']
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.4s ease;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 1.2s ease-out, transform 1.2s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .project-card {
+             transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-dark">
+
+    <div class="bg-gradient-to-b from-emerald-50 via-brand-bg to-brand-bg">
+        <header class="fixed w-full z-30 bg-white/80 backdrop-blur-lg border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+                 <nav class="hidden md:flex flex-1 justify-start space-x-10 text-sm uppercase tracking-widest">
+                    <a href="/" class="hover:text-brand-primary transition">Home</a>
+                    <a href="/projects" class="text-brand-primary transition">Our Work</a>
+                </nav>
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <a href="/" class="text-3xl font-serif tracking-wide text-brand-dark">Sunforce</a>
+                </div>
+                <nav class="hidden md:flex flex-1 justify-end space-x-10 text-sm uppercase tracking-widest">
+                    <a href="/contact" class="hover:text-brand-primary transition">Contact</a>
+                    <a href="/login" class="hover:text-brand-primary transition">Login</a>
+                </nav>
+                <div class="md:hidden flex-1 justify-end text-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Hero Section -->
+            <div class="text-center pt-40 pb-20 px-4 fade-in">
+                <h1 class="text-5xl md:text-7xl font-display text-brand-dark">Powering India's Future</h1>
+                <p class="mt-4 max-w-3xl mx-auto text-lg font-serif text-brand-dark/80">We specialize in providing reliable and cost-effective solar solutions for industrial, commercial, and residential clients across the nation.</p>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+                    <!-- Project 1: Industrial -->
+                    <div class="project-card bg-brand-light rounded-lg shadow-sm overflow-hidden fade-in" style="transition-delay: 100ms;">
+                        <img src="https://images.pexels.com/photos/29407508/pexels-photo-29407508.jpeg" alt="Solar panels on a factory roof" class="w-full h-64 object-cover">
+                        <div class="p-8">
+                            <span class="inline-block bg-brand-primary/10 text-brand-secondary text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">Industrial Rooftop</span>
+                            <h3 class="text-3xl font-display text-brand-dark">ABC Textiles Inc.</h3>
+                            <div class="mt-6 space-y-4 text-brand-dark/80">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-brand-primary"></i>
+                                    <span>Faridabad, Haryana</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="zap" class="w-5 h-5 text-brand-primary"></i>
+                                    <span><strong>150 kWp</strong> System Capacity</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="leaf" class="w-5 h-5 text-brand-primary"></i>
+                                    <span><strong>195 Tonnes</strong> Annual CO2 Reduction</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Educational -->
+                     <div class="project-card bg-brand-light rounded-lg shadow-sm overflow-hidden fade-in" style="transition-delay: 200ms;">
+                        <img src="https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Solar panels on a school building" class="w-full h-64 object-cover">
+                        <div class="p-8">
+                            <span class="inline-block bg-brand-primary/10 text-brand-secondary text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">Educational Institution</span>
+                            <h3 class="text-3xl font-display text-brand-dark">Modern Delhi Public School</h3>
+                            <div class="mt-6 space-y-4 text-brand-dark/80">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-brand-primary"></i>
+                                    <span>Gurugram, Haryana</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="zap" class="w-5 h-5 text-brand-primary"></i>
+                                    <span><strong>80 kWp</strong> System Capacity</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="leaf" class="w-5 h-5 text-brand-primary"></i>
+                                    <span><strong>104 Tonnes</strong> Annual CO2 Reduction</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Residential Complex -->
+                    <div class="project-card bg-brand-light rounded-lg shadow-sm overflow-hidden fade-in" style="transition-delay: 100ms;">
+                        <img src="https://images.pexels.com/photos/1682821/pexels-photo-1682821.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Solar panels on an apartment building" class="w-full h-64 object-cover">
+                        <div class="p-8">
+                            <span class="inline-block bg-brand-primary/10 text-brand-secondary text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">Residential Complex</span>
+                            <h3 class="text-3xl font-display text-brand-dark">Green Valley Apartments</h3>
+                             <div class="mt-6 space-y-4 text-brand-dark/80">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-brand-primary"></i>
+                                    <span>Noida, Uttar Pradesh</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="zap" class="w-5 h-5 text-brand-primary"></i>
+                                    <span><strong>50 kWp</strong> System (Common Areas)</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="leaf" class="w-5 h-5 text-brand-primary"></i>
+                                    <span><strong>65 Tonnes</strong> Annual CO2 Reduction</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4: Agricultural -->
+                    <div class="project-card bg-brand-light rounded-lg shadow-sm overflow-hidden fade-in" style="transition-delay: 200ms;">
+                        <img src="https://images.pexels.com/photos/417346/pexels-photo-417346.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Solar panels in a rural, agricultural setting" class="w-full h-64 object-cover">
+                        <div class="p-8">
+                            <span class="inline-block bg-brand-primary/10 text-brand-secondary text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">Agricultural</span>
+                            <h3 class="text-3xl font-display text-brand-dark">Haryana Agro Cold Storage</h3>
+                             <div class="mt-6 space-y-4 text-brand-dark/80">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-brand-primary"></i>
+                                    <span>Sonipat, Haryana</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="zap" class="w-5 h-5 text-brand-primary"></i>
+                                    <span><strong>120 kWp</strong> System Capacity</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="leaf" class="w-5 h-5 text-brand-primary"></i>
+                                    <span><strong>156 Tonnes</strong> Annual CO2 Reduction</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <section class="py-20 md:py-24">
+                <div class="max-w-4xl mx-auto text-center px-6 fade-in">
+                    <h2 class="text-5xl md:text-6xl font-display text-brand-dark">Ready for a Greener Tomorrow?</h2>
+                    <p class="text-lg mt-4 max-w-xl mx-auto font-serif text-brand-dark/80">Get a free, no-obligation consultation and find out how much you can save with solar.</p>
+                     <a href="/contact" class="btn bg-brand-primary text-white hover:bg-brand-dark border-brand-primary mt-8">Get a Free Quote</a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="pt-20 pb-10 px-6">
+             <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-12 text-sm text-center md:text-left">
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-4">Sunforce</h4>
+                    <ul class="space-y-2 text-brand-dark/70">
+                        <li><a href="/" class="hover:text-brand-dark">Our Mission</a></li>
+                        <li><a href="/our-work" class="hover:text-brand-dark">Client Stories</a></li>
+                        <li><a href="/contact" class="hover:text-brand-dark">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-4">Solutions</h4>
+                    <ul class="space-y-2 text-brand-dark/70">
+                        <li><a href="/login" class="hover:text-brand-dark">Residential</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">Commercial</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">EV Charging</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-4">Resources</h4>
+                    <ul class="space-y-2 text-brand-dark/70">
+                        <li><a href="/login" class="hover:text-brand-dark">Help Center</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">Privacy Policy</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-4">Follow Us</h4>
+                    <div class="flex space-x-4 justify-center md:justify-start">
+                        <a href="#" class="text-brand-dark/70 hover:text-brand-dark">IG</a>
+                        <a href="#" class="text-brand-dark/70 hover:text-brand-dark">LI</a>
+                        <a href="#" class="text-brand-dark/70 hover:text-brand-dark">TW</a>
+                    </div>
+                </div>
+            </div>
+             <div class="mt-20 text-center text-xs text-brand-dark/50">&copy; <%= new Date().getFullYear() %> Sunforce Green Energy. All Rights Reserved.</div>
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
+

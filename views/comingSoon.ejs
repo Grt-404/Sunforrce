@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coming Soon — Sunforce Green Energy</title>
+    <meta
+      name="description"
+      content="Something new and exciting is coming from Sunforce Green Energy. Stay tuned."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2310B981'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3ES%3C/text%3E%3C/svg%3E"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#F9FAFB',
+                        'brand-primary': '#10B981',
+                        'brand-secondary': '#059669',
+                        'brand-dark': '#1F2937',
+                        'brand-light': '#FFFFFF',
+                        'brand-accent': '#34D399',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                        display: ['Playfair Display', 'serif']
+                    },
+                    keyframes: {
+                        'fade-in-up': { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                         'backgroundShift': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 1s ease-out forwards',
+                         'backgroundShift': 'backgroundShift 25s ease infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            background: linear-gradient(-45deg, #f0fdf4, #f9fafb, #eefbf3, #f9fafb);
+            background-size: 400% 400%;
+            animation: backgroundShift 25s ease infinite;
+        }
+        #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; }
+         .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.4s ease;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-dark">
+    <canvas id="particle-canvas"></canvas>
+
+    <header class="fixed w-full z-30 bg-white/80 backdrop-blur-lg border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+             <nav class="hidden md:flex flex-1 justify-start space-x-10 text-sm uppercase tracking-widest">
+                <a href="/our-work" class="hover:text-brand-primary transition">Our Work</a>
+                <a href="/solutions" class="hover:text-brand-primary transition">Our Solutions</a>
+            </nav>
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                <a href="/" class="text-3xl font-serif tracking-wide text-brand-dark">Sunforce</a>
+            </div>
+            <nav class="hidden md:flex flex-1 justify-end space-x-10 text-sm uppercase tracking-widest">
+                <a href="/contact" class="hover:text-brand-primary transition">Contact</a>
+                <a href="/login" class="hover:text-brand-primary transition">Login</a>
+            </nav>
+            <div class="md:hidden flex-1 justify-end text-right">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen flex items-center justify-center pt-20">
+        <div class="text-center px-6">
+            <div class="animate-fade-in-up">
+                <h1 class="text-5xl md:text-7xl font-display text-brand-dark">The Future of Energy is Almost Here.</h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg font-serif text-brand-dark/80">We're launching a revolutionary new platform to help you manage and optimize your energy savings like never before. Stay tuned.</p>
+            </div>
+
+            <div id="countdown" class="flex justify-center gap-4 md:gap-8 my-12 animate-fade-in-up" style="animation-delay: 200ms;">
+                <div>
+                    <div id="days" class="text-4xl md:text-6xl font-display font-bold text-brand-primary">0</div>
+                    <div class="text-xs uppercase tracking-widest text-brand-dark/60 mt-1">Days</div>
+                </div>
+                <div>
+                    <div id="hours" class="text-4xl md:text-6xl font-display font-bold text-brand-primary">0</div>
+                    <div class="text-xs uppercase tracking-widest text-brand-dark/60 mt-1">Hours</div>
+                </div>
+                <div>
+                    <div id="minutes" class="text-4xl md:text-6xl font-display font-bold text-brand-primary">0</div>
+                    <div class="text-xs uppercase tracking-widest text-brand-dark/60 mt-1">Minutes</div>
+                </div>
+                <div>
+                    <div id="seconds" class="text-4xl md:text-6xl font-display font-bold text-brand-primary">0</div>
+                    <div class="text-xs uppercase tracking-widest text-brand-dark/60 mt-1">Seconds</div>
+                </div>
+            </div>
+
+            <div class="max-w-md mx-auto animate-fade-in-up" style="animation-delay: 400ms;">
+                <p class="font-serif text-brand-dark/80 mb-4">Be the first to know when we launch.</p>
+                <form class="flex border border-brand-dark/30 p-1 focus-within:border-brand-primary transition">
+                     <input type="email" placeholder="Enter your email" class="w-full bg-transparent text-brand-dark px-4 py-3 focus:outline-none placeholder-brand-dark/50">
+                     <button type="submit" class="btn bg-brand-primary text-white hover:bg-brand-dark transition-colors uppercase tracking-wider px-6">Notify Me</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Countdown Timer ---
+            const launchDate = new Date("December 15, 2025 09:00:00").getTime();
+
+            const countdownFunction = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = launchDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = days;
+                document.getElementById("hours").innerText = hours;
+                document.getElementById("minutes").innerText = minutes;
+                document.getElementById("seconds").innerText = seconds;
+
+                if (distance < 0) {
+                    clearInterval(countdownFunction);
+                    document.getElementById("countdown").innerHTML = "<div class='text-2xl font-display text-brand-primary'>We have launched!</div>";
+                }
+            }, 1000);
+            
+            // --- Particle Animation ---
+            const canvas = document.getElementById('particle-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                let particles = [];
+                const particleColor = 'rgba(16, 185, 129, 0.5)';
+
+                class Particle {
+                    constructor(x, y) { this.x = x; this.y = y; this.size = Math.random() * 2 + 1; this.speedX = Math.random() * 0.5 - 0.25; this.speedY = Math.random() * 0.5 - 0.25; }
+                    update() { this.x += this.speedX; this.y += this.speedY; if (this.size > 0.1) this.size -= 0.01; }
+                    draw() { ctx.fillStyle = particleColor; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+                }
+
+                function initParticles() {
+                    particles = [];
+                    for (let i = 0; i < 70; i++) { particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height)); }
+                }
+
+                function animateParticles() {
+                    if (!canvas) return;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    for (let i = 0; i < particles.length; i++) {
+                        particles[i].update();
+                        particles[i].draw();
+                        if (particles[i].size <= 0.2) {
+                            particles.splice(i, 1);
+                            i--;
+                            particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+                        }
+                    }
+                    requestAnimationFrame(animateParticles);
+                }
+                
+                initParticles();
+                animateParticles();
+
+                window.addEventListener('resize', () => {
+                    if (canvas) {
+                        canvas.width = window.innerWidth;
+                        canvas.height = window.innerHeight;
+                        initParticles();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

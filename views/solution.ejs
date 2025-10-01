@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Solutions — Sunforce Green Energy</title>
+    <meta
+      name="description"
+      content="Discover the Sunforce difference: from 3D site modeling to lifetime panel maintenance."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2310B981'/%3E%3Cstop offset='100%25' stop-color='%23059669'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-family='Arial Black'%3ES%3C/text%3E%3C/svg%3E"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#F9FAFB',
+                        'brand-primary': '#10B981',
+                        'brand-secondary': '#059669',
+                        'brand-dark': '#1F2937',
+                        'brand-light': '#FFFFFF',
+                        'brand-accent': '#34D399',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                        display: ['Playfair Display', 'serif']
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.4s ease;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 1.2s ease-out, transform 1.2s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .hero-slide { transition: opacity 1.5s ease-in-out; }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-dark">
+
+    <div class="bg-gradient-to-b from-emerald-50 via-brand-bg to-brand-bg">
+        <header class="fixed w-full z-30 bg-white/80 backdrop-blur-lg border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+                 <nav class="hidden md:flex flex-1 justify-start space-x-10 text-sm uppercase tracking-widest">
+                    <a href="/" class="hover:text-brand-primary transition">Home</a>
+                    <a href="/projects" class="hover:text-brand-primary transition">Our Work</a>
+                </nav>
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <a href="/" class="text-3xl font-serif tracking-wide text-brand-dark">Sunforce</a>
+                </div>
+                <nav class="hidden md:flex flex-1 justify-end space-x-10 text-sm uppercase tracking-widest">
+                    <a href="/solutions" class="text-brand-primary transition">Our Solutions</a>
+                    <a href="/login" class="hover:text-brand-primary transition">Login</a>
+                </nav>
+                <div class="md:hidden flex-1 justify-end text-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="h-screen relative pt-20 overflow-hidden" id="hero-slider">
+                <!-- Slide 1: 3D Modeling -->
+                <div class="hero-slide absolute inset-0 w-full h-full">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/7504611/pexels-photo-7504611.jpeg');"></div>
+                    <div class="absolute inset-0 bg-brand-dark/60"></div>
+                    <div class="relative z-10 h-full flex flex-col items-center justify-center text-white text-center px-6">
+                        <h1 class="text-6xl md:text-8xl font-display mb-6 leading-tight">Beyond the Panel.</h1>
+                        <p class="text-lg md:text-xl max-w-2xl mx-auto font-serif">We don't just sell solar panels. We design intelligent, bespoke energy systems using precise 3D modeling of your site for maximum efficiency.</p>
+                        <a href="#process" class="btn bg-brand-primary text-white hover:bg-white hover:text-brand-dark border-brand-primary mt-8">Discover Our Process</a>
+                    </div>
+                </div>
+                <!-- Slide 2: Detailed Reporting -->
+                <div class="hero-slide absolute inset-0 w-full h-full opacity-0">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/7948060/pexels-photo-7948060.jpeg');"></div>
+                    <div class="absolute inset-0 bg-brand-dark/50"></div>
+                    <div class="relative z-10 h-full flex flex-col items-center justify-center text-white text-center px-6">
+                        <h1 class="text-6xl md:text-8xl font-display mb-6 leading-tight">Clarity in Every Watt.</h1>
+                        <p class="text-lg md:text-xl max-w-2xl mx-auto font-serif">Receive a comprehensive, data-driven report detailing potential savings, optimal layouts, and performance forecasts before you commit.</p>
+                        <a href="#process" class="btn bg-brand-primary text-white hover:bg-white hover:text-brand-dark border-brand-primary mt-8">See The Details</a>
+                    </div>
+                </div>
+                <!-- Slide 3: After-Sales Service -->
+                <div class="hero-slide absolute inset-0 w-full h-full opacity-0">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/8853500/pexels-photo-8853500.jpeg');"></div>
+                    <div class="absolute inset-0 bg-brand-dark/50"></div>
+                    <div class="relative z-10 h-full flex flex-col items-center justify-center text-white text-center px-6">
+                        <h1 class="text-6xl md:text-8xl font-display mb-6 leading-tight">A Lifetime Partnership.</h1>
+                        <p class="text-lg md:text-xl max-w-2xl mx-auto font-serif">Our commitment doesn't end at installation. We provide free annual chemical cleanups to ensure your system delivers peak performance, year after year.</p>
+                         <a href="#process" class="btn bg-brand-primary text-white hover:bg-white hover:text-brand-dark border-brand-primary mt-8">Learn About Our Care</a>
+                    </div>
+                </div>
+                <button id="prev-slide" class="absolute z-20 left-4 md:left-10 top-1/2 -translate-y-1/2 w-12 h-12 text-white/70 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                <button id="next-slide" class="absolute z-20 right-4 md:right-10 top-1/2 -translate-y-1/2 w-12 h-12 text-white/70 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </section>
+            
+            <section id="process" class="py-24 md:py-32">
+                <div class="max-w-6xl mx-auto px-6">
+                    <div class="text-center mb-20 fade-in">
+                        <h2 class="text-5xl md:text-6xl font-display">The Sunforce Difference</h2>
+                        <p class="text-lg mt-4 max-w-3xl mx-auto font-serif text-brand-dark/80">Our meticulous four-step process ensures you get a solar solution that's not just installed, but engineered for your specific needs.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-x-12 gap-y-16 items-center">
+                        
+                        <!-- Step 1 -->
+                        <div class="fade-in">
+                            <img src="https://images.pexels.com/photos/8961131/pexels-photo-8961131.jpeg" alt="Engineer using a tablet to survey a site" class="w-full rounded-lg shadow-lg object-cover">
+                        </div>
+                        <div class="fade-in">
+                            <span class="text-sm font-semibold uppercase tracking-widest text-brand-primary">Step 01</span>
+                            <h3 class="text-4xl font-display mt-2 mb-4">Precision Site Analysis & 3D Modeling</h3>
+                            <p class="text-brand-dark/70 font-serif leading-relaxed">Our expert team conducts a thorough on-site survey. Using cutting-edge technology, we create a precise 3D model of your property to analyze sun exposure, shadow patterns, and structural integrity, forming the foundation for a hyper-efficient system.</p>
+                        </div>
+
+                        <!-- Step 2 (Reversed) -->
+                         <div class="fade-in md:order-last">
+                            <img src="https://images.pexels.com/photos/15070776/pexels-photo-15070776.jpeg" alt="A detailed technical report on a laptop screen" class="w-full rounded-lg shadow-lg object-cover">
+                        </div>
+                        <div class="fade-in">
+                            <span class="text-sm font-semibold uppercase tracking-widest text-brand-primary">Step 02</span>
+                            <h3 class="text-4xl font-display mt-2 mb-4">Custom-Tailored Energy Report</h3>
+                            <p class="text-brand-dark/70 font-serif leading-relaxed">Based on the 3D model, our AI-powered software simulates various panel layouts and configurations. We then provide you with a detailed, easy-to-understand report outlining the optimal plan, projected energy generation, and your long-term savings.</p>
+                        </div>
+                        
+                        <!-- Step 3 -->
+                        <div class="fade-in">
+                            <img src="https://images.pexels.com/photos/11645008/pexels-photo-11645008.jpeg" alt="Technicians professionally installing solar panels" class="w-full rounded-lg shadow-lg object-cover">
+                        </div>
+                        <div class="fade-in">
+                            <span class="text-sm font-semibold uppercase tracking-widest text-brand-primary">Step 03</span>
+                            <h3 class="text-4xl font-display mt-2 mb-4">Masterful Installation</h3>
+                            <p class="text-brand-dark/70 font-serif leading-relaxed">Once you approve the plan, our certified technicians carry out the installation with military precision. We use only the highest-quality materials and adhere to strict safety and quality standards, ensuring your system is built to last.</p>
+                        </div>
+
+                         <!-- Step 4 (Reversed) -->
+                         <div class="fade-in md:order-last">
+                            <img src="https://images.pexels.com/photos/371917/pexels-photo-371917.jpeg" alt="A clean, gleaming solar panel reflecting the sun" class="w-full rounded-lg shadow-lg object-cover">
+                        </div>
+                        <div class="fade-in">
+                             <span class="text-sm font-semibold uppercase tracking-widest text-brand-primary">Step 04</span>
+                            <h3 class="text-4xl font-display mt-2 mb-4">Lifetime Performance Care</h3>
+                            <p class="text-brand-dark/70 font-serif leading-relaxed">Our relationship continues long after installation. We provide a complimentary chemical panel cleanup every year to remove grime and ensure your system consistently operates at peak efficiency, maximizing your return on investment.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+             <section class="py-20 md:py-24 bg-brand-dark text-white">
+                <div class="max-w-4xl mx-auto text-center px-6 fade-in">
+                    <h2 class="text-5xl md:text-6xl font-display">Ready to Engineer Your Energy Future?</h2>
+                    <p class="text-lg mt-4 max-w-2xl mx-auto font-serif text-gray-300/80">Let's design a solar solution that's as unique as your property. Get a free, no-obligation consultation and receive your own personalized 3D analysis.</p>
+                    <a href="/contact" class="btn bg-brand-primary text-white hover:bg-white hover:text-brand-dark border-brand-primary mt-8">Start My Consultation</a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="pt-20 pb-10 px-6">
+             <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-12 text-sm text-center md:text-left">
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-4">Sunforce</h4>
+                    <ul class="space-y-2 text-brand-dark/70">
+                        <li><a href="/" class="hover:text-brand-dark">Our Mission</a></li>
+                        <li><a href="/our-work" class="hover:text-brand-dark">Client Stories</a></li>
+                        <li><a href="/contact" class="hover:text-brand-dark">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-4">Solutions</h4>
+                    <ul class="space-y-2 text-brand-dark/70">
+                        <li><a href="/login" class="hover:text-brand-dark">Residential</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">Commercial</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">EV Charging</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-4">Resources</h4>
+                    <ul class="space-y-2 text-brand-dark/70">
+                        <li><a href="/login" class="hover:text-brand-dark">Help Center</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">Privacy Policy</a></li>
+                        <li><a href="/login" class="hover:text-brand-dark">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-4">Follow Us</h4>
+                    <div class="flex space-x-4 justify-center md:justify-start">
+                        <a href="#" class="text-brand-dark/70 hover:text-brand-dark">IG</a>
+                        <a href="#" class="text-brand-dark/70 hover:text-brand-dark">LI</a>
+                        <a href="#" class="text-brand-dark/70 hover:text-brand-dark">TW</a>
+                    </div>
+                </div>
+            </div>
+             <div class="mt-20 text-center text-xs text-brand-dark/50">&copy; <%= new Date().getFullYear() %> Sunforce Green Energy. All Rights Reserved.</div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            
+            const slides = document.querySelectorAll('.hero-slide');
+            const prevBtn = document.getElementById('prev-slide');
+            const nextBtn = document.getElementById('next-slide');
+            let currentSlide = 0;
+            let slideInterval = setInterval(nextSlide, 7000);
+
+            function goToSlide(n) {
+                if (!slides.length) return;
+                slides.forEach(slide => slide.classList.add('opacity-0'));
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.remove('opacity-0');
+            }
+            function nextSlide() { goToSlide(currentSlide + 1); }
+            function prevSlide() { goToSlide(currentSlide - 1); }
+            
+            function resetInterval() {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, 7000);
+            }
+            
+            if (nextBtn && prevBtn) {
+                nextBtn.addEventListener('click', () => { nextSlide(); resetInterval(); });
+                prevBtn.addEventListener('click', () => { prevSlide(); resetInterval(); });
+            }
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
+
