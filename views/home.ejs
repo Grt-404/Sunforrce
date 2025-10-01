@@ -13,12 +13,12 @@
             theme: {
                 extend: {
                     colors: {
-                        'brand-bg': '#F9FAFB', // Very light gray
-                        'brand-primary': '#10B981', // Emerald 500
-                        'brand-secondary': '#059669', // Emerald 600
-                        'brand-dark': '#1F2937', // Gray 800
+                        'brand-bg': '#F9FAFB',
+                        'brand-primary': '#10B981',
+                        'brand-secondary': '#059669',
+                        'brand-dark': '#1F2937',
                         'brand-light': '#FFFFFF',
-                        'brand-accent': '#34D399', // Emerald 400
+                        'brand-accent': '#34D399',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -30,8 +30,8 @@
                         'marquee': { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-100%)' } }
                     },
                     animation: {
-                        'fade-in-up': 'fade-in-up 1s ease-out forwards',
-                        'marquee': 'marquee 25s linear infinite',
+                        'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
+                        'marquee': 'marquee 40s linear infinite',
                     }
                 }
             }
@@ -62,15 +62,79 @@
         .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 1.2s ease-out, transform 1.2s ease-out; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
         .hero-slide { transition: opacity 1.5s ease-in-out; }
-         .marquee-container { overflow: hidden; position: relative; width: 100%; }
-        .marquee-content { display: flex; width: 200%; animation: marquee 40s linear infinite; }
-        .marquee-item { flex-shrink: 0; width: 50%; display: flex; justify-content: space-around; align-items: center; }
+        
         .category-circle-inner { transition: background-color 0.4s ease; }
         .category-circle:hover .category-circle-inner { background-color: theme('colors.brand-primary'); }
         .category-circle:hover h3 { color: #ffffff; }
         .category-circle h3 { transition: color 0.4s ease; }
         .category-circle img { transition: transform 0.4s ease, filter 0.4s ease; filter: brightness(1); }
         .category-circle:hover img { transform: scale(1.05); filter: brightness(1.1); }
+
+        @keyframes gentle-bob {
+            0%   { transform: translateY(0); }
+            50%  { transform: translateY(-4px); }
+            100% { transform: translateY(0); }
+        }
+        .btn-hero {
+            border-radius: 8px;
+            box-shadow: 0 5px 0 0 theme('colors.brand-secondary');
+            animation: gentle-bob 2.5s infinite ease-in-out;
+            transition: all 0.1s ease-in-out;
+        }
+        .btn-hero:active {
+            animation: none;
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 0 theme('colors.brand-secondary');
+        }
+
+        /* ========= STYLES FOR CREATIVE PARTNERS SECTION ========= */
+        @keyframes scroll-up {
+            from { transform: translateY(0); }
+            to { transform: translateY(-50%); }
+        }
+
+        .names-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-height: 400px;
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+        }
+
+        @media (min-width: 768px) {
+            .names-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .names-column {
+            display: flex;
+            flex-direction: column;
+            animation: scroll-up linear infinite;
+        }
+
+        .names-grid > :nth-child(1) { animation-duration: 25s; }
+        .names-grid > :nth-child(2) { animation-duration: 40s; animation-direction: reverse; }
+        .names-grid > :nth-child(3) { animation-duration: 30s; }
+        .names-grid > :nth-child(4) { animation-duration: 45s; animation-direction: reverse; }
+
+        .company-name {
+            font-family: theme('fontFamily.display');
+            font-size: 2.25rem;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 1.5rem 0;
+            text-align: center;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .company-name:hover {
+            color: rgba(255, 255, 255, 1);
+            transform: scale(1.1);
+        }
+
     </style>
 </head>
 <body class="bg-brand-bg">
@@ -80,7 +144,7 @@
             <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
                 <nav class="hidden md:flex flex-1 justify-start space-x-10 text-sm uppercase tracking-widest">
                     <a href="/solution" class="hover:text-brand-primary transition">Our Solutions</a>
-                    <a href="#mission" class="hover:text-brand-primary transition">Our Mission</a>
+                    <a href="/contact" class="hover:text-brand-primary transition">Contact</a>
                 </nav>
                 <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                     <a href="/" class="text-3xl font-serif tracking-wide text-brand-dark">Sunforce</a>
@@ -98,10 +162,10 @@
         <div class="fixed top-20 w-full z-20 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 text-white overflow-hidden whitespace-nowrap shadow-lg">
             <div class="inline-block animate-marquee py-3">
                 <span class="text-base font-bold uppercase tracking-wider mx-8">
-                    ✨ #GSTDIWAS! Due to revised GST rates, all prices are now reduced by 10% until Diwali! ✨
+                    ✨ #GST BACHAT UTSAV! Due to revised GST rates, all prices are now reduced by 10% until Diwali! ✨
                 </span>
                 <span class="text-base font-bold uppercase tracking-wider mx-8">
-                    ✨ #GSTDIWAS! Due to revised GST rates, all prices are now reduced by 10% until Diwali! ✨
+                    ✨ #GST BACHAT UTSAV! Due to revised GST rates, all prices are now reduced by 10% until Diwali! ✨
                 </span>
             </div>
         </div>
@@ -114,7 +178,7 @@
                     <div class="relative z-10 h-full flex flex-col items-center justify-center text-white text-center px-6">
                         <h1 class="text-6xl md:text-8xl font-display mb-6 leading-tight">Power Your Tomorrow.</h1>
                         <p class="text-lg md:text-xl max-w-2xl mx-auto font-serif">Harness the sun's energy with state-of-the-art solar solutions for your home and business.</p>
-                        <a href="/contact" class="btn bg-brand-primary text-white hover:bg-white hover:text-brand-dark border-brand-primary mt-8">Get a Free Quote</a>
+                        <a href="/contact" class="btn btn-hero bg-brand-primary text-white mt-8">Get a Free Quote</a>
                     </div>
                 </div>
                 <div class="hero-slide absolute inset-0 w-full h-full opacity-0">
@@ -123,7 +187,7 @@
                     <div class="relative z-10 h-full flex flex-col items-center justify-center text-white text-center px-6">
                         <h1 class="text-6xl md:text-8xl font-display mb-6 leading-tight">A Greener Future Starts Here.</h1>
                         <p class="text-lg md:text-xl max-w-2xl mx-auto font-serif">Join the renewable energy revolution and reduce your carbon footprint with Sunforce.</p>
-                        <a href="/solution" class="btn bg-brand-primary text-white hover:bg-white hover:text-brand-dark border-brand-primary mt-8">Explore Solutions</a>
+                        <a href="/solution" class="btn btn-hero bg-brand-primary text-white mt-8">Explore Solutions</a>
                     </div>
                 </div>
                 <button id="prev-slide" class="absolute z-20 left-4 md:left-10 top-1/2 -translate-y-1/2 w-12 h-12 text-white/70 hover:text-white transition"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
@@ -158,19 +222,60 @@
                     </div>
                 </div>
             </section>
-
-            <section class="py-16">
+            
+            <section class="py-24 md:py-32 bg-brand-dark overflow-hidden">
                 <div class="container mx-auto px-6 fade-in">
-                    <p class="text-center text-sm uppercase tracking-widest text-brand-dark/50 mb-6">TRUSTED BY INDUSTRY LEADERS & PARTNERS</p>
-                    <div class="marquee-container">
-                        <div class="marquee-content">
-                            <div class="marquee-item">
-                                <img src="https://w7.pngwing.com/pngs/308/404/png-transparent-siemens-business-sivantos-automation-innovation-business-text-people-logo-thumbnail.png" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                                <img src="https://www.vhv.rs/dpng/d/121-1211603_transparent-general-electric-logo-png-general-electric-company.png" alt="General Electric" class="h-10 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                                <img src="https://w7.pngwing.com/pngs/604/618/png-transparent-larsen-toubro-limited-mmh-architectural-engineering-business-l-t-hydrocarbon-engineering-business-blue-text-trademark.png" alt="L&T" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                                <img src="https://e7.pngegg.com/pngimages/776/997/png-clipart-tata-motors-tata-group-company-india-tata-sons-india-blue-angle-thumbnail.png" alt="Tata Power" class="h-8 mx-8 filter grayscale hover:grayscale-0 transition duration-300">
-                            </div>
-                            
+                    <h2 class="text-center text-3xl font-display text-white mb-16">
+                        Trusted by Industry Leaders & Partners
+                    </h2>
+                    <div class="names-grid">
+                        <div class="names-column">
+                            <div class="company-name">Siemens</div>
+                            <div class="company-name">Reliance Industries</div>
+                            <div class="company-name">Adani Solar</div>
+                            <div class="company-name">Schneider Electric</div>
+                            <div class="company-name">Tata Power</div>
+                            <div class="company-name" aria-hidden="true">Siemens</div>
+                            <div class="company-name" aria-hidden="true">Reliance Industries</div>
+                            <div class="company-name" aria-hidden="true">Adani Solar</div>
+                            <div class="company-name" aria-hidden="true">Schneider Electric</div>
+                            <div class="company-name" aria-hidden="true">Tata Power</div>
+                        </div>
+                        <div class="names-column">
+                            <div class="company-name">Larsen & Toubro</div>
+                            <div class="company-name">Hitachi Energy</div>
+                            <div class="company-name">General Electric</div>
+                            <div class="company-name">ABB</div>
+                            <div class="company-name">Adani Solar</div>
+                            <div class="company-name" aria-hidden="true">Larsen & Toubro</div>
+                            <div class="company-name" aria-hidden="true">Hitachi Energy</div>
+                            <div class="company-name" aria-hidden="true">General Electric</div>
+                            <div class="company-name" aria-hidden="true">ABB</div>
+                            <div class="company-name" aria-hidden="true">Adani Solar</div>
+                        </div>
+                        <div class="names-column">
+                            <div class="company-name">Tata Power</div>
+                            <div class="company-name">Siemens</div>
+                            <div class="company-name">Reliance Industries</div>
+                            <div class="company-name">General Electric</div>
+                            <div class="company-name">Hitachi Energy</div>
+                            <div class="company-name" aria-hidden="true">Tata Power</div>
+                            <div class="company-name" aria-hidden="true">Siemens</div>
+                            <div class="company-name" aria-hidden="true">Reliance Industries</div>
+                            <div class="company-name" aria-hidden="true">General Electric</div>
+                            <div class="company-name" aria-hidden="true">Hitachi Energy</div>
+                        </div>
+                        <div class="names-column hidden md:flex">
+                            <div class="company-name">Schneider Electric</div>
+                            <div class="company-name">ABB</div>
+                            <div class="company-name">Larsen & Toubro</div>
+                            <div class="company-name">Siemens</div>
+                            <div class="company-name">Tata Power</div>
+                            <div class="company-name" aria-hidden="true">Schneider Electric</div>
+                            <div class="company-name" aria-hidden="true">ABB</div>
+                            <div class="company-name" aria-hidden="true">Larsen & Toubro</div>
+                            <div class="company-name" aria-hidden="true">Siemens</div>
+                            <div class="company-name" aria-hidden="true">Tata Power</div>
                         </div>
                     </div>
                 </div>
@@ -218,11 +323,9 @@
                     <div class="mt-8 text-xl md:text-2xl font-serif text-brand-dark/80 leading-relaxed">
                         <p>"Working with Sunforce was seamless. They guided us through the entire process, and our electricity bills have been cut by over 80%. It's an investment that pays for itself."</p>
                     </div>
-                    <div class="mt-8 flex items-center justify-center space-x-4">
-                        <img class="h-16 w-16 rounded-full object-cover" src="https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=500" alt="Profile of a happy client">
-                        <div>
-                            <p class="font-semibold text-brand-dark">Priya Sharma</p>
-                            <p class="text-sm text-brand-dark/70">Residential Client, Mumbai</p>
+                    
+                            <p class="font-semibold text-brand-dark">Priya Singh</p>
+                            <p class="text-sm text-brand-dark/70">Residential Client, Chandigarh</p>
                         </div>
                     </div>
                 </div>
@@ -269,17 +372,34 @@
                 <div>
                     <h4 class="font-semibold uppercase tracking-wider mb-4">Follow Us</h4>
                     <div class="flex space-x-4 justify-center md:justify-start">
-                        <a href="#" class="text-brand-dark/70 hover:text-brand-dark">IG</a>
-                        <a href="#" class="text-brand-dark/70 hover:text-brand-dark">LI</a>
-                        <a href="#" class="text-brand-dark/70 hover:text-brand-dark">TW</a>
+                        <a href="https://www.facebook.com/profile.php?id=61563578296232" class="text-brand-dark/70 hover:text-brand-dark">IG</a>
+                        <a href="https://www.facebook.com/profile.php?id=61563578296232" class="text-brand-dark/70 hover:text-brand-dark">LI</a>
+                        <a href="https://www.facebook.com/profile.php?id=61563578296232" class="text-brand-dark/70 hover:text-brand-dark">TW</a>
                     </div>
                 </div>
             </div>
              <div class="mt-20 text-center text-xs text-brand-dark/50">&copy; <%= new Date().getFullYear() %> Sunforce Green Energy. All Rights Reserved.</div>
-             <div class="mt-20 text-center text-xs text-brand-dark/50">&copy; All matters of dispute are subject to the exclusive jurisdiction of the competent courts and forums in Panchkula.</div>
-        </footer>1
+             <div class="mt-4 text-center text-xs text-brand-dark/50">All matters of dispute are subject to the exclusive jurisdiction of the competent courts and forums in Panchkula.</div>
+        </footer>
     </div>
 
+<div id="update-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div id="modal-overlay" class="absolute inset-0 bg-brand-dark/70 backdrop-blur-sm"></div>
+    
+    <div class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 text-center animate-fade-in-up">
+        <div class="mx-auto flex h-32 w-32 items-center justify-center rounded-full overflow-hidden mb-5">
+            <img src="https://img.freepik.com/premium-vector/10-percent-off-discount-special-offer-sale-10-percent-off-sale-discount-offer-vector-promotion-banner-ten-percent-discount-black-yellow-circle-black-background-with-halftone-dots_156943-1205.jpg" alt="Diwali celebration" class="w-full h-full object-cover">
+        </div>
+        
+        <h2 class="text-3xl font-display text-brand-dark mb-3">GST BACHAT UTSAV</h2>
+        
+        <p class="text-brand-dark/80 font-serif text-lg mb-6">
+            Great news! Due to revised GST guidelines, all our solar solutions are now available at a <strong class="text-brand-secondary">10% reduced price</strong> until Diwali.
+        </p>
+        
+        <button id="close-modal-btn" class="btn bg-brand-primary text-white w-full hover:bg-brand-secondary">OK, Got It!</button>
+    </div>
+</div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const slides = document.querySelectorAll('.hero-slide');
@@ -315,6 +435,28 @@
                 });
             }, { threshold: 0.1 });
             document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+
+            // ========= Modal Logic Start =========
+            const modal = document.getElementById('update-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const modalOverlay = document.getElementById('modal-overlay');
+
+            // Function to close the modal
+            const closeModal = () => {
+                modal.classList.add('hidden');
+            };
+
+            // Show the modal as soon as the page is ready
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+
+            // Add event listeners to close the modal
+            closeModalBtn.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', closeModal);
+            // ========= Modal Logic End =========
+
         });
     </script>
 </body>
