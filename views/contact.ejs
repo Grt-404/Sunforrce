@@ -72,8 +72,7 @@
 <body class="bg-brand-bg text-brand-dark">
     <canvas id="particle-canvas"></canvas>
     
-    <!-- Header -->
-    <header class="fixed w-full z-30 bg-white/80 backdrop-blur-lg border-b border-gray-200">
+    <header class="fixed w-full z-40 bg-white/80 backdrop-blur-lg border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <nav class="hidden md:flex flex-1 justify-start space-x-10 text-sm uppercase tracking-widest">
                 <a href="/" class="hover:text-brand-primary transition">Home</a>
@@ -86,11 +85,23 @@
                 <a href="/contact" class="text-brand-primary transition">Contact</a>
                 <a href="/login" class="hover:text-brand-primary transition">Login</a>
             </nav>
-            <div class="md:hidden flex-1 justify-end text-right">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <div class="md:hidden flex-1 flex justify-end">
+                <button id="hamburger-btn" aria-label="Open menu" class="relative z-50">
+                    <svg id="menu-open-icon" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+                    <svg id="menu-close-icon" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
             </div>
         </div>
     </header>
+
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 z-30 bg-white/95 backdrop-blur-md pt-20">
+        <nav class="flex flex-col items-center justify-center h-full space-y-8 text-lg uppercase tracking-widest text-brand-dark">
+            <a href="/" class="hover:text-brand-primary transition">Home</a>
+            <a href="/projects" class="hover:text-brand-primary transition">Our Work</a>
+            <a href="/contact" class="text-brand-primary transition">Contact</a>
+            <a href="/login" class="hover:text-brand-primary transition">Login</a>
+        </nav>
+    </div>
 
     <main class="py-20 px-4 pt-40">
         <div class="text-center max-w-4xl mx-auto animate-fade-in-up">
@@ -100,7 +111,6 @@
 
         <div class="max-w-6xl mx-auto mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
             
-            <!-- Card 1: AI Chatbot -->
             <div class="contact-card bg-brand-light rounded-lg shadow-sm p-8 flex flex-col items-center text-center animate-fade-in-up" style="animation-delay: 200ms;">
                 <div class="bg-brand-primary/10 p-4 rounded-full">
                     <i data-lucide="bot" class="w-10 h-10 text-brand-primary"></i>
@@ -112,8 +122,7 @@
                 </a>
             </div>
 
-            <!-- Card 2: Phone Call -->
-             <div class="contact-card bg-brand-light rounded-lg shadow-sm p-8 flex flex-col items-center text-center animate-fade-in-up" style="animation-delay: 300ms;">
+            <div class="contact-card bg-brand-light rounded-lg shadow-sm p-8 flex flex-col items-center text-center animate-fade-in-up" style="animation-delay: 300ms;">
                 <div class="bg-brand-primary/10 p-4 rounded-full">
                     <i data-lucide="phone" class="w-10 h-10 text-brand-primary"></i>
                 </div>
@@ -124,7 +133,6 @@
                 </a>
             </div>
 
-            <!-- Card 3: Google Form -->
             <div class="contact-card bg-brand-light rounded-lg shadow-sm p-8 flex flex-col items-center text-center animate-fade-in-up" style="animation-delay: 400ms;">
                 <div class="bg-brand-primary/10 p-4 rounded-full">
                     <i data-lucide="file-text" class="w-10 h-10 text-brand-primary"></i>
@@ -136,8 +144,7 @@
                 </a>
             </div>
 
-            <!-- Card 4: Create Account -->
-             <div class="contact-card bg-brand-light rounded-lg shadow-sm p-8 flex flex-col items-center text-center animate-fade-in-up" style="animation-delay: 500ms;">
+            <div class="contact-card bg-brand-light rounded-lg shadow-sm p-8 flex flex-col items-center text-center animate-fade-in-up" style="animation-delay: 500ms;">
                 <div class="bg-brand-primary/10 p-4 rounded-full">
                     <i data-lucide="user-plus" class="w-10 h-10 text-brand-primary"></i>
                 </div>
@@ -152,7 +159,23 @@
     </main>
 
     <script>
+    
         document.addEventListener('DOMContentLoaded', () => {
+            // Hamburger Menu Logic
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('menu-open-icon');
+            const closeIcon = document.getElementById('menu-close-icon');
+
+            if (hamburgerBtn) {
+                hamburgerBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    openIcon.classList.toggle('hidden');
+                    closeIcon.classList.toggle('hidden');
+                });
+            }
+
+            // Your existing scripts
             lucide.createIcons();
             
             const canvas = document.getElementById('particle-canvas');
@@ -194,4 +217,3 @@
     </script>
 </body>
 </html>
-

@@ -60,7 +60,7 @@
 <body class="bg-brand-bg text-brand-dark">
 
     <div class="bg-gradient-to-b from-emerald-50 via-brand-bg to-brand-bg">
-        <header class="fixed w-full z-30 bg-white/80 backdrop-blur-lg border-b border-gray-200">
+        <header class="fixed w-full z-40 bg-white/80 backdrop-blur-lg border-b border-gray-200">
             <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
                  <nav class="hidden md:flex flex-1 justify-start space-x-10 text-sm uppercase tracking-widest">
                     <a href="/" class="hover:text-brand-primary transition">Home</a>
@@ -73,15 +73,26 @@
                     <a href="/solutions" class="text-brand-primary transition">Our Solutions</a>
                     <a href="/login" class="hover:text-brand-primary transition">Login</a>
                 </nav>
-                <div class="md:hidden flex-1 justify-end text-right">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                <div class="md:hidden flex-1 flex justify-end">
+                    <button id="hamburger-btn" aria-label="Open menu" class="relative z-50">
+                        <svg id="menu-open-icon" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+                        <svg id="menu-close-icon" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
                 </div>
             </div>
         </header>
 
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 z-30 bg-white/95 backdrop-blur-md pt-20">
+            <nav class="flex flex-col items-center justify-center h-full space-y-8 text-lg uppercase tracking-widest text-brand-dark">
+                <a href="/" class="hover:text-brand-primary transition">Home</a>
+                <a href="/projects" class="hover:text-brand-primary transition">Our Work</a>
+                <a href="/solutions" class="text-brand-primary transition">Our Solutions</a>
+                <a href="/login" class="hover:text-brand-primary transition">Login</a>
+            </nav>
+        </div>
+
         <main>
             <section class="h-screen relative pt-20 overflow-hidden" id="hero-slider">
-                <!-- Slide 1: 3D Modeling -->
                 <div class="hero-slide absolute inset-0 w-full h-full">
                     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/7504611/pexels-photo-7504611.jpeg');"></div>
                     <div class="absolute inset-0 bg-brand-dark/60"></div>
@@ -91,7 +102,6 @@
                         <a href="#process" class="btn bg-brand-primary text-white hover:bg-white hover:text-brand-dark border-brand-primary mt-8">Discover Our Process</a>
                     </div>
                 </div>
-                <!-- Slide 2: Detailed Reporting -->
                 <div class="hero-slide absolute inset-0 w-full h-full opacity-0">
                     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/7948060/pexels-photo-7948060.jpeg');"></div>
                     <div class="absolute inset-0 bg-brand-dark/50"></div>
@@ -101,7 +111,6 @@
                         <a href="#process" class="btn bg-brand-primary text-white hover:bg-white hover:text-brand-dark border-brand-primary mt-8">See The Details</a>
                     </div>
                 </div>
-                <!-- Slide 3: After-Sales Service -->
                 <div class="hero-slide absolute inset-0 w-full h-full opacity-0">
                     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/8853500/pexels-photo-8853500.jpeg');"></div>
                     <div class="absolute inset-0 bg-brand-dark/50"></div>
@@ -124,7 +133,6 @@
 
                     <div class="grid md:grid-cols-2 gap-x-12 gap-y-16 items-center">
                         
-                        <!-- Step 1 -->
                         <div class="fade-in">
                             <img src="https://images.pexels.com/photos/8961131/pexels-photo-8961131.jpeg" alt="Engineer using a tablet to survey a site" class="w-full rounded-lg shadow-lg object-cover">
                         </div>
@@ -134,8 +142,7 @@
                             <p class="text-brand-dark/70 font-serif leading-relaxed">Our expert team conducts a thorough on-site survey. Using cutting-edge technology, we create a precise 3D model of your property to analyze sun exposure, shadow patterns, and structural integrity, forming the foundation for a hyper-efficient system.</p>
                         </div>
 
-                        <!-- Step 2 (Reversed) -->
-                         <div class="fade-in md:order-last">
+                        <div class="fade-in md:order-last">
                             <img src="https://images.pexels.com/photos/15070776/pexels-photo-15070776.jpeg" alt="A detailed technical report on a laptop screen" class="w-full rounded-lg shadow-lg object-cover">
                         </div>
                         <div class="fade-in">
@@ -144,7 +151,6 @@
                             <p class="text-brand-dark/70 font-serif leading-relaxed">Based on the 3D model, our AI-powered software simulates various panel layouts and configurations. We then provide you with a detailed, easy-to-understand report outlining the optimal plan, projected energy generation, and your long-term savings.</p>
                         </div>
                         
-                        <!-- Step 3 -->
                         <div class="fade-in">
                             <img src="https://images.pexels.com/photos/11645008/pexels-photo-11645008.jpeg" alt="Technicians professionally installing solar panels" class="w-full rounded-lg shadow-lg object-cover">
                         </div>
@@ -154,7 +160,6 @@
                             <p class="text-brand-dark/70 font-serif leading-relaxed">Once you approve the plan, our certified technicians carry out the installation with military precision. We use only the highest-quality materials and adhere to strict safety and quality standards, ensuring your system is built to last.</p>
                         </div>
 
-                         <!-- Step 4 (Reversed) -->
                          <div class="fade-in md:order-last">
                             <img src="https://images.pexels.com/photos/371917/pexels-photo-371917.jpeg" alt="A clean, gleaming solar panel reflecting the sun" class="w-full rounded-lg shadow-lg object-cover">
                         </div>
@@ -211,12 +216,27 @@
                     </div>
                 </div>
             </div>
-             <div class="mt-20 text-center text-xs text-brand-dark/50">&copy; <%= new Date().getFullYear() %> Sunforce Green Energy. All Rights Reserved.</div>
+             <div class="mt-20 text-center text-xs text-brand-dark/50">&copy; 2025 Sunforce Green Energy. All Rights Reserved.</div>
         </footer>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Hamburger Menu Logic
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('menu-open-icon');
+            const closeIcon = document.getElementById('menu-close-icon');
+
+            if (hamburgerBtn) {
+                hamburgerBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    openIcon.classList.toggle('hidden');
+                    closeIcon.classList.toggle('hidden');
+                });
+            }
+
+            // Your existing scripts
             lucide.createIcons();
             
             const slides = document.querySelectorAll('.hero-slide');
@@ -256,4 +276,3 @@
     </script>
 </body>
 </html>
-
