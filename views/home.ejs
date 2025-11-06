@@ -333,8 +333,8 @@
         </footer>
     </div>
 
-   <div id="update-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
    
+ 
 </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -369,13 +369,7 @@
                 });
             }, { threshold: 0.1 });
             document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-            const modal = document.getElementById('update-modal');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            const modalOverlay = document.getElementById('modal-overlay');
-            const closeModal = () => { if (modal) modal.classList.add('hidden'); };
-            if (modal) { modal.classList.remove('hidden'); }
-            if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-            if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
+            
         });
     </script>
 </body>
