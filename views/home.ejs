@@ -336,6 +336,20 @@
    
  
 </div>
+<div id="new-year-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden">
+    <div class="absolute inset-0 bg-white/30 backdrop-blur-md"></div>
+    
+    <div class="relative bg-white p-8 md:p-12 rounded-3xl shadow-2xl border border-emerald-100 max-w-lg mx-6 text-center transform transition-all scale-95 opacity-0 duration-300" id="modal-content">
+        <div class="text-6xl mb-4">🎉</div>
+        <h2 class="text-4xl font-display text-brand-dark mb-4">Happy New Year!</h2>
+        <p class="font-serif text-lg text-brand-dark/70 mb-8">
+            Welcome to 2026. Thank you for being part of the Sunforce family. Let's make this year your brightest and most sustainable yet!
+        </p>
+        <button id="close-modal" class="btn bg-brand-primary text-white rounded-lg w-full hover:bg-brand-secondary transition-all">
+            Start Exploring
+        </button>
+    </div>
+</div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Logic for the new hamburger menu
@@ -371,6 +385,35 @@
             document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
             
         });
+        document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('new-year-modal');
+    const modalContent = document.getElementById('modal-content');
+    const closeModal = document.getElementById('close-modal');
+    const body = document.body;
+
+    // Show modal on first visit
+    if (!sessionStorage.getItem('shownNewYearPopup')) {
+        // Show modal and lock scroll
+        modal.classList.remove('hidden');
+        body.style.overflow = 'hidden'; // Freeze background
+        
+        // Small delay for the animation to trigger
+        setTimeout(() => {
+            modalContent.classList.remove('scale-95', 'opacity-0');
+            modalContent.classList.add('scale-100', 'opacity-100');
+        }, 10);
+    }
+
+    // Close Modal Function
+    closeModal.addEventListener('click', () => {
+        modalContent.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            body.style.overflow = ''; // Unfreeze background
+            sessionStorage.setItem('shownNewYearPopup', 'true');
+        }, 300);
+    });
+});
     </script>
 </body>
 </html>
